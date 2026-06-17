@@ -9,12 +9,12 @@ export function About() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-4">
             <Reveal>
-              <Eyebrow index="01">About</Eyebrow>
-              <h2 className="mt-6 font-display text-h2 font-medium leading-tight text-fg">
+              <Eyebrow>About</Eyebrow>
+              <h2 className="mt-6 font-display text-h2 font-bold text-fg">
                 I own both halves of the product.
               </h2>
-              <p className="mt-6 max-w-sm text-sm leading-relaxed text-fg-muted">
-                Frontend depth plus AI systems — shipped, not theorized.
+              <p className="mt-6 max-w-sm text-lead text-fg-secondary">
+                Frontend depth plus AI systems: shipped, not theorized.
               </p>
             </Reveal>
           </div>
@@ -23,7 +23,7 @@ export function About() {
             <div className="space-y-6 border-l border-line pl-6 md:pl-10">
               {about.map((para, i) => (
                 <Reveal key={i} delay={i * 80}>
-                  <p className="text-base leading-relaxed text-fg-secondary md:text-lg">
+                  <p className="max-w-[62ch] text-base leading-relaxed text-fg-secondary md:text-lg">
                     {para}
                   </p>
                 </Reveal>

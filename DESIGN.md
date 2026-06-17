@@ -92,7 +92,7 @@ components:
 
 > **2026-06-17 — Bold neo-brutalist re-skin (authoritative).** The site was rebuilt to match a new reference design. Where the detailed sections below (the prior "Engineer's Logbook" direction) conflict with this note, **this note wins**; the frontmatter tokens above are current.
 >
-> **Changed:** Type is now **Cabinet Grotesk** (display/headings, self-hosted via `next/font/local`) + **IBM Plex Mono** (body *and* metadata — body is mono now), replacing Geist. Palette is **true-neutral** graphite (`#0a0a0a → #0d0d0d → #171717`, hairline `#262626`) with a saturated **signal amber `#F59E0B`** (was peach `#e9a86a`); `fg-muted` held at `#8a8a8a` to clear WCAG AA. **All corners are sharp (`rounded-none`).** The **primary button is a white fill** with dark text, warming to amber on hover. Sections carry mono indices (`[01]`–`[05]`) and a fact-ledger strip sits under the hero.
+> **Changed:** Type is now **Cabinet Grotesk** (display/headings, self-hosted via `next/font/local`) + **IBM Plex Mono** (body *and* metadata — body is mono now), replacing Geist. Palette is **true-neutral** graphite (`#0a0a0a → #0d0d0d → #171717`, hairline `#262626`) with a saturated **signal amber `#F59E0B`** (was peach `#e9a86a`); `fg-muted` held at `#8a8a8a` to clear WCAG AA. **All corners are sharp (`rounded-none`).** The **primary button is a white fill** with dark text, warming to amber on hover. Section headings open with a short amber hairline and a mono label (no numeric indices); a fact-ledger strip sits under the hero.
 >
 > **Preserved:** dark canvas, single semantic amber, mono-for-metadata, depth via tonal surfaces + 1px hairlines (no shadows), work as logbook rows (not cards), WCAG 2.2 AA, full `prefers-reduced-motion` support.
 >

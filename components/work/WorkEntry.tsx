@@ -9,9 +9,10 @@ function media(project: Project): { href: string; label: string } {
     : { href: "#contact", label: "Discuss" };
 }
 
-/** Spec-panel media for projects without a public screenshot — a large faded
- *  index over a faint grid, honest about there being no live demo. */
-function SpecPanel({ project, idx }: { project: Project; idx: string }) {
+/** Spec-panel media for projects without a public screenshot: a faint technical
+ *  grid with an amber prompt and a request-a-walkthrough note, honest about
+ *  there being no live demo. */
+function SpecPanel() {
   return (
     <div className="relative aspect-[16/10] overflow-hidden border border-line bg-panel">
       <div
@@ -23,16 +24,9 @@ function SpecPanel({ project, idx }: { project: Project; idx: string }) {
           backgroundSize: "32px 32px",
         }}
       />
-      <div aria-hidden className="absolute inset-0 grid place-items-center">
-        <span className="select-none font-display text-[7rem] font-extrabold leading-none text-surface md:text-[10rem]">
-          {idx}
-        </span>
-      </div>
-      <div className="absolute bottom-0 left-0 flex w-full items-center justify-between p-5">
-        <span className="font-mono text-xs uppercase tracking-widest text-fg-secondary">
-          {project.name}
-        </span>
-        <span className="font-mono text-[0.7rem] uppercase tracking-widest text-fg-muted">
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+        <span aria-hidden className="h-px w-8 bg-accent" />
+        <span className="font-mono text-xs uppercase tracking-widest text-fg-muted">
           Walkthrough on request
         </span>
       </div>
@@ -47,8 +41,6 @@ export function WorkEntry({
   project: Project;
   index: number;
 }) {
-  const idx = String(index).padStart(2, "0");
-
   return (
     <article
       className={`group grid grid-cols-1 gap-8 py-12 md:py-16 lg:grid-cols-12 lg:gap-10 ${
@@ -57,11 +49,10 @@ export function WorkEntry({
     >
       {/* Meta column */}
       <div className="lg:col-span-5">
-        <div className="flex items-baseline gap-4 font-mono text-xs uppercase tracking-widest">
-          <span className="text-accent">[{idx}]</span>
-          <span className="text-fg-muted">{project.period}</span>
+        <div className="font-mono text-xs uppercase tracking-widest text-fg-muted">
+          {project.period}
         </div>
-        <h3 className="mt-4 font-display text-3xl font-bold tracking-tight text-fg transition-colors duration-200 group-hover:text-accent md:text-4xl">
+        <h3 className="mt-4 font-display text-title font-bold text-fg transition-colors duration-200 group-hover:text-accent">
           {project.name}
         </h3>
         <p className="mt-2 text-fg-secondary">{project.tagline}</p>
@@ -87,7 +78,7 @@ export function WorkEntry({
           {project.stack.map((s) => (
             <li
               key={s}
-              className="border border-line px-2.5 py-1 font-mono text-[0.7rem] uppercase tracking-wide text-fg-muted"
+              className="border border-line px-2.5 py-1 font-mono text-xs uppercase tracking-widest text-fg-muted"
             >
               {s}
             </li>
@@ -122,7 +113,7 @@ export function WorkEntry({
             {...media(project)}
           />
         ) : (
-          <SpecPanel project={project} idx={idx} />
+          <SpecPanel />
         )}
       </div>
     </article>

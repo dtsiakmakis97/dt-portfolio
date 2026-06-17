@@ -20,7 +20,7 @@ export function WorkMedia({ image, alt, title, href, label }: WorkMediaProps) {
   return (
     <a
       href={href}
-      aria-label={`${label} — ${title}`}
+      aria-label={`${label}: ${title}`}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       className="relative block overflow-hidden border border-line bg-panel"
     >

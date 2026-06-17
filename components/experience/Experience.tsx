@@ -7,7 +7,7 @@ export function Experience() {
     <section id="experience" className="border-b border-line">
       <div className="mx-auto max-w-[1400px] px-6 py-24 md:px-12 md:py-32 lg:px-24 lg:py-40">
         <Reveal>
-          <Eyebrow index="03">Experience</Eyebrow>
+          <Eyebrow>Experience</Eyebrow>
           <h2 className="mt-6 font-display text-h2 font-bold text-fg">
             Where I&apos;ve worked.
           </h2>
@@ -26,7 +26,7 @@ export function Experience() {
                   </p>
                 </div>
                 <div className="md:col-span-4">
-                  <h3 className="font-display text-xl font-medium tracking-tight text-fg md:text-2xl">
+                  <h3 className="font-display text-subtitle font-medium text-fg">
                     {job.role}
                   </h3>
                   <p className="mt-1 font-mono text-xs uppercase tracking-widest text-accent">
@@ -34,14 +34,14 @@ export function Experience() {
                   </p>
                 </div>
                 <div className="md:col-span-5">
-                  <p className="leading-relaxed text-fg-secondary">
+                  <p className="max-w-[60ch] leading-relaxed text-fg-secondary">
                     {job.summary}
                   </p>
                   <ul className="mt-4 space-y-2.5">
                     {job.highlights.map((h, j) => (
                       <li
                         key={j}
-                        className="flex gap-3 text-sm leading-relaxed text-fg-secondary"
+                        className="flex gap-3 leading-relaxed text-fg-secondary"
                       >
                         <span
                           aria-hidden

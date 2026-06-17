@@ -2,18 +2,18 @@
 
 import { useActionState, useEffect, useState } from "react";
 import { submitContact, type ContactState } from "@/app/actions/contact";
-import { ArrowRight, Check } from "@/components/ui/icons";
+import { AlertTriangle, ArrowRight, Check } from "@/components/ui/icons";
 
 const INITIAL: ContactState = { status: "idle" };
 
 function fieldClass(error?: string) {
-  return `w-full border bg-transparent px-4 py-3 font-mono text-sm text-fg placeholder:text-fg-faint transition-colors focus:border-accent focus:outline-none ${
-    error ? "border-red-500/70" : "border-line-strong"
+  return `w-full border bg-transparent px-4 py-3 font-mono text-base text-fg placeholder:text-fg-faint transition-colors focus:border-accent focus:outline-none ${
+    error ? "border-danger/70" : "border-line-strong"
   }`;
 }
 
 const labelClass =
-  "mb-2 block font-mono text-[0.7rem] uppercase tracking-widest text-fg-muted";
+  "mb-2 block font-mono text-xs uppercase tracking-widest text-fg-muted";
 
 export function ContactForm() {
   const [state, formAction, pending] = useActionState(submitContact, INITIAL);
@@ -30,11 +30,11 @@ export function ContactForm() {
         <span className="flex size-12 items-center justify-center border border-accent text-accent">
           <Check size={22} />
         </span>
-        <h3 className="mt-6 font-display text-2xl font-medium text-fg">
+        <h3 className="mt-6 font-display text-subtitle font-medium text-fg">
           Message received.
         </h3>
         <p className="mt-3 max-w-md leading-relaxed text-fg-secondary">
-          Thanks for reaching out — I read everything myself and will reply soon.
+          Thanks for reaching out. I read everything myself and will reply soon.
         </p>
         <button
           type="button"
@@ -67,7 +67,11 @@ export function ContactForm() {
             placeholder="Your name"
           />
           {errors.name && (
-            <p id="name-error" className="mt-2 font-mono text-xs text-red-400">
+            <p
+              id="name-error"
+              className="mt-2 flex items-center gap-1.5 font-mono text-xs text-danger"
+            >
+              <AlertTriangle size={13} className="shrink-0" />
               {errors.name}
             </p>
           )}
@@ -87,7 +91,11 @@ export function ContactForm() {
             placeholder="you@company.com"
           />
           {errors.email && (
-            <p id="email-error" className="mt-2 font-mono text-xs text-red-400">
+            <p
+              id="email-error"
+              className="mt-2 flex items-center gap-1.5 font-mono text-xs text-danger"
+            >
+              <AlertTriangle size={13} className="shrink-0" />
               {errors.email}
             </p>
           )}
@@ -119,10 +127,14 @@ export function ContactForm() {
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? "message-error" : undefined}
           className={`${fieldClass(errors.message)} resize-none`}
-          placeholder="The role, the project, the timeline — whatever is useful."
+          placeholder="The role, the project, the timeline, whatever is useful."
         />
         {errors.message && (
-          <p id="message-error" className="mt-2 font-mono text-xs text-red-400">
+          <p
+            id="message-error"
+            className="mt-2 flex items-center gap-1.5 font-mono text-xs text-danger"
+          >
+            <AlertTriangle size={13} className="shrink-0" />
             {errors.message}
           </p>
         )}
@@ -138,7 +150,11 @@ export function ContactForm() {
       </div>
 
       {state.status === "error" && state.message && (
-        <p role="alert" className="font-mono text-xs text-red-400">
+        <p
+          role="alert"
+          className="flex items-center gap-1.5 font-mono text-xs text-danger"
+        >
+          <AlertTriangle size={13} className="shrink-0" />
           {state.message}
         </p>
       )}

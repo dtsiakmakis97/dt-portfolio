@@ -23,6 +23,10 @@
   --color-accent: #f59e0b;
   --color-accent-hi: #fbbf24;
 
+  /* Semantic danger — form-error state only. ~7:1 on canvas (clears AA);
+     always paired with an icon so the signal never rests on color alone. */
+  --color-danger: #f87171;
+
   /* Editorial type scale (fluid, neo-brutalist tight) */
   --text-display: clamp(2.75rem, 1rem + 8vw, 6.5rem);
   --text-display--line-height: 0.95;
@@ -33,6 +37,22 @@
   --text-eyebrow: 0.72rem;
   --text-eyebrow--line-height: 1;
   --text-eyebrow--letter-spacing: 0.25em;
+
+  /* Title — project names, footer close. Fluid, and held a clear step below
+     --text-h2 at every viewport so the two never collide on small screens. */
+  --text-title: clamp(1.625rem, 1rem + 2.2vw, 2.5rem);
+  --text-title--line-height: 1.1;
+  --text-title--letter-spacing: -0.02em;
+
+  /* Subtitle — secondary headings (job role, confirmation headline) */
+  --text-subtitle: clamp(1.25rem, 1.1rem + 0.65vw, 1.5rem);
+  --text-subtitle--line-height: 1.2;
+  --text-subtitle--letter-spacing: -0.01em;
+
+  /* Lead — intro paragraphs (hero subhead, about lead, contact pitch). Fixed,
+     per the brand-register rule that body-weight text stays fixed. */
+  --text-lead: 1.125rem;
+  --text-lead--line-height: 1.6;
 
   /* Motion — minimal + snappy; reveals use the expo curve */
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -63,7 +83,18 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    font-feature-settings: "liga" 1, "calt" 1;
+    /* "zero" slashes the monospace 0 — a quiet engineer's-type signal that
+       also disambiguates 0/O in the metadata. No-op for Cabinet (display). */
+    font-feature-settings: "liga" 1, "calt" 1, "zero" 1;
+  }
+  /* Even out heading line breaks; reduce orphans/ragged endings in prose.
+     h1 is excluded — the hero headline is hand-split into word-clip spans. */
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
   }
   a {
     color: inherit;

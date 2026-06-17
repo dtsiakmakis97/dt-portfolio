@@ -12,8 +12,9 @@ const cabinet = localFont({
   variable: "--font-cabinet",
   display: "swap",
   fallback: ["Helvetica Neue", "Arial", "sans-serif"],
+  // Cabinet is display-only (body is mono); weights used are 500/700/800.
+  // Regular (400) is loaded by nothing, so it is intentionally omitted.
   src: [
-    { path: "./fonts/CabinetGrotesk-Regular.woff2", weight: "400", style: "normal" },
     { path: "./fonts/CabinetGrotesk-Medium.woff2", weight: "500", style: "normal" },
     { path: "./fonts/CabinetGrotesk-Bold.woff2", weight: "700", style: "normal" },
     { path: "./fonts/CabinetGrotesk-Extrabold.woff2", weight: "800", style: "normal" },

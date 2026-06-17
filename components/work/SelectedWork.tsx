@@ -10,12 +10,12 @@ export function SelectedWork() {
         <Reveal>
           <div className="mb-12 flex flex-col justify-between gap-6 border-b border-line pb-8 md:mb-16 md:flex-row md:items-end">
             <div>
-              <Eyebrow index="02">Selected work</Eyebrow>
+              <Eyebrow>Selected work</Eyebrow>
               <h2 className="mt-6 font-display text-h2 font-bold text-fg">
                 What I&apos;ve been working on.
               </h2>
             </div>
-            <p className="max-w-xs text-sm leading-relaxed text-fg-muted">
+            <p className="max-w-sm text-base leading-relaxed text-fg-muted">
               Full-stack web and AI systems, built end to end. Live ones are
               linked; the rest I&apos;m happy to walk through.
             </p>

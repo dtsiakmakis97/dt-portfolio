@@ -7,7 +7,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-[1400px] px-6 py-16 md:px-12 lg:px-24">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
           <div className="md:col-span-6">
-            <p className="font-display text-3xl font-bold tracking-tight text-fg md:text-5xl">
+            <p className="font-display text-title font-bold text-fg">
               Let&apos;s build
               <br />
               something real<span className="text-accent">.</span>
@@ -22,7 +22,7 @@ export function SiteFooter() {
           </div>
 
           <div className="md:col-span-3 md:col-start-8">
-            <h2 className="font-mono text-[0.7rem] uppercase tracking-widest text-fg-muted">
+            <h2 className="font-mono text-xs uppercase tracking-widest text-fg-muted">
               Elsewhere
             </h2>
             <ul className="mt-5 space-y-3">
@@ -58,7 +58,7 @@ export function SiteFooter() {
           </div>
 
           <div className="md:col-span-2">
-            <h2 className="font-mono text-[0.7rem] uppercase tracking-widest text-fg-muted">
+            <h2 className="font-mono text-xs uppercase tracking-widest text-fg-muted">
               Résumé
             </h2>
             <a

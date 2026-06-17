@@ -9,12 +9,12 @@ export function Skills() {
         <Reveal>
           <div className="mb-12 flex flex-col justify-between gap-6 md:mb-16 md:flex-row md:items-end">
             <div>
-              <Eyebrow index="04">Stack</Eyebrow>
+              <Eyebrow>Stack</Eyebrow>
               <h2 className="mt-6 font-display text-h2 font-bold text-fg">
                 The tools, plainly.
               </h2>
             </div>
-            <p className="max-w-xs text-sm leading-relaxed text-fg-muted">
+            <p className="max-w-sm text-base leading-relaxed text-fg-muted">
               No proficiency bars. What I reach for, grouped by where it lives.
             </p>
           </div>
