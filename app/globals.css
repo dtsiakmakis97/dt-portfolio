@@ -1,26 +1,125 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ── Design tokens ──────────────────────────────────────────────
+   Dark editorial + devtools precision.
+   Depth comes from layered surfaces + hairline borders, never shadows.
+   One accent (signal amber), used sparingly. */
+@theme {
+  /* Surfaces (stepped, not shadowed) */
+  --color-canvas: #0b0c0e;
+  --color-surface: #131419;
+  --color-elevated: #1c1e24;
+  --color-line: #2a2d34;
+
+  /* Foreground */
+  --color-fg: #f4f5f6;
+  --color-fg-secondary: #9ca0a6;
+  /* lifted from #63676e to clear WCAG AA (4.5:1) on the canvas for small mono metadata */
+  --color-fg-muted: #7c818c;
+
+  /* Single accent — signal amber */
+  --color-accent: #e9a86a;
+  --color-accent-hi: #f2bc84;
+
+  /* Type families (geist package sets these vars on <html>) */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Editorial type scale (fluid) */
+  --text-display: clamp(2.6rem, 1.1rem + 6.6vw, 6rem);
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.03em;
+  --text-h2: clamp(1.7rem, 1.1rem + 2.2vw, 2.7rem);
+  --text-h2--line-height: 1.08;
+  --text-h2--letter-spacing: -0.02em;
+  --text-eyebrow: 0.78rem;
+  --text-eyebrow--line-height: 1;
+  --text-eyebrow--letter-spacing: 0.16em;
+
+  /* Motion — deliberate, Warp-grade */
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-deliberate: cubic-bezier(0.44, 0, 0.56, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* offset anchored scroll so the sticky top bar never covers headings */
+    scroll-padding-top: 6rem;
+  }
+  body {
+    background: var(--color-canvas);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent) 32%, transparent);
+    color: var(--color-fg);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 3px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  /* Scroll-reveal — toggled by the Reveal client island */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.6s var(--ease-expo),
+      transform 0.6s var(--ease-expo);
+    will-change: opacity, transform;
+  }
+  .reveal[data-visible="true"] {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Animated hairline underline for text links */
+  .hairline-link {
+    position: relative;
+  }
+  .hairline-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease-deliberate);
+  }
+  .hairline-link:hover::after,
+  .hairline-link:focus-visible::after {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
 }
