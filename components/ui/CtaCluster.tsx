@@ -34,8 +34,8 @@ export function CtaCluster({ variant = "icon", className }: CtaClusterProps) {
                 : {})}
               className={
                 primary
-                  ? "inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-canvas transition-colors duration-150 hover:bg-accent-hi"
-                  : "inline-flex items-center gap-2 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-fg-secondary transition-colors duration-150 hover:border-fg-muted hover:text-fg"
+                  ? "inline-flex items-center gap-2 bg-fg px-6 py-3 text-sm font-medium uppercase tracking-widest text-canvas transition-colors duration-150 hover:bg-accent"
+                  : "inline-flex items-center gap-2 border border-line-strong px-6 py-3 text-sm font-medium uppercase tracking-widest text-fg-secondary transition-colors duration-150 hover:border-accent hover:text-accent"
               }
             >
               <Icon size={16} />
@@ -60,7 +60,7 @@ export function CtaCluster({ variant = "icon", className }: CtaClusterProps) {
               {...(isExternal(c.kind)
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}
-              className="grid size-9 place-items-center rounded-md text-fg-secondary transition-colors duration-150 hover:bg-surface hover:text-accent"
+              className="grid size-9 place-items-center text-fg-secondary transition-colors duration-150 hover:bg-surface hover:text-accent"
             >
               <Icon size={18} />
             </a>

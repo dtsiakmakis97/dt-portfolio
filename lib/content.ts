@@ -43,6 +43,10 @@ export interface Project {
   readonly stack: readonly string[];
   readonly description: string;
   readonly links?: readonly ProjectLink[];
+  /** Screenshot path under /public for the editorial media column; when absent
+   *  the entry renders a typographic spec-panel instead of a fake image. */
+  readonly image?: string;
+  readonly imageAlt?: string;
 }
 
 export interface ExperienceItem {
@@ -78,6 +82,7 @@ export const nav: readonly NavLink[] = [
   { label: "Work", href: "#work" },
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
+  { label: "Stack", href: "#stack" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -90,16 +95,12 @@ export const ctas: readonly Cta[] = [
 
 export const hero = {
   eyebrow: "FULL-STACK ENGINEER · AI SYSTEMS",
+  available: "Open to new roles · EU / remote-friendly",
   headline: "I build web products end to end — and the AI systems inside them.",
+  /** Contiguous run within `headline` rendered in amber + drawn underline. */
+  accent: "AI systems",
   subhead:
     "Three years shipping production frontends for German enterprise retail at KPS AG. Now building multi-agent AI systems and LLM products solo.",
-  // mono terminal block — signature precision detail
-  terminal: [
-    "$ whoami",
-    "→ dimitrios tsiakmakis · full-stack + ai · berlin",
-    "$ status",
-    "→ open to new roles — eu / remote",
-  ],
 } as const;
 
 export const projects: readonly Project[] = [
@@ -135,6 +136,9 @@ export const projects: readonly Project[] = [
     stack: ["Next.js 16", "Supabase", "Stripe", "next-intl (DE/EN/EL)", "Vercel Cron"],
     description:
       "A trilingual (DE/EN/EL) direct-booking site for a family-run, five-unit seaside rental. Stripe deposit checkout, a DIY two-way iCal sync to Airbnb and Booking.com over Vercel Cron, and Supabase as the single source of truth for inventory, bookings and content. Direct bookings save the 15–18% commission an OTA takes per stay.",
+    image: "/work/aegeon.webp",
+    imageAlt:
+      "Aegeon booking site — gallery-luxury hero over a sea view on the Chalkidiki coast",
   },
   {
     id: "career-ops",
@@ -157,6 +161,9 @@ export const projects: readonly Project[] = [
     stack: ["Next.js 14", "React 18", "CSS custom properties", "Vercel"],
     description:
       "A Greek-first marketing site for a private English-language school (levels A1–C2) in Chalkidiki. A custom design system in CSS custom properties (no Tailwind), Greek-subset typography rendered at real text lengths, all copy centralised in one content module for non-technical edits, and WCAG AA throughout — trust through restraint rather than a sales funnel.",
+    image: "/work/te-learning-center.webp",
+    imageAlt:
+      "T.E. Learning Center — Greek-first marketing site hero for a private English-language school",
     links: [{ label: "Live", href: "https://oikonomou.vercel.app" }],
   },
   {
@@ -192,6 +199,15 @@ export const experience: readonly ExperienceItem[] = [
       "Dehner — Spryker webshop integrated with Magnolia CMS; code reviews and CI/CD via GitHub Actions.",
     ],
   },
+];
+
+// Honest credibility facts for the ledger strip — derived from verified content, no invented metrics.
+export const facts: readonly string[] = [
+  "Berlin-based",
+  "3 yrs enterprise frontend · KPS AG",
+  "Multi-agent AI, shipped solo",
+  "WCAG 2.2 AA audits",
+  "EU citizen · remote-friendly",
 ];
 
 export const skills: readonly SkillGroup[] = [

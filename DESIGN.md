@@ -2,50 +2,52 @@
 name: Dimitrios Tsiakmakis — Portfolio
 description: A dark editorial portfolio with devtools precision; an engineer's logbook.
 colors:
-  canvas: "#0b0c0e"
-  surface: "#131419"
-  elevated: "#1c1e24"
-  line: "#2a2d34"
-  fg: "#f4f5f6"
-  fg-secondary: "#9ca0a6"
-  fg-muted: "#7c818c"
-  ember: "#e9a86a"
-  ember-hi: "#f2bc84"
+  canvas: "#0a0a0a"
+  panel: "#0d0d0d"
+  surface: "#171717"
+  elevated: "#1f1f1f"
+  line: "#262626"
+  line-strong: "#404040"
+  fg: "#f5f5f5"
+  fg-secondary: "#a3a3a3"
+  fg-muted: "#8a8a8a"
+  ember: "#f59e0b"
+  ember-hi: "#fbbf24"
 typography:
   display:
-    fontFamily: "Geist Sans, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(2.6rem, 1.1rem + 6.6vw, 6rem)"
-    fontWeight: 600
-    lineHeight: 0.98
-    letterSpacing: "-0.03em"
+    fontFamily: "Cabinet Grotesk, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(2.75rem, 1rem + 8vw, 6.5rem)"
+    fontWeight: 700
+    lineHeight: 0.95
+    letterSpacing: "-0.04em"
   headline:
-    fontFamily: "Geist Sans, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(1.7rem, 1.1rem + 2.2vw, 2.7rem)"
-    fontWeight: 600
-    lineHeight: 1.08
-    letterSpacing: "-0.02em"
+    fontFamily: "Cabinet Grotesk, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(2rem, 1.2rem + 3vw, 3.75rem)"
+    fontWeight: 700
+    lineHeight: 1
+    letterSpacing: "-0.03em"
   title:
-    fontFamily: "Geist Sans, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(1.5rem, 1.3rem + 0.7vw, 1.875rem)"
-    fontWeight: 500
-    lineHeight: 1.15
-    letterSpacing: "-0.01em"
+    fontFamily: "Cabinet Grotesk, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(1.875rem, 1.4rem + 1.6vw, 2.25rem)"
+    fontWeight: 700
+    lineHeight: 1.05
+    letterSpacing: "-0.02em"
   body:
-    fontFamily: "Geist Sans, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "IBM Plex Mono, ui-monospace, SF Mono, Menlo, monospace"
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.625
     letterSpacing: "normal"
   label:
-    fontFamily: "Geist Mono, ui-monospace, SF Mono, Menlo, monospace"
-    fontSize: "0.78rem"
+    fontFamily: "IBM Plex Mono, ui-monospace, SF Mono, Menlo, monospace"
+    fontSize: "0.72rem"
     fontWeight: 400
     lineHeight: 1
-    letterSpacing: "0.16em"
+    letterSpacing: "0.25em"
 rounded:
-  md: "6px"
-  xl: "12px"
-  full: "9999px"
+  md: "0px"
+  xl: "0px"
+  full: "0px"
 spacing:
   xs: "8px"
   sm: "12px"
@@ -54,15 +56,15 @@ spacing:
   section: "clamp(5rem, 4rem + 5vw, 9rem)"
 components:
   button-primary:
+    backgroundColor: "{colors.fg}"
+    textColor: "{colors.canvas}"
+    rounded: "{rounded.md}"
+    padding: "12px 24px"
+  button-primary-hover:
     backgroundColor: "{colors.ember}"
     textColor: "{colors.canvas}"
-    rounded: "{rounded.full}"
-    padding: "10px 20px"
-  button-primary-hover:
-    backgroundColor: "{colors.ember-hi}"
-    textColor: "{colors.canvas}"
-    rounded: "{rounded.full}"
-    padding: "10px 20px"
+    rounded: "{rounded.md}"
+    padding: "12px 24px"
   button-secondary:
     backgroundColor: "{colors.canvas}"
     textColor: "{colors.fg-secondary}"
@@ -87,6 +89,16 @@ components:
 ---
 
 # Design System: Dimitrios Tsiakmakis — Portfolio
+
+> **2026-06-17 — Bold neo-brutalist re-skin (authoritative).** The site was rebuilt to match a new reference design. Where the detailed sections below (the prior "Engineer's Logbook" direction) conflict with this note, **this note wins**; the frontmatter tokens above are current.
+>
+> **Changed:** Type is now **Cabinet Grotesk** (display/headings, self-hosted via `next/font/local`) + **IBM Plex Mono** (body *and* metadata — body is mono now), replacing Geist. Palette is **true-neutral** graphite (`#0a0a0a → #0d0d0d → #171717`, hairline `#262626`) with a saturated **signal amber `#F59E0B`** (was peach `#e9a86a`); `fg-muted` held at `#8a8a8a` to clear WCAG AA. **All corners are sharp (`rounded-none`).** The **primary button is a white fill** with dark text, warming to amber on hover. Sections carry mono indices (`[01]`–`[05]`) and a fact-ledger strip sits under the hero.
+>
+> **Preserved:** dark canvas, single semantic amber, mono-for-metadata, depth via tonal surfaces + 1px hairlines (no shadows), work as logbook rows (not cards), WCAG 2.2 AA, full `prefers-reduced-motion` support.
+>
+> **New motion / surfaces:** a lazy WebGL node-network behind the hero (three.js + react-three-fiber, reduced-motion/offscreen-guarded), a drifting technical grid, a scroll-progress bar, active-section nav, and a word-by-word hero headline reveal. Selected Work shows **real grayscale screenshots** for live projects (Aegeon, T.E. Learning Center) and a typographic spec-panel for the rest. Contact is a working form (Server Action + Zod + honeypot + Resend).
+>
+> `.impeccable/design.json` is a generated artifact and is now **stale** — regenerate it from this file on the next impeccable run.
 
 ## 1. Overview
 

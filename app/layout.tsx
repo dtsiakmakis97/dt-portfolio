@@ -1,10 +1,32 @@
 import type { Metadata, Viewport } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
+import localFont from "next/font/local";
+import { IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { TopBar } from "@/components/chrome/TopBar";
 import { SiteFooter } from "@/components/chrome/SiteFooter";
+import { ScrollProgress } from "@/components/chrome/ScrollProgress";
 import { meta } from "@/lib/content";
+
+// Display face — self-hosted (Fontshare, free for commercial use).
+const cabinet = localFont({
+  variable: "--font-cabinet",
+  display: "swap",
+  fallback: ["Helvetica Neue", "Arial", "sans-serif"],
+  src: [
+    { path: "./fonts/CabinetGrotesk-Regular.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/CabinetGrotesk-Medium.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/CabinetGrotesk-Bold.woff2", weight: "700", style: "normal" },
+    { path: "./fonts/CabinetGrotesk-Extrabold.woff2", weight: "800", style: "normal" },
+  ],
+});
+
+// Body + metadata face — the "engineer" signal.
+const plexMono = IBM_Plex_Mono({
+  weight: ["400", "500", "600"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-plex-mono",
+});
 
 export const metadata: Metadata = {
   title: meta.title,
@@ -17,7 +39,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0c0e",
+  themeColor: "#0a0a0a",
 };
 
 export default function RootLayout({
@@ -26,17 +48,18 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}
+      className={`${cabinet.variable} ${plexMono.variable} antialiased`}
     >
-      <body>
-        <a
-          href="#main"
-          className="sr-only rounded-md bg-elevated px-4 py-2 text-fg focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50"
-        >
+      <body className="relative min-h-screen">
+        <div className="bg-grid" aria-hidden="true" />
+        <ScrollProgress />
+        <a href="#main" className="skip-link">
           Skip to content
         </a>
         <TopBar />
-        <main id="main">{children}</main>
+        <main id="main" className="relative z-10">
+          {children}
+        </main>
         <SiteFooter />
       </body>
     </html>

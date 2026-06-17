@@ -80,3 +80,28 @@ export function Check(props: IconProps) {
     </svg>
   );
 }
+
+export function ArrowDownRight(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M7 7 17 17M17 7v10H7" />
+    </svg>
+  );
+}
+
+export function ArrowRight(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M5 12h14M12 5l7 7-7 7" />
+    </svg>
+  );
+}
+
+export function MapPin(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  );
+}

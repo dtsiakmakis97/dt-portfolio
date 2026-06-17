@@ -15,7 +15,7 @@ The job to be done is the same for both: in under a minute, decide that Dimitrio
 
 ## Product Purpose
 
-A personal portfolio for Dimitrios Tsiakmakis, a Berlin-based full-stack engineer who builds web products end to end and the AI systems inside them. Three years of enterprise e-commerce frontend at KPS AG (Dehner, NORMA, Jungheinrich, EP:), now shipping multi-agent AI systems and LLM products solo (PawGuard, Lead Finder, FIS-PRO, Aegeon).
+A personal portfolio for Dimitrios Tsiakmakis, a Berlin-based full-stack engineer who builds web products end to end and the AI systems inside them. Three years of enterprise e-commerce frontend at KPS AG (Dehner, NORMA, Jungheinrich, EP:), now shipping multi-agent AI systems and LLM products solo (PawGuard, Lead Finder, Aegeon), alongside the T.E. Learning Center and AI tooling like the Career Ops Agent and an Edu Resource Pipeline.
 
 The strategic claim is "frontend depth plus AI systems, shipped, not theorized." Success is a visitor leaving convinced enough to email, open the CV, or reach out about work. Because this is a brand surface, the design itself is part of the evidence: the portfolio of someone who runs accessibility audits and ships to hard performance budgets has to demonstrate that craft, not just describe it.
 

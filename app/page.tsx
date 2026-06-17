@@ -1,6 +1,7 @@
 import { Hero } from "@/components/hero/Hero";
-import { SelectedWork } from "@/components/work/SelectedWork";
+import { FactLedger } from "@/components/credibility/FactLedger";
 import { About } from "@/components/about/About";
+import { SelectedWork } from "@/components/work/SelectedWork";
 import { Experience } from "@/components/experience/Experience";
 import { Skills } from "@/components/skills/Skills";
 import { Contact } from "@/components/contact/Contact";
@@ -9,8 +10,9 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <SelectedWork />
+      <FactLedger />
       <About />
+      <SelectedWork />
       <Experience />
       <Skills />
       <Contact />
