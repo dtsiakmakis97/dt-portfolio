@@ -79,8 +79,8 @@ export const profile = {
 } as const;
 
 export const nav: readonly NavLink[] = [
-  { label: "Work", href: "#work" },
   { label: "About", href: "#about" },
+  { label: "Work", href: "#work" },
   { label: "Experience", href: "#experience" },
   { label: "Stack", href: "#stack" },
   { label: "Contact", href: "#contact" },
