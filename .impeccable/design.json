@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-17T00:00:00Z",
+  "title": "Design System: Dimitrios Tsiakmakis — Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Canvas Graphite",
+        "canonical": "oklch(13% 0.004 250)",
+        "tonalRamp": ["#0b0c0e", "#131419", "#1c1e24", "#2a2d34", "#3a3e47", "#5a5f69", "#7c818c", "#9ca0a6"]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface Graphite",
+        "canonical": "oklch(17% 0.006 260)",
+        "tonalRamp": ["#0b0c0e", "#131419", "#1c1e24", "#2a2d34", "#3a3e47", "#5a5f69", "#7c818c", "#9ca0a6"]
+      },
+      "elevated": {
+        "role": "neutral",
+        "displayName": "Elevated Graphite",
+        "canonical": "oklch(22% 0.007 260)",
+        "tonalRamp": ["#131419", "#1c1e24", "#2a2d34", "#3a3e47", "#4a4f59", "#5a5f69", "#7c818c", "#9ca0a6"]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "oklch(29% 0.008 260)",
+        "tonalRamp": ["#1c1e24", "#2a2d34", "#3a3e47", "#4a4f59", "#5a5f69", "#6c717b", "#7c818c", "#9ca0a6"]
+      },
+      "fg": {
+        "role": "neutral",
+        "displayName": "Foreground",
+        "canonical": "oklch(96% 0.002 260)",
+        "tonalRamp": ["#2a2d34", "#4a4f59", "#6c717b", "#9ca0a6", "#b8bcc2", "#d4d7da", "#e8eaeb", "#f4f5f6"]
+      },
+      "fg-secondary": {
+        "role": "neutral",
+        "displayName": "Secondary Text",
+        "canonical": "oklch(70% 0.008 260)",
+        "tonalRamp": ["#2a2d34", "#3a3e47", "#5a5f69", "#7c818c", "#9ca0a6", "#b8bcc2", "#d4d7da", "#f4f5f6"]
+      },
+      "fg-muted": {
+        "role": "neutral",
+        "displayName": "Muted Metadata",
+        "canonical": "oklch(58% 0.01 260)",
+        "tonalRamp": ["#2a2d34", "#3a3e47", "#5a5f69", "#6c717b", "#7c818c", "#9ca0a6", "#b8bcc2", "#d4d7da"]
+      },
+      "ember": {
+        "role": "primary",
+        "displayName": "Ember",
+        "canonical": "oklch(77% 0.1 65)",
+        "tonalRamp": ["#3a2a18", "#5c4226", "#7e5a33", "#a07444", "#c28e55", "#e9a86a", "#f2bc84", "#f8d4a8"]
+      },
+      "ember-hi": {
+        "role": "primary",
+        "displayName": "Ember Hi",
+        "canonical": "oklch(82% 0.1 70)",
+        "tonalRamp": ["#42301b", "#664a2b", "#8a653a", "#ae814b", "#d29d5d", "#f2bc84", "#f8d4a8", "#fce6cc"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Anchor statements: hero h1, contact close. One or two per view." },
+      "headline": { "displayName": "Headline", "purpose": "Section headings." },
+      "title": { "displayName": "Title", "purpose": "Project names in the work log; shift to Ember on hover." },
+      "body": { "displayName": "Body", "purpose": "Descriptions and prose, capped ~65-75ch. Lead paragraphs step up to 1.125rem." },
+      "label": { "displayName": "Label / Mono", "purpose": "Eyebrows and metadata; monospace, uppercase, wide-tracked." }
+    },
+    "shadows": [
+      { "name": "none", "value": "none", "purpose": "No box-shadow anywhere. Depth is tonal layering plus 1px hairline borders. Shadows are forbidden as a depth device." }
+    ],
+    "motion": [
+      { "name": "ease-expo", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Scroll-reveal entrances (opacity + 18px translateY over 0.6s, staggered)." },
+      { "name": "ease-deliberate", "value": "cubic-bezier(0.44, 0, 0.56, 1)", "purpose": "Animated hairline link underline (scaleX 0 to 1, 0.3s)." },
+      { "name": "state-transition", "value": "150ms ease (color/border)", "purpose": "Hover and focus color/border shifts on buttons, links, icons." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "container-max", "value": "64rem" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Highest-intent action (first CTA in a cluster, usually Email). Ember fill on dark text.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"2\" y=\"4\" width=\"20\" height=\"16\" rx=\"2\"/><path d=\"m22 7-10 5L2 7\"/></svg>Email</a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 8px; background: #e9a86a; color: #0b0c0e; border-radius: 9999px; padding: 10px 20px; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: background 150ms; } .ds-btn-primary:hover { background: #f2bc84; } .ds-btn-primary:focus-visible { outline: 2px solid #e9a86a; outline-offset: 3px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Non-primary CTAs in a cluster. Transparent pill with a hairline border.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><path d=\"M14 2v6h6\"/></svg>Résumé</a>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: #9ca0a6; border: 1px solid #2a2d34; border-radius: 9999px; padding: 10px 20px; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: color 150ms, border-color 150ms; } .ds-btn-secondary:hover { color: #f4f5f6; border-color: #7c818c; } .ds-btn-secondary:focus-visible { outline: 2px solid #e9a86a; outline-offset: 3px; }"
+    },
+    {
+      "name": "Icon Button",
+      "kind": "button",
+      "refersTo": "button-icon",
+      "description": "Ghost square icon link, used in the persistent top bar. Glyph turns Ember on hover.",
+      "html": "<a class=\"ds-btn-icon\" href=\"#\" aria-label=\"GitHub\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.85 9.73.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.37-3.37-1.37-.46-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05A9.36 9.36 0 0 1 12 6.84c.85 0 1.71.12 2.51.34 1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z\"/></svg></a>",
+      "css": ".ds-btn-icon { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 6px; color: #9ca0a6; transition: background 150ms, color 150ms; } .ds-btn-icon:hover { background: #131419; color: #e9a86a; } .ds-btn-icon:focus-visible { outline: 2px solid #e9a86a; outline-offset: 3px; }"
+    },
+    {
+      "name": "Stack Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Quiet informational tech-stack tag. Pill with hairline border, mono text. No interactive state.",
+      "html": "<span class=\"ds-chip\">Next.js 16</span>",
+      "css": ".ds-chip { display: inline-block; border: 1px solid #2a2d34; border-radius: 9999px; padding: 4px 12px; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 0.75rem; color: #7c818c; }"
+    },
+    {
+      "name": "Eyebrow Label",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Signature section opener: a 24px Ember hairline followed by a mono, uppercase, wide-tracked Ember label. The visual 'prompt' that starts each block.",
+      "html": "<p class=\"ds-eyebrow\"><span class=\"ds-eyebrow-rule\" aria-hidden=\"true\"></span>Selected work</p>",
+      "css": ".ds-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: #e9a86a; margin: 0; } .ds-eyebrow-rule { display: inline-block; width: 24px; height: 1px; background: rgba(233, 168, 106, 0.6); }"
+    },
+    {
+      "name": "Nav Link",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "Top-bar section link with the signature animated hairline underline (scaleX from left, also fires on focus).",
+      "html": "<a class=\"ds-nav-link\" href=\"#\">Work</a>",
+      "css": ".ds-nav-link { position: relative; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; color: #9ca0a6; text-decoration: none; transition: color 150ms; } .ds-nav-link::after { content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 0.3s cubic-bezier(0.44, 0, 0.56, 1); } .ds-nav-link:hover { color: #f4f5f6; } .ds-nav-link:hover::after, .ds-nav-link:focus-visible::after { transform: scaleX(1); }"
+    },
+    {
+      "name": "Work Entry Row",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Signature project log row: top hairline, mono index, title (shifts to Ember on row hover), tagline, and a right-aligned mono metadata stack. Deliberately not a card.",
+      "html": "<article class=\"ds-work\"><span class=\"ds-work-idx\">01</span><div class=\"ds-work-main\"><h3 class=\"ds-work-title\">PawGuard</h3><p class=\"ds-work-tag\">A multi-agent development system in production.</p></div><dl class=\"ds-work-meta\"><dd>Solo</dd><dd>2026</dd><dd class=\"ds-work-status\">In development</dd></dl></article>",
+      "css": ".ds-work { display: grid; grid-template-columns: 1fr; gap: 20px; border-top: 1px solid #2a2d34; padding: 40px 0; } @media (min-width: 768px) { .ds-work { grid-template-columns: 1fr 7fr 4fr; gap: 32px; } .ds-work-meta { text-align: right; } } .ds-work-idx { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 0.875rem; color: #7c818c; } .ds-work-title { margin: 0; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 1.875rem; font-weight: 500; letter-spacing: -0.01em; color: #f4f5f6; transition: color 200ms; } .ds-work:hover .ds-work-title { color: #e9a86a; } .ds-work-tag { margin: 6px 0 0; color: #9ca0a6; } .ds-work-meta { margin: 0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 0.75rem; color: #7c818c; line-height: 1.8; } .ds-work-status { color: #9ca0a6; }"
+    },
+    {
+      "name": "Terminal Panel",
+      "kind": "card",
+      "refersTo": null,
+      "description": "The one true container: hero terminal with faux titlebar. The literal expression of the devtools-precision motif.",
+      "html": "<div class=\"ds-term\"><div class=\"ds-term-bar\"><span class=\"ds-term-dot\"></span><span class=\"ds-term-dot\"></span><span class=\"ds-term-dot\"></span><span class=\"ds-term-path\">~/dimitrios</span></div><pre class=\"ds-term-body\"><span class=\"ds-term-prompt\">$ whoami</span><span class=\"ds-term-out\"><span class=\"ds-term-arrow\">&#8594; </span>dimitrios tsiakmakis · full-stack + ai · berlin</span></pre></div>",
+      "css": ".ds-term { overflow: hidden; border-radius: 12px; border: 1px solid #2a2d34; background: #131419; } .ds-term-bar { display: flex; align-items: center; gap: 6px; border-bottom: 1px solid #2a2d34; padding: 12px 16px; } .ds-term-dot { width: 10px; height: 10px; border-radius: 9999px; background: rgba(124, 129, 140, 0.4); } .ds-term-path { margin-left: 8px; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 0.75rem; color: #7c818c; } .ds-term-body { margin: 0; padding: 16px; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 0.875rem; line-height: 2; } .ds-term-prompt { display: block; color: #7c818c; } .ds-term-out { display: block; color: #9ca0a6; } .ds-term-arrow { color: #e9a86a; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Engineer's Logbook",
+    "overview": "A precise, honest record, not a brochure. A dark graphite canvas, structure drawn in hairlines instead of boxes, and a single warm signal (Ember) that appears only where it means something. Metadata is set in monospace and reads like log entries; work is numbered and listed, not packaged into cards. The personality is precise, understated, and honest; the emotional target is quietly impressive. It earns trust by not trying too hard, and every detail holds up under inspection.",
+    "keyCharacteristics": [
+      "Dark graphite canvas with stepped tonal surfaces; depth from layering and hairlines, never shadows.",
+      "One warm accent (Ember), held to a tiny footprint and always semantic.",
+      "A strict Sans-for-prose / Mono-for-metadata split that does the work of an information hierarchy.",
+      "Editorial type scale: a few very large statements, everything else quiet.",
+      "Work presented as numbered logbook rows, not cards.",
+      "Motion is restraint plus one soft reveal; everything collapses cleanly under reduced-motion."
+    ],
+    "rules": [
+      { "name": "The One Ember Rule", "body": "The accent appears on no more than ~10% of any screen. Its rarity is the point: it is a signal, not a theme. If a second thing wants to be amber, one of them is wrong.", "section": "colors" },
+      { "name": "The Tinted-Black Rule", "body": "Never #000 and never #fff. The darkest surface is #0b0c0e and the lightest text is #f4f5f6. Every neutral is tinted cool toward the graphite hue.", "section": "colors" },
+      { "name": "The Color-Plus-Partner Rule", "body": "Ember never carries meaning alone. A non-color partner travels with it (position, icon, weight shift, the leading hairline) so meaning survives for color-blind readers.", "section": "colors" },
+      { "name": "The Mono Metadata Rule", "body": "Prose is Sans; metadata is Mono. Roles, dates, status, stack tags, eyebrows, terminal text, and the email are always monospace. This split is the information hierarchy.", "section": "typography" },
+      { "name": "The Sparse-Display Rule", "body": "Display type is rationed: at most one or two display-scale statements per view, surrounded by quiet. Its size is the emphasis.", "section": "typography" },
+      { "name": "The No-Shadow Rule", "body": "box-shadow is forbidden as a depth device. If something needs to read as elevated, step its background up one tonal surface and give it a hairline border.", "section": "elevation" },
+      { "name": "The Hairline Rule", "body": "Structure is drawn in 1px Line (#2a2d34) borders and never thicker as a decorative device. No 2px+ colored side-stripes.", "section": "elevation" },
+      { "name": "The No-Card Rule", "body": "Don't reach for a card or modal by reflex. Work goes in bordered logbook grid rows; prefer inline progressive patterns over modals.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep Ember (#e9a86a) under ~10% of any screen and always semantic (link, prompt, status, focus, active).",
+      "Do build depth with tonal surfaces (#0b0c0e -> #131419 -> #1c1e24) and 1px Line (#2a2d34) hairlines.",
+      "Do set all metadata (roles, dates, status, stack, eyebrows, email) in Geist Mono and all prose in Geist Sans.",
+      "Do ration display type: one or two display-scale statements per view, surrounded by quiet.",
+      "Do pair every Ember signal with a non-color cue (icon, position, weight, the leading hairline).",
+      "Do give every interactive element a designed hover and a visible focus state (the 2px Ember ring), and collapse it all under prefers-reduced-motion.",
+      "Do hold the whole site to WCAG 2.2 AA, including contrast on the small mono metadata."
+    ],
+    "donts": [
+      "Don't ship the generic developer-portfolio template: no animated skill bars, no uniform grid of identical project cards, no decorative gradient blob.",
+      "Don't drift toward the corporate SaaS landing page: no cream or pastel backgrounds, no soft rounded cards, no gentle gradients, no big-number hero-metric template.",
+      "Don't use box-shadow as a depth device; step a tonal surface and add a hairline instead.",
+      "Don't use pure #000 or #fff; the tinted graphite neutrals are the floor and ceiling.",
+      "Don't use background-clip: text gradient text, or any decorative gradient. Emphasis comes from scale and weight.",
+      "Don't introduce a second accent color or a third type family. One Ember, one Sans, one Mono.",
+      "Don't use a colored side-stripe (border-left/border-right > 1px) as an accent on any element.",
+      "Don't reach for a card or a modal by reflex. Prefer the bordered grid row and the inline progressive pattern."
+    ]
+  }
+}

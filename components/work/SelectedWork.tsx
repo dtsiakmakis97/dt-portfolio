@@ -10,7 +10,7 @@ export function SelectedWork() {
         <Reveal>
           <Eyebrow>Selected work</Eyebrow>
           <h2 className="mt-5 max-w-2xl text-h2 font-semibold">
-            Things I&apos;ve designed, built and shipped.
+            What I&apos;ve been working on.
           </h2>
         </Reveal>
         <div className="mt-10 md:mt-14">

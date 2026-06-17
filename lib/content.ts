@@ -120,25 +120,10 @@ export const projects: readonly Project[] = [
     tagline: "An LLM analyzer pipeline for lead generation.",
     role: "Solo — full-stack + LLM integration",
     period: "2026",
-    status: "v1 shipped on Vercel",
+    status: "Shipped on Vercel",
     stack: ["Next.js 16", "React 19", "Supabase", "Gemini 2.5 Flash", "TypeScript"],
     description:
-      "A lead-gen CRM that scores local-business websites 0–100 via a synchronous fan-out of four parallel LLM analyzers — placeholder, technical, visual, content — merged into one score with a one-line rationale. Vision and structured-JSON analysis run on Google Gemini 2.5 Flash; magic-link auth; 52+ Vitest tests green.",
-  },
-  {
-    id: "fis-pro",
-    name: "FIS-PRO Landing",
-    tagline: "A bilingual marketing site built to a hard performance budget.",
-    role: "Solo — design, build, i18n, performance",
-    period: "2026",
-    status: "Live",
-    stack: ["Next.js 15", "next-intl", "Tailwind v4", "Supabase", "Vercel"],
-    description:
-      "A bilingual (DE/EN) marketing site for a modular vehicle-display system — six prerendered routes, branded 404, sitemap and OG image — built under a hard mobile-LCP budget with locked OEM brand tokens. Mobile Lighthouse performance 99 (EN) / 94 (DE), with a hidden-membership waitlist defense against user enumeration.",
-    links: [
-      { label: "Live", href: "https://fis-pro-landing.vercel.app" },
-      { label: "Source", href: "https://github.com/dtsiakmakis97/FIS-PRO-Landing" },
-    ],
+      "A lead-gen CRM that scores local-business websites 0–100 via a synchronous fan-out of four parallel LLM analyzers — placeholder, technical, visual, content — merged into one score with a one-line rationale. Vision and structured-JSON analysis run on Google Gemini 2.5 Flash; magic-link auth; shipped on Vercel with a full v2 frontend redesign and 156 tests green.",
   },
   {
     id: "aegeon",
@@ -151,11 +136,45 @@ export const projects: readonly Project[] = [
     description:
       "A trilingual (DE/EN/EL) direct-booking site for a family-run, five-unit seaside rental. Stripe deposit checkout, a DIY two-way iCal sync to Airbnb and Booking.com over Vercel Cron, and Supabase as the single source of truth for inventory, bookings and content. Direct bookings save the 15–18% commission an OTA takes per stay.",
   },
+  {
+    id: "career-ops",
+    name: "Career Ops Agent",
+    tagline: "A multi-agent AI job-search system, plus its dashboard.",
+    role: "Solo — fork customization + dashboard build",
+    period: "2026",
+    status: "Active",
+    stack: ["Node.js", "Claude Code agents", "Next.js 16", "Tailwind v4", "Playwright"],
+    description:
+      "A Claude Code–native job-search system (forked from santifer/career-ops) that I customized for an AI-pivot search — a five-archetype role taxonomy with STAR-story selection and tailored ATS CV-PDF generation. I built its Next.js web dashboard from scratch: RSC routes for pipeline, inbox, follow-ups and progress charts, with a markdown-table writeback Server Action over the file substrate, no parallel database.",
+  },
+  {
+    id: "te-learning-center",
+    name: "T.E. Learning Center",
+    tagline: "A Greek-first marketing site for a language school.",
+    role: "Solo — design, build, content architecture",
+    period: "2026",
+    status: "Live",
+    stack: ["Next.js 14", "React 18", "CSS custom properties", "Vercel"],
+    description:
+      "A Greek-first marketing site for a private English-language school (levels A1–C2) in Chalkidiki. A custom design system in CSS custom properties (no Tailwind), Greek-subset typography rendered at real text lengths, all copy centralised in one content module for non-technical edits, and WCAG AA throughout — trust through restraint rather than a sales funnel.",
+    links: [{ label: "Live", href: "https://oikonomou.vercel.app" }],
+  },
+  {
+    id: "edu-pipeline",
+    name: "Edu Resource Pipeline",
+    tagline: "An LLM pipeline that authors exam-board PDF bundles.",
+    role: "Architecture, spec & review (built by Codex)",
+    period: "2026",
+    status: "End-to-end verified",
+    stack: ["Python", "Pydantic v2", "OpenAI gpt-4.1", "Jinja2", "LaTeX + Beamer"],
+    description:
+      "A staged Python pipeline that turns source PDFs and a topic into nine print-ready PDFs for Edexcel iGCSE Mathematics — extract, generate, originality-check, render — with a Pydantic Topic schema as the single source of truth and authentic Edexcel-styled mark schemes in LaTeX/Beamer. I authored the full spec and TDD plan and ran the code review; implementation executed by Codex.",
+  },
 ];
 
 export const about: readonly string[] = [
   "I'm a frontend engineer from Greece, based in Berlin. For three years at KPS AG I shipped production e-commerce frontends for German retail brands — Dehner, NORMA, Jungheinrich and EP: — across SAP Commerce Cloud, Spryker, Magnolia and Storybook, with accessibility and performance as a constant discipline.",
-  "These days I build AI systems on top of that frontend foundation, not instead of it. PawGuard is a multi-agent development system running in production; Lead Finder is an LLM analyzer pipeline; FIS-PRO and Aegeon are full-stack sites I designed, built and shipped solo. I care about systems that are accessible by default, fast under real budgets, and honest about what they do.",
+  "These days I build AI systems on top of that frontend foundation, not instead of it. PawGuard is a multi-agent development system running in production; Lead Finder is an LLM analyzer pipeline; Aegeon and the T.E. Learning Center are full-stack sites I shipped solo. I care about systems that are accessible by default, fast under real budgets, and honest about what they do.",
 ];
 
 export const experience: readonly ExperienceItem[] = [
