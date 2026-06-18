@@ -1,5 +1,6 @@
 import { hero } from "@/lib/content";
 import { HeroBackground } from "./HeroBackground";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ArrowDownRight } from "@/components/ui/icons";
 
 const WORD_STAGGER = 70; // ms between words
@@ -57,9 +58,8 @@ export function Hero() {
 
       <div className="relative mx-auto max-w-[1400px] px-6 pb-20 pt-36 md:px-12 md:pt-44 lg:px-24 lg:pb-28 lg:pt-52">
         <div className="max-w-4xl">
-          <div className="mb-8 flex items-center gap-3 font-mono text-eyebrow uppercase text-fg-muted">
-            <span aria-hidden className="inline-block h-2 w-2 bg-accent" />
-            <span>{hero.available}</span>
+          <div className="mb-8">
+            <Eyebrow>{hero.available}</Eyebrow>
           </div>
 
           <h1
