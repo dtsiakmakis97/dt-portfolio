@@ -3,6 +3,7 @@
 import { useActionState, useEffect, useState } from "react";
 import { submitContact, type ContactState } from "@/app/actions/contact";
 import { AlertTriangle, ArrowRight, Check } from "@/components/ui/icons";
+import { useMagnetic } from "@/lib/hooks/useMagnetic";
 
 const INITIAL: ContactState = { status: "idle" };
 
@@ -18,6 +19,7 @@ const labelClass =
 export function ContactForm() {
   const [state, formAction, pending] = useActionState(submitContact, INITIAL);
   const [dismissed, setDismissed] = useState(false);
+  const submitRef = useMagnetic<HTMLButtonElement>();
 
   // Re-arm the success panel whenever a new submission starts.
   useEffect(() => {
@@ -160,9 +162,10 @@ export function ContactForm() {
       )}
 
       <button
+        ref={submitRef}
         type="submit"
         disabled={pending}
-        className="group inline-flex items-center gap-3 bg-fg px-7 py-3.5 text-sm font-medium uppercase tracking-widest text-canvas transition-colors duration-150 hover:bg-accent disabled:cursor-not-allowed disabled:opacity-60"
+        className="group inline-flex items-center gap-3 bg-fg px-7 py-3.5 text-sm font-medium uppercase tracking-widest text-canvas transition-colors duration-150 will-change-transform hover:bg-accent disabled:cursor-not-allowed disabled:opacity-60"
       >
         {pending ? "Sending…" : "Send message"}
         {!pending && (

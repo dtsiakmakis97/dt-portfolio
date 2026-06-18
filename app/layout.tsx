@@ -5,6 +5,7 @@ import "./globals.css";
 import { TopBar } from "@/components/chrome/TopBar";
 import { SiteFooter } from "@/components/chrome/SiteFooter";
 import { ScrollProgress } from "@/components/chrome/ScrollProgress";
+import { InstrumentLayer } from "@/components/chrome/InstrumentLayer";
 import { meta } from "@/lib/content";
 
 // Display face — self-hosted (Fontshare, free for commercial use).
@@ -53,6 +54,7 @@ export default function RootLayout({
     >
       <body className="relative min-h-screen">
         <div className="bg-grid" aria-hidden="true" />
+        <InstrumentLayer />
         <ScrollProgress />
         <a href="#main" className="skip-link">
           Skip to content
