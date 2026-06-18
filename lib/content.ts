@@ -114,6 +114,10 @@ export const projects: readonly Project[] = [
     stack: ["React Native (Expo)", "Supabase", "Claude Code subagents", "TypeScript", "Vitest"],
     description:
       "A civic-tech mobile app routing structured animal-cruelty reports to the Athens Prosecutor's Office, engineered with four custom Claude Code subagents, each governed by a written constitution with explicit refusal cases (constitution-as-code), and automated privacy + RLS audit gates required before any merge. Zero-retention architecture: evidence is transmitted, never stored. Two independent audits approved with zero critical findings.",
+    image: "/work/pawguard.webp",
+    imageAlt:
+      "PawGuard one-pager: mission and how-it-works overview for the Greece animal-welfare reporting app",
+    links: [{ label: "Overview", href: "https://pawguard-one-page.vercel.app/" }],
   },
   {
     id: "lead-finder",
@@ -125,6 +129,9 @@ export const projects: readonly Project[] = [
     stack: ["Next.js 16", "React 19", "Supabase", "Gemini 2.5 Flash", "TypeScript"],
     description:
       "A lead-gen CRM that scores local-business websites 0–100 via a synchronous fan-out of four parallel LLM analyzers (placeholder, technical, visual, content) merged into one score with a one-line rationale. Vision and structured-JSON analysis run on Google Gemini 2.5 Flash; magic-link auth; shipped on Vercel with a full v2 frontend redesign and 156 tests green.",
+    image: "/work/lead-finder.webp",
+    imageAlt:
+      "Lead Finder dashboard: lead-scoring CRM home with quick search, KPI cards and a recent-searches table",
   },
   {
     id: "aegeon",
