@@ -100,6 +100,8 @@ components:
 >
 > `.impeccable/design.json` is a generated artifact and is now **stale** — regenerate it from this file on the next impeccable run.
 
+> **2026-06-18 — Instrument-badge eyebrow (authoritative; supersedes the eyebrow descriptions below).** The section eyebrow is now a sharp-cornered hairline **badge**: a `line-strong` (`#404040`) box that `inline-flex` shrink-wraps a mono, uppercase, wide-tracked label in **`fg-secondary` (`#a3a3a3`)** — lifted out of the old washed-out `fg-muted` — led by a **6px filled-amber square marker** in place of the former 24px leading hairline. It reads as interface instrumentation: a functional marker, not decoration (the Factory.ai / mono.frm.fm idiom). It lives in one shared component, `components/ui/Eyebrow.tsx`, so every section inherits it; WCAG AA still holds (`#a3a3a3` on `#0a0a0a` ≈ 4.5:1). The **hero availability kicker now uses the same component** (it was previously a separate inline dash + `fg-muted` implementation), so there is no eyebrow exception anywhere on the page. This supersedes both "Section headings open with a short amber hairline and a mono label" above and the §5 "Eyebrow (signature label)" entry below.
+
 ## 1. Overview
 
 **Creative North Star: "The Engineer's Logbook"**
@@ -203,7 +205,7 @@ The project log row, and the system's most opinionated piece. A 12-column grid s
 A mono button showing the address with a trailing copy icon; on click it writes to the clipboard, swaps the icon to a check for 2s, and announces "Copied to clipboard" via an `aria-live` status region. The icon tints Ember on hover. Degrades silently (address stays visible) when the clipboard API is unavailable.
 
 ### Eyebrow (signature label)
-Every section opens with one: a 24px Ember hairline followed by a Mono, uppercase, wide-tracked Ember label. It is the visual "prompt" that starts each block and the most consistent expression of the logbook theme.
+Every block opens with one — the five section headings **and** the hero availability kicker, all from the shared `Eyebrow` component. It is a sharp-cornered hairline **badge**: a `line-strong` box that `inline-flex` shrink-wraps a Mono, uppercase, wide-tracked `fg-secondary` label, led by a 6px filled-amber **square marker**. The marker reads as a functional status indicator (interface instrumentation), not decoration — the most consistent expression of the logbook theme. (Updated 2026-06-18 from the earlier "24px hairline + label" form; see the authoritative note at the top of this file.)
 
 ## 6. Do's and Don'ts
 
