@@ -47,5 +47,5 @@ Target: **WCAG 2.2 AA, fully met**, treated as a brand requirement rather than a
 - Color contrast passes AA for all text and meaningful UI, including the small mono metadata.
 - Full keyboard operability with a visible, non-default focus indicator; skip-to-content link present.
 - `prefers-reduced-motion` fully honored: scroll reveals and transitions collapse to instant.
-- Do not rely on color alone to convey meaning; the single amber accent must always have a non-color partner (position, label, weight).
+- Do not rely on color alone to convey meaning; the single accent (electric blue) must always have a non-color partner (position, label, weight).
 - Semantic landmarks and heading order maintained as sections are added or reworked.

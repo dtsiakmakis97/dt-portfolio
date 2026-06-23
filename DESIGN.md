@@ -11,8 +11,8 @@ colors:
   fg: "#f5f5f5"
   fg-secondary: "#a3a3a3"
   fg-muted: "#8a8a8a"
-  ember: "#f59e0b"
-  ember-hi: "#fbbf24"
+  ember: "#3b9dff"
+  ember-hi: "#66b4ff"
 typography:
   display:
     fontFamily: "Cabinet Grotesk, Helvetica Neue, Arial, sans-serif"
@@ -101,6 +101,8 @@ components:
 > `.impeccable/design.json` is a generated artifact and is now **stale** — regenerate it from this file on the next impeccable run.
 
 > **2026-06-18 — Instrument-badge eyebrow (authoritative; supersedes the eyebrow descriptions below).** The section eyebrow is now a sharp-cornered hairline **badge**: a `line-strong` (`#404040`) box that `inline-flex` shrink-wraps a mono, uppercase, wide-tracked label in **`fg-secondary` (`#a3a3a3`)** — lifted out of the old washed-out `fg-muted` — led by a **6px filled-amber square marker** in place of the former 24px leading hairline. It reads as interface instrumentation: a functional marker, not decoration (the Factory.ai / mono.frm.fm idiom). It lives in one shared component, `components/ui/Eyebrow.tsx`, so every section inherits it; WCAG AA still holds (`#a3a3a3` on `#0a0a0a` ≈ 4.5:1). The **hero availability kicker now uses the same component** (it was previously a separate inline dash + `fg-muted` implementation), so there is no eyebrow exception anywhere on the page. This supersedes both "Section headings open with a short amber hairline and a mono label" above and the §5 "Eyebrow (signature label)" entry below.
+
+> **2026-06-23 — Accent recolor: electric blue (authoritative; supersedes every amber/Ember color value below).** The single signal accent changed from amber `#f59e0b` / hi `#fbbf24` to **electric blue `#3b9dff`** / hi `#66b4ff` (≈6.95:1 on `#0a0a0a`, clears WCAG AA for text). It replaces amber 1:1 everywhere — accent text and the hero "AI systems" run, the drawn underline, eyebrow square markers, links / focus ring / selection, the scroll-progress bar, the hero WebGL accent nodes, the cursor instrument-pool glow, and the generated OG card. Every rule still holds: lone semantic signal, tiny footprint (~10%), always paired with a non-color partner. The frontmatter `ember` / `ember-hi` token values are updated; the **"Ember" name throughout this doc is legacy — read it as "the accent."**
 
 ## 1. Overview
 

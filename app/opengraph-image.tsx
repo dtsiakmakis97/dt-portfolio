@@ -35,7 +35,7 @@ export default async function Image() {
   if (regular) fonts.push({ name: "IBM Plex Mono", data: regular, weight: 400, style: "normal" });
   if (semibold) fonts.push({ name: "IBM Plex Mono", data: semibold, weight: 600, style: "normal" });
 
-  // Tint the accent run amber, word by word (satori wraps per flex item).
+  // Tint the accent run electric blue, word by word (satori wraps per flex item).
   const accentStart = hero.headline.indexOf(hero.accent);
   const accentEnd = accentStart + hero.accent.length;
   let cursor = 0;
@@ -44,7 +44,7 @@ export default async function Image() {
     cursor += word.length + 1;
     const accent = accentStart !== -1 && start >= accentStart && start < accentEnd;
     return (
-      <span key={i} style={{ color: accent ? "#f59e0b" : "#f5f5f5", marginRight: "0.32em" }}>
+      <span key={i} style={{ color: accent ? "#3b9dff" : "#f5f5f5", marginRight: "0.32em" }}>
         {word}
       </span>
     );
@@ -70,7 +70,7 @@ export default async function Image() {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div style={{ display: "flex", alignItems: "center", fontSize: 30, fontWeight: 600 }}>
             <span>DT</span>
-            <span style={{ color: "#f59e0b" }}>.</span>
+            <span style={{ color: "#3b9dff" }}>.</span>
           </div>
           <div
             style={{
@@ -82,7 +82,7 @@ export default async function Image() {
               color: "#a3a3a3",
             }}
           >
-            <div style={{ width: 10, height: 10, backgroundColor: "#f59e0b" }} />
+            <div style={{ width: 10, height: 10, backgroundColor: "#3b9dff" }} />
             <span>{EYEBROW}</span>
           </div>
         </div>

@@ -2,7 +2,7 @@
 
 /* ── Design tokens ──────────────────────────────────────────────
    Neo-brutalist Swiss / high-contrast typographic.
-   True-neutral graphite, single amber signal, sharp corners,
+   True-neutral graphite, single electric-blue signal, sharp corners,
    structure drawn in 1px hairlines — never shadows. */
 @theme {
   /* Surfaces (stepped, true-neutral, no tint) */
@@ -19,9 +19,9 @@
   --color-fg-muted: #8a8a8a; /* small mono metadata — lifted from #737373 to clear 4.5:1 */
   --color-fg-faint: #525252; /* decorative marks only (separators), never meaningful text */
 
-  /* Single accent — signal amber */
-  --color-accent: #f59e0b;
-  --color-accent-hi: #fbbf24;
+  /* Single accent — signal electric blue (~6.95:1 on canvas, clears AA) */
+  --color-accent: #3b9dff;
+  --color-accent-hi: #66b4ff;
 
   /* Semantic danger — form-error state only. ~7:1 on canvas (clears AA);
      always paired with an icon so the signal never rests on color alone. */
@@ -120,7 +120,7 @@
   z-index: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(to right, rgba(245, 158, 11, 0.045) 1px, transparent 1px),
+    linear-gradient(to right, rgba(59, 157, 255, 0.045) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(229, 229, 229, 0.028) 1px, transparent 1px);
   background-size: 72px 72px;
   animation: grid-drift 38s linear infinite;
@@ -164,14 +164,14 @@
 .instrument-layer[data-active="true"] {
   opacity: 1;
 }
-/* Soft amber light pool — the "illumination" warmth. */
+/* Soft electric-blue light pool — the "illumination" glow. */
 .instrument-glow {
   position: absolute;
   inset: 0;
   background: radial-gradient(
     circle 230px at var(--mx, 50%) var(--my, 50%),
-    rgba(245, 158, 11, 0.07) 0%,
-    rgba(245, 158, 11, 0.022) 42%,
+    rgba(59, 157, 255, 0.07) 0%,
+    rgba(59, 157, 255, 0.022) 42%,
     transparent 72%
   );
 }
@@ -181,7 +181,7 @@
   position: absolute;
   inset: -2px;
   background-image:
-    linear-gradient(to right, rgba(245, 158, 11, 0.18) 1px, transparent 1px),
+    linear-gradient(to right, rgba(59, 157, 255, 0.18) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(229, 229, 229, 0.07) 1px, transparent 1px);
   background-size: 72px 72px;
   animation: grid-drift 38s linear infinite;
@@ -218,7 +218,7 @@
   }
 }
 
-/* Self-drawing amber underline */
+/* Self-drawing accent underline */
 .underline-draw {
   transform: scaleX(0);
   transform-origin: left;

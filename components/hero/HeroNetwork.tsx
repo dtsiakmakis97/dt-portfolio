@@ -10,7 +10,7 @@ const LINK_DISTANCE = 3.2;
 const MAX_EDGES = 520;
 
 const GREY = new THREE.Color("#5a5a5a");
-const AMBER = new THREE.Color("#f59e0b");
+const ACCENT = new THREE.Color("#3b9dff");
 
 function buildNodes(count: number) {
   const positions = new Float32Array(count * 3);
@@ -109,7 +109,7 @@ function NetworkScene({ count, animate, interactive, pointerRef }: SceneProps) {
         if (dist2 < linkSq) {
           const t = 1 - dist2 / linkSq; // closer = brighter
           const active = aActive || activeSet.has(j);
-          const col = active ? AMBER : GREY;
+          const col = active ? ACCENT : GREY;
           const fade = active ? 0.5 + t * 0.5 : 0.18 + t * 0.42;
 
           const o = e * 6;
@@ -168,7 +168,7 @@ function NetworkScene({ count, animate, interactive, pointerRef }: SceneProps) {
           <bufferAttribute attach="attributes-position" args={[amberPositions, 3]} />
         </bufferGeometry>
         <pointsMaterial
-          color="#f59e0b"
+          color="#3b9dff"
           size={0.16}
           sizeAttenuation
           transparent
