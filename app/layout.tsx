@@ -5,7 +5,9 @@ import "./globals.css";
 import { TopBar } from "@/components/chrome/TopBar";
 import { SiteFooter } from "@/components/chrome/SiteFooter";
 import { ScrollProgress } from "@/components/chrome/ScrollProgress";
-import { meta } from "@/lib/content";
+import { InstrumentLayer } from "@/components/chrome/InstrumentLayer";
+import { meta, profile } from "@/lib/content";
+import { siteUrl } from "@/lib/site";
 
 // Display face — self-hosted (Fontshare, free for commercial use).
 const cabinet = localFont({
@@ -30,12 +32,24 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: meta.title,
   description: meta.description,
+  alternates: { canonical: "/" },
+  authors: [{ name: profile.name, url: profile.github }],
+  creator: profile.name,
   openGraph: {
     title: meta.title,
     description: meta.description,
     type: "website",
+    url: "/",
+    siteName: profile.name,
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: meta.title,
+    description: meta.description,
   },
 };
 
@@ -53,6 +67,7 @@ export default function RootLayout({
     >
       <body className="relative min-h-screen">
         <div className="bg-grid" aria-hidden="true" />
+        <InstrumentLayer />
         <ScrollProgress />
         <a href="#main" className="skip-link">
           Skip to content

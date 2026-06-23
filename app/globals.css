@@ -149,6 +149,56 @@
   will-change: transform;
 }
 
+/* Instrument layer — a cursor-following "focus-pool" driven by InstrumentLayer.
+   Sits between the grid (z 0) and content (z 10), so it reads as an underlay
+   the page is built on. Reveals on movement, recedes when the pointer stills.
+   --mx/--my (the lerped pointer position) are set on the layer and inherited. */
+.instrument-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-expo);
+}
+.instrument-layer[data-active="true"] {
+  opacity: 1;
+}
+/* Soft amber light pool — the "illumination" warmth. */
+.instrument-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle 230px at var(--mx, 50%) var(--my, 50%),
+    rgba(245, 158, 11, 0.07) 0%,
+    rgba(245, 158, 11, 0.022) 42%,
+    transparent 72%
+  );
+}
+/* A brighter copy of the grid, revealed only inside the pool. Shares the base
+   grid's size + drift + origin so its lines sit exactly on the base grid. */
+.instrument-pool {
+  position: absolute;
+  inset: -2px;
+  background-image:
+    linear-gradient(to right, rgba(245, 158, 11, 0.18) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(229, 229, 229, 0.07) 1px, transparent 1px);
+  background-size: 72px 72px;
+  animation: grid-drift 38s linear infinite;
+  -webkit-mask-image: radial-gradient(
+    circle 185px at var(--mx, 50%) var(--my, 50%),
+    #000 0%,
+    #000 20%,
+    transparent 66%
+  );
+  mask-image: radial-gradient(
+    circle 185px at var(--mx, 50%) var(--my, 50%),
+    #000 0%,
+    #000 20%,
+    transparent 66%
+  );
+}
+
 /* Hero headline: word-by-word clip reveal */
 .word-mask {
   display: inline-block;
@@ -256,6 +306,9 @@
   }
   .bg-grid {
     animation: none;
+  }
+  .instrument-layer {
+    display: none;
   }
   .word-inner,
   .underline-draw {

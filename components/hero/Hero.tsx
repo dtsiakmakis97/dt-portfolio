@@ -1,6 +1,7 @@
 import { hero } from "@/lib/content";
 import { HeroBackground } from "./HeroBackground";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Magnetic } from "@/components/ui/Magnetic";
 import { ArrowDownRight } from "@/components/ui/icons";
 
 const WORD_STAGGER = 70; // ms between words
@@ -88,22 +89,26 @@ export function Hero() {
           </p>
 
           <div className="mt-12 flex flex-wrap items-center gap-4">
-            <a
-              href="#work"
-              className="group inline-flex items-center gap-2 bg-fg px-6 py-3 text-sm font-medium uppercase tracking-widest text-canvas transition-colors duration-150 hover:bg-accent"
-            >
-              Selected work
-              <ArrowDownRight
-                size={16}
-                className="transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5"
-              />
-            </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 border border-line-strong px-6 py-3 text-sm font-medium uppercase tracking-widest text-fg-secondary transition-colors duration-150 hover:border-accent hover:text-accent"
-            >
-              Get in touch
-            </a>
+            <Magnetic>
+              <a
+                href="#work"
+                className="group inline-flex items-center gap-2 bg-fg px-6 py-3 text-sm font-medium uppercase tracking-widest text-canvas transition-colors duration-150 hover:bg-accent"
+              >
+                Selected work
+                <ArrowDownRight
+                  size={16}
+                  className="transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5"
+                />
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 border border-line-strong px-6 py-3 text-sm font-medium uppercase tracking-widest text-fg-secondary transition-colors duration-150 hover:border-accent hover:text-accent"
+              >
+                Get in touch
+              </a>
+            </Magnetic>
           </div>
         </div>
       </div>
