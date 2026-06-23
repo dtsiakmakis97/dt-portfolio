@@ -5,8 +5,8 @@ export function SiteFooter() {
   return (
     <footer className="relative z-10 border-t border-line bg-panel">
       <div className="mx-auto max-w-[1400px] px-6 py-16 md:px-12 lg:px-24">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
-          <div className="md:col-span-6">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-6">
             <p className="font-display text-title font-bold text-fg">
               Let&apos;s build
               <br />
@@ -21,7 +21,7 @@ export function SiteFooter() {
             </a>
           </div>
 
-          <div className="md:col-span-3 md:col-start-8">
+          <div className="lg:col-span-3 lg:col-start-8">
             <h2 className="font-mono text-xs uppercase tracking-widest text-fg-muted">
               Elsewhere
             </h2>
@@ -57,7 +57,7 @@ export function SiteFooter() {
             </ul>
           </div>
 
-          <div className="md:col-span-2">
+          <div className="lg:col-span-2">
             <h2 className="font-mono text-xs uppercase tracking-widest text-fg-muted">
               Résumé
             </h2>
@@ -73,7 +73,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-3 border-t border-line pt-8 md:flex-row md:items-center md:justify-between">
+        <div className="mt-16 flex flex-col gap-3 border-t border-line pt-8 lg:flex-row lg:items-center lg:justify-between">
           <p className="font-mono text-xs text-fg-muted">
             © 2026 {profile.name}
             <span className="mx-2 text-fg-faint">/</span>
