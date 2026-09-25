@@ -6,6 +6,8 @@
  *   - Career Ops Agent/config/profile.yml
  *   - Career Ops Agent/article-digest.md
  *   - wiki/projects/aegeon-website.md
+ *   - wiki/projects/egodistillers-website.md
+ *   - wiki/projects/kryora-website.md
  *
  * Guardrails (do not violate when editing): no invented metrics, titles, or
  * dates; lead PawGuard with the multi-agent dev system; no compensation; no
@@ -148,6 +150,21 @@ export const projects: readonly Project[] = [
       "Aegeon booking site: gallery-luxury hero over a sea view on the Chalkidiki coast",
   },
   {
+    id: "ego-distillers",
+    name: "Ego Distillers",
+    tagline: "A bilingual site for Gothenburg's first distillery.",
+    role: "Solo: design, build, integrations",
+    period: "2026",
+    status: "Live in production",
+    stack: ["Next.js 16", "React 19", "Tailwind v4", "Resend", "Vercel"],
+    description:
+      "A Swedish/English rebuild of the WordPress site for a Gothenburg distillery, bar and restaurant, live on the client's own domain. Hand-rolled SV/EN i18n with typed dictionaries, table booking embedded on-page through the bokabord.se widget so guests never leave the site, an 18+ age gate, and a collaboration form sending through Resend on a verified domain. A follow-up SEO pass added JSON-LD, per-page canonicals, 308 redirects for legacy WordPress URLs and a CSP.",
+    image: "/work/ego-distillers.webp",
+    imageAlt:
+      "Ego Distillers: Swedish home page hero, an Ego Gin bottle standing in the sea under the headline Göteborgs första sprithus & bar",
+    links: [{ label: "Live", href: "https://egodistillers.com" }],
+  },
+  {
     id: "career-ops",
     name: "Career Ops Agent",
     tagline: "A multi-agent AI job-search system, plus its dashboard.",
@@ -174,21 +191,24 @@ export const projects: readonly Project[] = [
     links: [{ label: "Live", href: "https://oikonomou.vercel.app" }],
   },
   {
-    id: "edu-pipeline",
-    name: "Edu Resource Pipeline",
-    tagline: "An LLM pipeline that authors exam-board PDF bundles.",
-    role: "Architecture, spec & review (built by Codex)",
+    id: "kryora",
+    name: "Kryora",
+    tagline: "A Greek-first B2B landing site for whole-body cryotherapy chambers.",
+    role: "Solo: direction, design, build",
     period: "2026",
-    status: "End-to-end verified",
-    stack: ["Python", "Pydantic v2", "OpenAI gpt-4.1", "Jinja2", "LaTeX + Beamer"],
+    status: "Preview · awaiting client sign-off",
+    stack: ["Next.js 16", "next-intl (EL/EN)", "Tailwind v4", "CSS scroll-driven animation", "Vitest"],
     description:
-      "A staged Python pipeline that turns source PDFs and a topic into nine print-ready PDFs for Edexcel iGCSE Mathematics (extract, generate, originality-check, render) with a Pydantic Topic schema as the single source of truth and authentic Edexcel-styled mark schemes in LaTeX/Beamer. I authored the full spec and TDD plan and ran the code review; implementation executed by Codex.",
+      "A Greek-market rebuild of kryora.de, selling electric whole-body cryotherapy chambers to hotels, spas, sports clubs and yacht owners, with one goal: a qualified quote request. Hospitality restraint over biohacker energy: Commissioner headings for real Greek glyphs, locale-correct Greek all-caps, and motion built on CSS scroll-driven animation rather than GSAP. A three-question model finder, an ROI calculator matching the parent site's formula, and 14 bilingual pages with hreflang and JSON-LD, held at noindex until launch.",
+    image: "/work/kryora.webp",
+    imageAlt:
+      "Kryora: Greek home page hero, whole-body cryotherapy at −110 °C, beside an eCham flow chamber in a dimly lit spa",
   },
 ];
 
 export const about: readonly string[] = [
   "I'm a frontend engineer from Greece, based in Berlin. For three years at KPS AG I shipped production e-commerce frontends for German retail brands (Dehner, NORMA, Jungheinrich and EP:) across SAP Commerce Cloud, Spryker, Magnolia and Storybook, with accessibility and performance as a constant discipline.",
-  "These days I build AI systems on top of that frontend foundation, not instead of it. PawGuard is a multi-agent development system running in production; Lead Finder is an LLM analyzer pipeline; Aegeon and the T.E. Learning Center are full-stack sites I shipped solo. I care about systems that are accessible by default, fast under real budgets, and honest about what they do.",
+  "These days I build AI systems on top of that frontend foundation, not instead of it. PawGuard is a multi-agent development system running in production; Lead Finder is an LLM analyzer pipeline; Aegeon, Ego Distillers and the T.E. Learning Center are live sites I shipped solo. I care about systems that are accessible by default, fast under real budgets, and honest about what they do.",
 ];
 
 export const experience: readonly ExperienceItem[] = [
