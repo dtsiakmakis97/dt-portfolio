@@ -21,6 +21,8 @@ export interface Figure {
   readonly caption?: string;
   /** Required whenever the imagery is not the owner's (Kryora). */
   readonly credit?: string;
+  /** CSS object-position when the image is cropped into a 16:10 frame; centered by default. */
+  readonly objectPosition?: string;
 }
 
 /** Prose section labels, in reading order (Approach is the decisions block). */

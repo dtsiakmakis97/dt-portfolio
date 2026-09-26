@@ -5,7 +5,7 @@ import type { CaseBlock, CaseStudy, ProjectSlug } from "../lib/work/types";
 
 /** Case studies written and signed off. Each Phase 5 task adds its slug first,
  *  which fails until the study exists. */
-const WRITTEN: readonly ProjectSlug[] = ["pawguard"];
+const WRITTEN: readonly ProjectSlug[] = ["pawguard", "lead-finder"];
 
 /** What the sources can support (redesign-case-study-facts.md). */
 const WORD_BUDGET: Record<ProjectSlug, readonly [number, number]> = {

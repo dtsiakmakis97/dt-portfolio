@@ -8,6 +8,7 @@ import { SHARE_ON_NAV, vtMedia } from "@/lib/vt";
 interface Preview {
   readonly slug: string;
   readonly src: string;
+  readonly objectPosition?: string;
 }
 
 const FINE_POINTER_MOTION = "(pointer: fine) and (prefers-reduced-motion: no-preference)";
@@ -89,6 +90,7 @@ export function WorkIndexInteractive({ previews, children }: { previews: readonl
                   decoding="async"
                   fetchPriority="low"
                   data-active={p.slug === shown ? "" : undefined}
+                  style={p.objectPosition ? { objectPosition: p.objectPosition } : undefined}
                   className={`absolute inset-0 size-full object-cover transition-opacity duration-300 ${
                     p.slug === shown ? "opacity-100" : "opacity-0"
                   }`}

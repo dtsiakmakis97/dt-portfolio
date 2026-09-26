@@ -39,6 +39,7 @@ export function CaseMedia({ slug, figure, status }: { slug: string; figure?: Fig
             fetchPriority="high"
             decoding="async"
             className="absolute inset-0 size-full object-cover"
+            style={figure.objectPosition ? { objectPosition: figure.objectPosition } : undefined}
           />
         </div>
       </ViewTransition>

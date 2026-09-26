@@ -133,6 +133,8 @@ export const projects: readonly Project[] = [
       width: 1280,
       height: 705,
       alt: "Lead Finder dashboard: lead-scoring CRM home with quick search, KPI cards and a recent-searches table",
+      // Wider than 16:10: keep the sidebar and its wordmark, trim the right edge.
+      objectPosition: "left",
     },
   },
   {

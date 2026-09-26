@@ -3,7 +3,7 @@ import { WorkRow } from "./WorkRow";
 import { WorkIndexInteractive } from "./WorkIndexInteractive";
 
 export function WorkIndex() {
-  const previews = projects.flatMap((p) => (p.cover ? [{ slug: p.slug, src: p.cover.src }] : []));
+  const previews = projects.flatMap((p) => (p.cover ? [{ slug: p.slug, src: p.cover.src, objectPosition: p.cover.objectPosition }] : []));
   return (
     <section id="work" className="px-gutter py-section">
       <h2 className="font-mono text-label uppercase text-ink-3">
