@@ -57,7 +57,7 @@ export function WorkEntry({
         </h3>
         <p className="mt-2 text-fg-secondary">{project.tagline}</p>
         <p className="mt-4 max-w-md leading-relaxed text-fg-secondary">
-          {project.description}
+          {project.summary}
         </p>
 
         <dl className="mt-5 space-y-1 font-mono text-xs">
@@ -105,10 +105,10 @@ export function WorkEntry({
 
       {/* Media column */}
       <div className="lg:col-span-7">
-        {project.image ? (
+        {project.cover ? (
           <WorkMedia
-            image={project.image}
-            alt={project.imageAlt ?? project.name}
+            image={project.cover.src}
+            alt={project.cover.alt}
             title={project.name}
             {...media(project)}
           />

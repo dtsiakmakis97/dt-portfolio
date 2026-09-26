@@ -5,28 +5,20 @@
  *   - Career Ops Agent/cv.md
  *   - Career Ops Agent/config/profile.yml
  *   - Career Ops Agent/article-digest.md
- *   - wiki/projects/aegeon-website.md
- *   - wiki/projects/egodistillers-website.md
- *   - wiki/projects/kryora-website.md
+ *   - wiki/projects/{pawguard,lead-finder,aegeon-website,egodistillers-website,
+ *     career-ops-agent,te-learning-center,kryora-website}.md (+ session notes)
+ *   - docs/redesign/SPEC.md "Content model and accuracy" (corrections)
  *
  * Guardrails (do not violate when editing): no invented metrics, titles, or
  * dates; lead PawGuard with the multi-agent dev system; no compensation; no
  * education claims (degree not completed); no bootcamp claims.
  */
 
+import type { Figure, ProjectSlug } from "@/lib/work/types";
+
 export interface NavLink {
   readonly label: string;
   readonly href: string;
-}
-
-export type CtaKind = "email" | "github" | "linkedin" | "resume";
-
-export interface Cta {
-  readonly kind: CtaKind;
-  readonly label: string;
-  readonly href: string;
-  /** Short label for compact (icon-adjacent) placements. */
-  readonly short: string;
 }
 
 export interface ProjectLink {
@@ -35,20 +27,21 @@ export interface ProjectLink {
 }
 
 export interface Project {
-  readonly id: string;
+  readonly slug: ProjectSlug;
   readonly name: string;
-  /** One-line headline framing. */
+  /** One-line framing: home index row and case-study subtitle. */
   readonly tagline: string;
+  /** One sentence, at most 160 characters: meta description and OG text. */
+  readonly summary: string;
   readonly role: string;
   readonly period: string;
   readonly status: string;
   readonly stack: readonly string[];
-  readonly description: string;
   readonly links?: readonly ProjectLink[];
-  /** Screenshot path under /public for the editorial media column; when absent
-   *  the entry renders a typographic spec-panel instead of a fake image. */
-  readonly image?: string;
-  readonly imageAlt?: string;
+  /** Screenshot for the index preview and the case-study hero. */
+  readonly cover?: Figure;
+  /** Keep the case study out of search and the sitemap (unapproved client work). */
+  readonly noindex?: boolean;
 }
 
 export interface ExperienceItem {
@@ -88,18 +81,12 @@ export const nav: readonly NavLink[] = [
   { label: "Contact", href: "#contact" },
 ];
 
-export const ctas: readonly Cta[] = [
-  { kind: "email", label: "Email", short: "Email", href: `mailto:${profile.email}` },
-  { kind: "resume", label: "Résumé", short: "CV", href: profile.resume },
-  { kind: "github", label: "GitHub", short: "GitHub", href: profile.github },
-  { kind: "linkedin", label: "LinkedIn", short: "LinkedIn", href: profile.linkedin },
-];
-
 export const hero = {
-  eyebrow: "FULL-STACK ENGINEER · AI SYSTEMS",
   available: "Open to new roles · EU / remote-friendly",
   headline: "I build web products end to end, and the AI systems inside them.",
-  /** Contiguous run within `headline` rendered in amber + drawn underline. */
+  /** The opening run of `headline`, set at weight 300; the rest is set at 800. */
+  whisper: "I build web products end to end,",
+  /** Contiguous run inside the bold part, rendered in blue. */
   accent: "AI systems",
   subhead:
     "Three years shipping production frontends for German enterprise retail at KPS AG. Now building multi-agent AI systems and LLM products solo.",
@@ -107,109 +94,132 @@ export const hero = {
 
 export const projects: readonly Project[] = [
   {
-    id: "pawguard",
+    slug: "pawguard",
     name: "PawGuard",
-    tagline: "A multi-agent development system in production.",
+    tagline: "A civic-tech app built with a multi-agent development system.",
+    summary:
+      "An anonymous animal-cruelty reporting app for Greece, built with four custom Claude Code subagents and privacy and RLS audits that gate every merge.",
     role: "Solo: architecture, agents, full build",
     period: "2026",
     status: "In development · pilot pending",
     stack: ["React Native (Expo)", "Supabase", "Claude Code subagents", "TypeScript", "Vitest"],
-    description:
-      "A civic-tech mobile app routing structured animal-cruelty reports to the Athens Prosecutor's Office, engineered with four custom Claude Code subagents, each governed by a written constitution with explicit refusal cases (constitution-as-code), and automated privacy + RLS audit gates required before any merge. Zero-retention architecture: evidence is transmitted, never stored. Two independent audits approved with zero critical findings.",
-    image: "/work/pawguard.webp",
-    imageAlt:
-      "PawGuard one-pager: mission and how-it-works overview for the Greece animal-welfare reporting app",
+    cover: {
+      src: "/work/pawguard.webp",
+      width: 1280,
+      height: 800,
+      alt: "PawGuard one-pager: mission and how-it-works overview for the Greece animal-welfare reporting app",
+    },
     links: [{ label: "Overview", href: "https://pawguard-one-page.vercel.app/" }],
   },
   {
-    id: "lead-finder",
+    slug: "lead-finder",
     name: "Lead Finder",
     tagline: "An LLM analyzer pipeline for lead generation.",
+    summary:
+      "A lead-gen CRM that scores local-business websites from 0 to 100 using technical, visual and content checks, two of them read by Gemini 2.5 Flash.",
     role: "Solo: full-stack + LLM integration",
     period: "2026",
     status: "Shipped on Vercel",
     stack: ["Next.js 16", "React 19", "Supabase", "Gemini 2.5 Flash", "TypeScript"],
-    description:
-      "A lead-gen CRM that scores local-business websites 0–100 via a synchronous fan-out of four parallel LLM analyzers (placeholder, technical, visual, content) merged into one score with a one-line rationale. Vision and structured-JSON analysis run on Google Gemini 2.5 Flash; magic-link auth; shipped on Vercel with a full v2 frontend redesign and 156 tests green.",
-    image: "/work/lead-finder.webp",
-    imageAlt:
-      "Lead Finder dashboard: lead-scoring CRM home with quick search, KPI cards and a recent-searches table",
+    cover: {
+      src: "/work/lead-finder.webp",
+      width: 1280,
+      height: 705,
+      alt: "Lead Finder dashboard: lead-scoring CRM home with quick search, KPI cards and a recent-searches table",
+    },
   },
   {
-    id: "aegeon",
+    slug: "aegeon",
     name: "Aegeon",
-    tagline: "A full-stack direct-booking platform for a Greek rental.",
-    role: "Solo: full-stack, payments, OTA sync",
+    tagline: "A trilingual booking site for a Greek seaside rental.",
+    summary:
+      "A DE/EN/EL booking-request site for a family-run, five-unit rental in Chalkidiki, with Supabase as the single source of truth and an owner-only admin.",
+    role: "Solo: full-stack build, booking flow, iCal sync",
     period: "2026",
-    status: "Live in production",
-    stack: ["Next.js 16", "Supabase", "Stripe", "next-intl (DE/EN/EL)", "Vercel Cron"],
-    description:
-      "A trilingual (DE/EN/EL) direct-booking site for a family-run, five-unit seaside rental. Stripe deposit checkout, a DIY two-way iCal sync to Airbnb and Booking.com over Vercel Cron, and Supabase as the single source of truth for inventory, bookings and content. Direct bookings save the 15–18% commission an OTA takes per stay.",
-    image: "/work/aegeon.webp",
-    imageAlt:
-      "Aegeon booking site: gallery-luxury hero over a sea view on the Chalkidiki coast",
+    status: "Live",
+    stack: ["Next.js 16", "Supabase", "next-intl (DE/EN/EL)", "Vercel Cron", "Tailwind v4"],
+    cover: {
+      src: "/work/aegeon.webp",
+      width: 1280,
+      height: 800,
+      alt: "Aegeon booking site: gallery-luxury hero over a sea view on the Chalkidiki coast",
+    },
   },
   {
-    id: "ego-distillers",
+    slug: "ego-distillers",
     name: "Ego Distillers",
     tagline: "A bilingual site for Gothenburg's first distillery.",
+    summary:
+      "A Swedish/English site for a Gothenburg distillery, bar and restaurant: typed i18n, on-page table booking and a Resend form on a verified domain.",
     role: "Solo: design, build, integrations",
     period: "2026",
     status: "Live in production",
     stack: ["Next.js 16", "React 19", "Tailwind v4", "Resend", "Vercel"],
-    description:
-      "A Swedish/English rebuild of the WordPress site for a Gothenburg distillery, bar and restaurant, live on the client's own domain. Hand-rolled SV/EN i18n with typed dictionaries, table booking embedded on-page through the bokabord.se widget so guests never leave the site, an 18+ age gate, and a collaboration form sending through Resend on a verified domain. A follow-up SEO pass added JSON-LD, per-page canonicals, 308 redirects for legacy WordPress URLs and a CSP.",
-    image: "/work/ego-distillers.webp",
-    imageAlt:
-      "Ego Distillers: Swedish home page hero, an Ego Gin bottle standing in the sea under the headline Göteborgs första sprithus & bar",
+    cover: {
+      src: "/work/ego-distillers.webp",
+      width: 1280,
+      height: 960,
+      alt: "Ego Distillers: Swedish home page hero, an Ego Gin bottle standing in the sea under the headline Göteborgs första sprithus & bar",
+    },
     links: [{ label: "Live", href: "https://egodistillers.com" }],
   },
   {
-    id: "career-ops",
+    slug: "career-ops",
     name: "Career Ops Agent",
-    tagline: "A multi-agent AI job-search system, plus its dashboard.",
+    tagline: "A forked AI job-search system, and the dashboard I built for it.",
+    summary:
+      "A customized fork of santifer/career-ops for an AI-pivot job search, plus a Next.js dashboard I built from scratch over its markdown files, with no database.",
     role: "Solo: fork customization + dashboard build",
     period: "2026",
-    status: "Active",
+    status: "Personal tool, runs locally",
     stack: ["Node.js", "Claude Code agents", "Next.js 16", "Tailwind v4", "Playwright"],
-    description:
-      "A Claude Code–native job-search system (forked from santifer/career-ops) that I customized for an AI-pivot search: a five-archetype role taxonomy with STAR-story selection and tailored ATS CV-PDF generation. I built its Next.js web dashboard from scratch: RSC routes for pipeline, inbox, follow-ups and progress charts, with a markdown-table writeback Server Action over the file substrate, no parallel database.",
   },
   {
-    id: "te-learning-center",
+    slug: "te-learning-center",
     name: "T.E. Learning Center",
     tagline: "A Greek-first marketing site for a language school.",
+    summary:
+      "A Greek-first site for a private English school in Chalkidiki: a custom CSS design system, Greek-subset typography and all copy in one module.",
     role: "Solo: design, build, content architecture",
     period: "2026",
     status: "Live",
     stack: ["Next.js 14", "React 18", "CSS custom properties", "Vercel"],
-    description:
-      "A Greek-first marketing site for a private English-language school (levels A1–C2) in Chalkidiki. A custom design system in CSS custom properties (no Tailwind), Greek-subset typography rendered at real text lengths, all copy centralised in one content module for non-technical edits, and WCAG AA throughout: trust through restraint rather than a sales funnel.",
-    image: "/work/te-learning-center.webp",
-    imageAlt:
-      "T.E. Learning Center: Greek-first marketing site hero for a private English-language school",
+    cover: {
+      src: "/work/te-learning-center.webp",
+      width: 1280,
+      height: 800,
+      alt: "T.E. Learning Center: Greek-first marketing site hero for a private English-language school",
+    },
     links: [{ label: "Live", href: "https://oikonomou.vercel.app" }],
   },
   {
-    id: "kryora",
+    slug: "kryora",
     name: "Kryora",
     tagline: "A Greek-first B2B landing site for whole-body cryotherapy chambers.",
+    summary:
+      "A Greek-market landing site for whole-body cryotherapy chambers: Greek-first type, CSS-only motion, a three-question model finder and bilingual SEO.",
     role: "Solo: direction, design, build",
     period: "2026",
     status: "Preview · awaiting client sign-off",
     stack: ["Next.js 16", "next-intl (EL/EN)", "Tailwind v4", "CSS scroll-driven animation", "Vitest"],
-    description:
-      "A Greek-market rebuild of kryora.de, selling electric whole-body cryotherapy chambers to hotels, spas, sports clubs and yacht owners, with one goal: a qualified quote request. Hospitality restraint over biohacker energy: Commissioner headings for real Greek glyphs, locale-correct Greek all-caps, and motion built on CSS scroll-driven animation rather than GSAP. A three-question model finder, an ROI calculator matching the parent site's formula, and 14 bilingual pages with hreflang and JSON-LD, held at noindex until launch.",
-    image: "/work/kryora.webp",
-    imageAlt:
-      "Kryora: Greek home page hero, whole-body cryotherapy at −110 °C, beside an eCham flow chamber in a dimly lit spa",
+    cover: {
+      src: "/work/kryora.webp",
+      width: 1280,
+      height: 960,
+      alt: "Kryora: Greek home page hero, whole-body cryotherapy at −110 °C, beside an eCham flow chamber in a dimly lit spa",
+      credit: "Imagery: kryora.de (AI renders)",
+    },
+    noindex: true,
   },
 ];
 
 export const about: readonly string[] = [
   "I'm a frontend engineer from Greece, based in Berlin. For three years at KPS AG I shipped production e-commerce frontends for German retail brands (Dehner, NORMA, Jungheinrich and EP:) across SAP Commerce Cloud, Spryker, Magnolia and Storybook, with accessibility and performance as a constant discipline.",
-  "These days I build AI systems on top of that frontend foundation, not instead of it. PawGuard is a multi-agent development system running in production; Lead Finder is an LLM analyzer pipeline; Aegeon, Ego Distillers and the T.E. Learning Center are live sites I shipped solo. I care about systems that are accessible by default, fast under real budgets, and honest about what they do.",
+  "These days I build AI systems on top of that frontend foundation, not instead of it. PawGuard is a civic-tech app I'm building with four custom Claude Code subagents and merge-blocking audit gates; Lead Finder is an LLM analyzer pipeline; Aegeon, Ego Distillers and the T.E. Learning Center are live sites I shipped solo. I care about systems that are accessible by default, fast under real budgets, and honest about what they do.",
 ];
+
+/** The About statement, rendered monumental; plain words, loud form. */
+export const manifesto = "I own both halves of the product: the frontend, and the AI behind it.";
 
 export const experience: readonly ExperienceItem[] = [
   {
@@ -228,13 +238,12 @@ export const experience: readonly ExperienceItem[] = [
   },
 ];
 
-// Honest credibility facts for the ledger strip — derived from verified content, no invented metrics.
+// Credibility strip under the hero. Derived from verified content; no invented metrics.
 export const facts: readonly string[] = [
-  "Berlin-based",
+  "Based in Berlin",
   "3 yrs enterprise frontend · KPS AG",
-  "Multi-agent AI, shipped solo",
-  "WCAG 2.2 AA audits",
-  "EU citizen · remote-friendly",
+  "LLM products & agent workflows, built solo",
+  "WCAG audits · ARIA remediation",
 ];
 
 export const skills: readonly SkillGroup[] = [

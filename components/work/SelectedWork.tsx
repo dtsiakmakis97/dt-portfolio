@@ -24,7 +24,7 @@ export function SelectedWork() {
 
         <div>
           {projects.map((project, i) => (
-            <Reveal key={project.id}>
+            <Reveal key={project.slug}>
               <WorkEntry project={project} index={i + 1} />
             </Reveal>
           ))}
