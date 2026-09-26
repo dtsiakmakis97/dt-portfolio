@@ -220,7 +220,7 @@ A verified fact set in statement type on a full-bleed band. Tones alternate blue
 The next project's name fitted to the width like its index title, its tagline beneath, and the "All work" pill. It changes pages under the curtain, with no title morph.
 
 ### Page transitions
-A blue curtain between pages: the old page lifts off a blue ground and the new one rises in over it. Going from the index to a case study, the title and image morph into place above the curtain. The browser's Back and Forward swap instantly.
+A blue curtain between pages: the old page lifts off a blue ground and the new one rises in over it. Going from the index to a case study, the title and image morph into place above the curtain. The browser's Back and Forward swap instantly. The curtain runs on the viewport-sized root snapshot, never on a whole page: a page-length capture stalls the first frame.
 
 ### Named Rules
 **The Pill-or-Zero Rule.** Full pills (the round call to action, the badge, the pills) or zero radius. Nothing in between.

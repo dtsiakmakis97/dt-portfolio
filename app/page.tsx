@@ -5,14 +5,14 @@ import { WorkIndex } from "@/components/work/WorkIndex";
 import { Experience } from "@/components/experience/Experience";
 import { Skills } from "@/components/skills/Skills";
 import { Contact } from "@/components/contact/Contact";
-import { CURTAIN_ENTER, CURTAIN_EXIT } from "@/lib/vt";
 
 export default function Home() {
   return (
-    // The page's own transition boundary: the curtain (lib/vt.ts CURTAIN_*).
-    <ViewTransition enter={CURTAIN_ENTER} exit={CURTAIN_EXIT} default="none">
-      {/* Opaque, so the incoming snapshot reveals a dark page over the curtain's blue. */}
-      <div className="bg-canvas">
+    // Mounting this boundary makes React run a view transition when the page
+    // changes; it captures nothing itself. The curtain runs on the root
+    // snapshot, which is viewport-sized (app/styles/view-transitions.css).
+    <ViewTransition default="none">
+      <div>
         <Hero />
         <About />
         <WorkIndex />

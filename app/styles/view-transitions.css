@@ -2,8 +2,9 @@
    Typed navigations (nav-forward, nav-back) run the blue curtain; untyped ones
    (Back/Forward, form actions) swap instantly. Every name comes from lib/vt.ts. */
 
-/* Untyped: no root animation. The UA default cross-fades with plus-lighter
-   blending, which flashes on a dark canvas. */
+/* Untyped (Back/Forward, form actions): no root animation, an instant swap.
+   The UA default cross-fades with plus-lighter blending, which flashes on a
+   dark canvas. The typed curtain below overrides this. */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
@@ -17,9 +18,8 @@
   animation: none;
 }
 
-/* Groups stack in the old page's paint order, and a name only the new page has
-   (the incoming page's own boundary) is appended on top. The pages are opaque,
-   so lift the shared elements and the header above both curtains. */
+/* Keep the shared elements and the header above the curtain, whatever else
+   gets a name later: groups otherwise stack in the old page's paint order. */
 ::view-transition-group(.morph) {
   z-index: 1;
 }
@@ -32,39 +32,42 @@
   animation-duration: 1.1s;
   animation-timing-function: var(--ease-glide);
 }
-::view-transition-old(.morph),
-::view-transition-new(.morph) {
-  mix-blend-mode: normal;
+/* The clicked title is captured in ink, not its hover blue (the curtain's own
+   color), so the browser's default plus-lighter cross-fade keeps the identical
+   glyphs solid all the way across the blue. */
+:root:active-view-transition #work .fit-text {
+  color: var(--color-ink);
+  transition: none;
 }
 
-/* The curtain rides each page's own ViewTransition (see CURTAIN_* in lib/vt.ts):
-   React cancels the root snapshot when no ViewTransition changed layout. The
-   exiting page's group carries the blue ground the old page lifts away from;
-   the new page rises in over it. */
-::view-transition-group(.curtain-lift),
-::view-transition-group(.curtain-drop) {
+/* The curtain runs on the root snapshot, which is always viewport-sized
+   (app/layout.tsx names <html> so React keeps it). Snapshotting whole pages
+   instead (9,000px of home page) froze the first frame. Typed navigations
+   only: the old page lifts off the blue ground, the new one reveals over it;
+   "All work" and section links mirror it. */
+:root:active-view-transition-type(nav-forward)::view-transition-group(root),
+:root:active-view-transition-type(nav-back)::view-transition-group(root) {
   background: var(--color-blue);
-  animation: none;
 }
-::view-transition-group(.curtain-reveal),
-::view-transition-group(.curtain-rise) {
-  animation: none;
-}
-::view-transition-old(.curtain-lift) {
+:root:active-view-transition-type(nav-forward)::view-transition-old(root) {
   animation: vt-curtain-lift 0.8s var(--ease-glide) both;
 }
-::view-transition-new(.curtain-reveal) {
+:root:active-view-transition-type(nav-forward)::view-transition-new(root) {
   animation: vt-curtain-reveal 0.8s var(--ease-glide) 0.3s both;
 }
-/* Back (typed links such as "All work"): the mirror image. */
-::view-transition-old(.curtain-drop) {
+:root:active-view-transition-type(nav-back)::view-transition-old(root) {
   animation: vt-curtain-drop 0.8s var(--ease-glide) both;
 }
-::view-transition-new(.curtain-rise) {
+:root:active-view-transition-type(nav-back)::view-transition-new(root) {
   animation: vt-curtain-rise 0.8s var(--ease-glide) 0.3s both;
 }
 
+/* Both ends explicit: clip-path can't interpolate from none, so a one-sided
+   keyframe flips at the halfway point (a cut, not a lift). */
 @keyframes vt-curtain-lift {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
   to {
     clip-path: inset(0 0 100% 0);
   }
@@ -73,8 +76,14 @@
   from {
     clip-path: inset(100% 0 0 0);
   }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
 }
 @keyframes vt-curtain-drop {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
   to {
     clip-path: inset(100% 0 0 0);
   }
@@ -82,6 +91,9 @@
 @keyframes vt-curtain-rise {
   from {
     clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
   }
 }
 

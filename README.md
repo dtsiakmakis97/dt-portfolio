@@ -19,8 +19,9 @@ or UI change.
   critical path
 - **lenis** for smooth scrolling, handed to the gsap ticker once motion loads
 - **React `<ViewTransition>`** with `next/link` transition types for the page
-  transitions: a blue curtain, and the title and media morphing between the work
-  index and a case study (names in `lib/vt.ts`)
+  transitions: a blue curtain on the viewport-sized root snapshot, and the title
+  and media morphing between the work index and a case study (names in
+  `lib/vt.ts`)
 - **Resend** + **Zod** for the contact form (a Server Action, no API routes)
 - Self-hosted **Cabinet Grotesk** variable (display and body) + **IBM Plex Mono**
   (labels only)

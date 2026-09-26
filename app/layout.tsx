@@ -63,6 +63,11 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${cabinet.variable} ${plexMono.variable} antialiased`}
+      // The page curtain runs on the root snapshot. React hides that snapshot
+      // when no DOM change falls outside a <ViewTransition>, but only while
+      // <html> has no inline view-transition-name (react-dom-client,
+      // commitAfterMutationEffectsOnFiber, HostRoot). Naming it keeps the root.
+      style={{ viewTransitionName: "root" }}
       suppressHydrationWarning
     >
       <head>

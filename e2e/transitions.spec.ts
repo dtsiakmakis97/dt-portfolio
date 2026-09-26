@@ -81,6 +81,44 @@ async function sampleColor(page: Page, clip: { x: number; y: number; width: numb
   return rgb;
 }
 
+/** The brightest pixel of a screenshot region, decoded like sampleColor. */
+async function brightestPixel(page: Page, clip: { x: number; y: number; width: number; height: number }): Promise<number[]> {
+  const png = (await page.screenshot({ clip })).toString("base64");
+  const decoder = await page.context().newPage();
+  const rgb = await decoder.evaluate(async (b64) => {
+    const img = new Image();
+    img.src = `data:image/png;base64,${b64}`;
+    await img.decode();
+    const canvas = new OffscreenCanvas(img.width, img.height);
+    const ctx = canvas.getContext("2d")!;
+    ctx.drawImage(img, 0, 0);
+    const { data } = ctx.getImageData(0, 0, img.width, img.height);
+    let best = [0, 0, 0];
+    for (let i = 0; i < data.length; i += 4) {
+      if (data[i] + data[i + 1] + data[i + 2] > best[0] + best[1] + best[2]) best = [data[i], data[i + 1], data[i + 2]];
+    }
+    return best;
+  }, png);
+  await decoder.close();
+  return rgb;
+}
+
+/** Pins every running ::view-transition animation at `ms`, once `once` is running. */
+async function freezeTransitionsAt(page: Page, ms: number, once: string): Promise<void> {
+  await page.waitForFunction(
+    ({ ms, once }) => {
+      const all = document.getAnimations().filter((a) => ((a.effect as KeyframeEffect | null)?.pseudoElement ?? "").startsWith("::view-transition"));
+      if (!all.some((a) => (a as CSSAnimation).animationName === once)) return false;
+      for (const a of all) {
+        a.pause();
+        a.currentTime = ms;
+      }
+      return true;
+    },
+    { ms, once },
+  );
+}
+
 function trackDuplicateNames(page: Page): string[] {
   const duplicates: string[] = [];
   page.on("console", (message) => {
@@ -98,11 +136,28 @@ test.describe("page transitions", () => {
     const row = page.locator('#work a[data-slug="pawguard"]');
     await row.scrollIntoViewIfNeeded();
     await row.hover();
+    // The tallest snapshot at the first animated frame: a page-sized one (the whole home page,
+    // about 9,000px) stalls that frame for hundreds of milliseconds.
+    await page.evaluate(() => {
+      const tick = () => {
+        const pseudos = document
+          .getAnimations()
+          .map((a) => (a.effect as KeyframeEffect | null)?.pseudoElement ?? "")
+          .filter((p) => /^::view-transition-(old|new)\(/.test(p));
+        if (!pseudos.length) return void requestAnimationFrame(tick);
+        const heights = pseudos.map((p) => parseFloat(getComputedStyle(document.documentElement, p.replace(/^::view-transition-(old|new)/, "::view-transition-group")).height));
+        (window as unknown as { __tallest: number }).__tallest = Math.max(...heights);
+      };
+      requestAnimationFrame(tick);
+    });
     const seen = await recordTransition(page, () => row.click());
     await expect(page).toHaveURL("/work/pawguard", NAV);
-    // The curtain rides the pages' own boundaries: the old page lifts, the new one reveals.
-    expect(seen.some((s) => s.pseudo.startsWith("::view-transition-old(") && s.name === "vt-curtain-lift")).toBe(true);
-    expect(seen.some((s) => s.pseudo.startsWith("::view-transition-new(") && s.name === "vt-curtain-reveal")).toBe(true);
+    // The curtain rides the viewport-sized root snapshot: the old page lifts, the new one reveals.
+    expect(seen.some((s) => s.pseudo === "::view-transition-old(root)" && s.name === "vt-curtain-lift")).toBe(true);
+    expect(seen.some((s) => s.pseudo === "::view-transition-new(root)" && s.name === "vt-curtain-reveal")).toBe(true);
+    const tallest = await page.evaluate(() => (window as unknown as { __tallest?: number }).__tallest ?? -1);
+    expect(tallest, "tallest view-transition snapshot").toBeGreaterThan(0);
+    expect(tallest, "tallest view-transition snapshot").toBeLessThanOrEqual(900);
     expect(seen.some((s) => s.pseudo === "::view-transition-group(project-title-pawguard)")).toBe(true);
     expect(seen.some((s) => s.pseudo === "::view-transition-group(project-media-pawguard)")).toBe(true);
     expect(duplicates).toEqual([]);
@@ -114,17 +169,21 @@ test.describe("page transitions", () => {
     await waitForMotion(page);
     const row = page.locator('#work a[data-slug="pawguard"]');
     await row.scrollIntoViewIfNeeded();
+    await row.hover(); // the title turns blue on hover, the curtain's own color
     await row.click();
-    // Freeze every transition animation near the end of the reveal (0.3s delay + 0.8s).
-    await page.waitForFunction(() => {
-      const all = document.getAnimations().filter((a) => ((a.effect as KeyframeEffect | null)?.pseudoElement ?? "").startsWith("::view-transition"));
-      if (!all.some((a) => (a as CSSAnimation).animationName === "vt-curtain-reveal")) return false;
-      for (const a of all) {
-        a.pause();
-        a.currentTime = 1050;
-      }
-      return true;
+    // In flight over the blue (120ms), the title is ink: its brightest pixels aren't tinted blue.
+    await freezeTransitionsAt(page, 120, "vt-curtain-reveal");
+    const flight = await page.evaluate(() => {
+      const cs = getComputedStyle(document.documentElement, "::view-transition-group(project-title-pawguard)");
+      const m = new DOMMatrix(cs.transform);
+      const x = Math.max(0, m.e);
+      const y = Math.max(0, m.f);
+      return { x, y, width: Math.min(parseFloat(cs.width), 1440 - x), height: Math.min(parseFloat(cs.height), 900 - y) };
     });
+    const [tr, , tb] = await brightestPixel(page, flight);
+    expect(tb - tr, `title in flight: red ${tr}, blue ${tb}`).toBeLessThan(30);
+    // Near the end of the reveal (0.3s delay + 0.8s).
+    await freezeTransitionsAt(page, 1050, "vt-curtain-reveal");
     // The right-hand gutter of the case page: nothing but its background.
     const [r, g, b] = await sampleColor(page, { x: 1400, y: 560, width: 20, height: 20 });
     expect(b, `rgb(${r}, ${g}, ${b})`).toBeLessThan(40);
@@ -150,15 +209,11 @@ test.describe("page transitions", () => {
     await page.goto("/work/pawguard");
     await waitForMotion(page);
     await page.getByRole("link", { name: "Next Lead Finder" }).click();
-    await page.waitForFunction(() => {
-      const all = document.getAnimations().filter((a) => ((a.effect as KeyframeEffect | null)?.pseudoElement ?? "").startsWith("::view-transition"));
-      if (!all.some((a) => (a as CSSAnimation).animationName === "vt-curtain-lift")) return false;
-      for (const a of all) {
-        a.pause();
-        a.currentTime = 250;
-      }
-      return true;
-    });
+    // A lift, not a cut: at 120ms the top of the old page still shows below the header.
+    await freezeTransitionsAt(page, 120, "vt-curtain-lift");
+    const top = await sampleColor(page, { x: 700, y: 110, width: 40, height: 20 });
+    expect(top, "old page still showing at 120ms").not.toEqual([59, 157, 255]);
+    await freezeTransitionsAt(page, 250, "vt-curtain-lift");
     const [r, g, b] = await sampleColor(page, { x: 700, y: 600, width: 40, height: 40 });
     expect([r, g, b], "curtain blue").toEqual([59, 157, 255]);
   });

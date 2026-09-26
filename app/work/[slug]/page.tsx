@@ -4,7 +4,6 @@ import { ViewTransition } from "react";
 import { profile, projects } from "@/lib/content";
 import { baseOpenGraph } from "@/lib/metadata";
 import { findProject, getCaseStudy, getNextProject } from "@/lib/work";
-import { CURTAIN_ENTER, CURTAIN_EXIT } from "@/lib/vt";
 import { CaseHero } from "@/components/case-study/CaseHero";
 import { MetaStrip } from "@/components/case-study/MetaStrip";
 import { CaseSections } from "@/components/case-study/CaseSections";
@@ -42,10 +41,11 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
   if (!project) notFound();
   const study = getCaseStudy(project.slug);
   return (
-    // The page's own transition boundary: the curtain (lib/vt.ts CURTAIN_*).
-    <ViewTransition enter={CURTAIN_ENTER} exit={CURTAIN_EXIT} default="none">
-      {/* Opaque, so the incoming snapshot reveals a dark page over the curtain's blue. */}
-      <article className="bg-canvas">
+    // Mounting this boundary makes React run a view transition when the page
+    // changes; it captures nothing itself. The curtain runs on the root
+    // snapshot, which is viewport-sized (app/styles/view-transitions.css).
+    <ViewTransition default="none">
+      <article>
         <CaseHero project={project} lead={study.lead} hero={study.hero ?? project.cover} />
         <div className="mt-16 px-gutter">
           <MetaStrip project={project} />

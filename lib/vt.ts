@@ -12,11 +12,3 @@ export const vtMedia = (slug: string) => `project-media-${slug}`;
  *  swap instantly, like the root: a morph toward a row the browser has not
  *  scrolled back to yet would fly in from nowhere. */
 export const SHARE_ON_NAV = { [NAV_FORWARD]: "morph", [NAV_BACK]: "morph", default: "none" } as const;
-
-/** Page-level curtain. React cancels the root snapshot when no ViewTransition
- *  changed layout, so each page wraps its content in one ViewTransition: the
- *  old page exits (lifts or drops over the blue ground its group carries) and
- *  the new page enters (reveals or rises). Untyped navigations fall to
- *  `default` and swap instantly. */
-export const CURTAIN_EXIT = { [NAV_FORWARD]: "curtain-lift", [NAV_BACK]: "curtain-drop", default: "none" } as const;
-export const CURTAIN_ENTER = { [NAV_FORWARD]: "curtain-reveal", [NAV_BACK]: "curtain-rise", default: "none" } as const;

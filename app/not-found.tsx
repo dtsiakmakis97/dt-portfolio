@@ -4,7 +4,7 @@ import { ViewTransition } from "react";
 import { projects } from "@/lib/content";
 import { pill } from "@/components/ui/pill";
 import { TransitionLink } from "@/components/motion/TransitionLink";
-import { CURTAIN_ENTER, CURTAIN_EXIT, NAV_FORWARD } from "@/lib/vt";
+import { NAV_FORWARD } from "@/lib/vt";
 import { siteOpenGraph } from "@/lib/metadata";
 
 // Collected by Next's metadata resolver for not-found (undocumented for the
@@ -18,10 +18,10 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    // Its own curtain boundary, like every page, so leaving for a case study lifts it.
-    <ViewTransition enter={CURTAIN_ENTER} exit={CURTAIN_EXIT} default="none">
-      {/* Opaque, so the incoming snapshot reveals a dark page over the curtain's blue. */}
-      <section className="bg-canvas px-gutter pb-section pt-32">
+    // Like every page: mounting this boundary makes React run a view transition
+    // (a 404 link to a case study gets the curtain); it captures nothing itself.
+    <ViewTransition default="none">
+      <section className="px-gutter pb-section pt-32">
         <h1 className="font-display text-mega font-extrabold text-ink">
           <span aria-hidden="true">404</span>
           <span className="sr-only">Page not found</span>
