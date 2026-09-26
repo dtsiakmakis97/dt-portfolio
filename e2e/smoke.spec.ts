@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 // Critical-path smoke tests. Desktop Chrome viewport, so the md: nav is visible.
-const NAV_HREFS = ["#about", "#work", "#experience", "#stack", "#contact"];
+const NAV_HREFS = ["/#about", "/#work", "/#experience", "/#stack", "/#contact"];
 
 test.describe("portfolio smoke", () => {
   test("hero headline renders", async ({ page }) => {

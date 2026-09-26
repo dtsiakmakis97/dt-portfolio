@@ -1,88 +1,56 @@
+import type { CSSProperties } from "react";
 import { profile } from "@/lib/content";
-import { Github, Linkedin, Mail, ArrowUpRight } from "@/components/ui/icons";
+import { Label } from "@/components/ui/Label";
+import { pill } from "@/components/ui/pill";
+import { ArrowUpRight } from "@/components/ui/icons";
+
+const linkClass = "text-body text-ink transition-colors duration-300 hover:text-blue";
 
 export function SiteFooter() {
   return (
-    <footer className="relative z-10 border-t border-line bg-panel">
-      <div className="mx-auto max-w-[1400px] px-6 py-16 md:px-12 lg:px-24">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-6">
-            <p className="font-display text-title font-bold text-fg">
-              Let&apos;s build
-              <br />
-              something real<span className="text-accent">.</span>
-            </p>
-            <a
-              href={`mailto:${profile.email}`}
-              className="mt-6 inline-flex items-center gap-2 border-b border-line-strong font-mono text-sm text-fg-secondary transition-colors duration-150 hover:border-accent hover:text-accent"
-            >
-              {profile.email}
-              <ArrowUpRight size={14} />
-            </a>
-          </div>
-
-          <div className="lg:col-span-3 lg:col-start-8">
-            <h2 className="font-mono text-xs uppercase tracking-widest text-fg-muted">
-              Elsewhere
-            </h2>
-            <ul className="mt-5 space-y-3">
-              <li>
-                <a
-                  href={profile.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-fg-secondary transition-colors duration-150 hover:text-accent"
-                >
-                  <Github size={16} /> GitHub
-                </a>
-              </li>
-              <li>
-                <a
-                  href={profile.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-fg-secondary transition-colors duration-150 hover:text-accent"
-                >
-                  <Linkedin size={16} /> LinkedIn
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`mailto:${profile.email}`}
-                  className="inline-flex items-center gap-2 text-sm text-fg-secondary transition-colors duration-150 hover:text-accent"
-                >
-                  <Mail size={16} /> Email
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="lg:col-span-2">
-            <h2 className="font-mono text-xs uppercase tracking-widest text-fg-muted">
-              Résumé
-            </h2>
-            <a
-              href={profile.resume}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center gap-2 border border-line-strong px-4 py-2.5 font-mono text-xs uppercase tracking-widest text-fg-secondary transition-colors duration-150 hover:border-accent hover:text-accent"
-            >
-              Download
-              <ArrowUpRight size={14} />
-            </a>
-          </div>
+    <footer className="border-t border-line px-gutter pb-10 pt-24">
+      <div className="grid gap-12 md:grid-cols-12">
+        <div className="md:col-span-4">
+          <Label>Elsewhere</Label>
+          <ul className="mt-5 space-y-2">
+            <li>
+              <a href={profile.github} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                GitHub
+              </a>
+            </li>
+            <li>
+              <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                LinkedIn
+              </a>
+            </li>
+          </ul>
         </div>
-
-        <div className="mt-16 flex flex-col gap-3 border-t border-line pt-8 lg:flex-row lg:items-center lg:justify-between">
-          <p className="font-mono text-xs text-fg-muted">
-            © 2026 {profile.name}
-            <span className="mx-2 text-fg-faint">/</span>
-            Built to the standard it claims.
-          </p>
-          <p className="font-mono text-xs text-fg-muted">
-            {profile.location} · WCAG 2.2 AA
-          </p>
+        <div className="md:col-span-5">
+          <Label>Email</Label>
+          <a href={`mailto:${profile.email}`} className={`mt-5 block ${linkClass}`}>
+            {profile.email}
+          </a>
         </div>
+        <div className="md:col-span-3 md:justify-self-end">
+          <a href={profile.resume} target="_blank" rel="noopener noreferrer" className={pill("ghost")}>
+            Résumé (PDF) <ArrowUpRight size={14} />
+          </a>
+        </div>
+      </div>
+
+      {/* The name set to the full width; decorative, since the line below names it. */}
+      <p aria-hidden="true" className="fit mt-24">
+        <span
+          className="fit-text font-extrabold text-ink"
+          style={{ "--chars": profile.name.length, "--fit-k": 0.52 } as CSSProperties}
+        >
+          {profile.name}
+        </span>
+      </p>
+
+      <div className="mt-8 flex flex-col gap-2 border-t border-line pt-6 font-mono text-label uppercase text-ink-3 md:flex-row md:justify-between">
+        <p>© 2026 {profile.name} · Built to the standard it claims · WCAG 2.2 AA</p>
+        <p>{profile.location}</p>
       </div>
     </footer>
   );

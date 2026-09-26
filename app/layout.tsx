@@ -6,8 +6,6 @@ import "./globals.css";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { TopBar } from "@/components/chrome/TopBar";
 import { SiteFooter } from "@/components/chrome/SiteFooter";
-import { ScrollProgress } from "@/components/chrome/ScrollProgress";
-import { InstrumentLayer } from "@/components/chrome/InstrumentLayer";
 import { meta, profile } from "@/lib/content";
 import { siteUrl } from "@/lib/site";
 
@@ -74,16 +72,13 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }}
         />
       </head>
-      <body className="relative min-h-screen">
+      <body className="min-h-screen">
         <SmoothScroll />
-        <div className="bg-grid" aria-hidden="true" />
-        <InstrumentLayer />
-        <ScrollProgress />
         <a href="#main" className="skip-link">
           Skip to content
         </a>
         <TopBar />
-        <main id="main" className="relative z-10">
+        <main id="main" tabIndex={-1}>
           {children}
         </main>
         <SiteFooter />

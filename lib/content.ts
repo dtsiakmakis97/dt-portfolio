@@ -18,7 +18,8 @@ import type { Figure, ProjectSlug } from "@/lib/work/types";
 
 export interface NavLink {
   readonly label: string;
-  readonly href: string;
+  /** Home-page section, absolute so it works from every route. */
+  readonly href: `/#${string}`;
 }
 
 export interface ProjectLink {
@@ -74,11 +75,11 @@ export const profile = {
 } as const;
 
 export const nav: readonly NavLink[] = [
-  { label: "About", href: "#about" },
-  { label: "Work", href: "#work" },
-  { label: "Experience", href: "#experience" },
-  { label: "Stack", href: "#stack" },
-  { label: "Contact", href: "#contact" },
+  { label: "About", href: "/#about" },
+  { label: "Work", href: "/#work" },
+  { label: "Experience", href: "/#experience" },
+  { label: "Stack", href: "/#stack" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export const hero = {
