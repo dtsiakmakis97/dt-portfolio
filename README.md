@@ -1,36 +1,55 @@
 # dt-portfolio
 
-Personal portfolio for **Dimitrios Tsiakmakis** — a full-stack & AI engineer in
-Berlin. The site is built to be a work sample in its own right: precise,
-understated, accessible by default (WCAG 2.2 AA), and fast.
+Personal portfolio for **Dimitrios Tsiakmakis**, a full-stack and AI engineer in
+Berlin. The site is built to be a work sample in its own right: bold in form,
+honest in its words, accessible by default (WCAG 2.2 AA) and fast.
 
 The strategic brief lives in [`PRODUCT.md`](./PRODUCT.md) (register, audience,
-principles, anti-references) and the visual system in [`DESIGN.md`](./DESIGN.md)
-(tokens, type, components). Read those before any design or UI change.
+principles, anti-references), the visual system in [`DESIGN.md`](./DESIGN.md)
+(tokens, type, rules, components) and the redesign spec in
+[`docs/redesign/SPEC.md`](./docs/redesign/SPEC.md). Read those before any design
+or UI change.
 
 ## Stack
 
-- **Next.js 16** (App Router, React Server Components) + **React 19**
-- **Tailwind CSS v4** with design tokens defined in `app/globals.css` (`@theme`)
-- **three.js** + **@react-three/fiber** for the desktop hero signal-network
-  (lazy-loaded, gated to capable desktops, off under reduced motion)
-- **Resend** + **Zod** for the contact form (a Server Action — no API routes)
-- Self-hosted **Cabinet Grotesk** (display) + **IBM Plex Mono** (body/metadata)
+- **Next.js 16.2** (App Router, React Server Components) + **React 19.2**
+- **Tailwind CSS v4** with design tokens in `app/globals.css` (`@theme`)
+- **gsap 3.15** (ScrollTrigger, SplitText), loaded after the page's load event
+  through `lib/motion/load.ts`, so no motion code sits on the first paint's
+  critical path
+- **lenis** for smooth scrolling, handed to the gsap ticker once motion loads
+- **React `<ViewTransition>`** with `next/link` transition types for the page
+  transitions: a blue curtain, and the title and media morphing between the work
+  index and a case study (names in `lib/vt.ts`)
+- **Resend** + **Zod** for the contact form (a Server Action, no API routes)
+- Self-hosted **Cabinet Grotesk** variable (display and body) + **IBM Plex Mono**
+  (labels only)
+
+## Routes
+
+| Route | What |
+| --- | --- |
+| `/` | Home: hero, manifesto, work index, experience, stack band, contact |
+| `/work/[slug]` | One case study per project, statically generated; unknown slugs 404 |
+| `/opengraph-image`, `/work/[slug]/opengraph-image` | Share cards (and their `twitter-image` twins), rendered from local font cuts in `assets/og` |
+| `/sitemap.xml`, `/robots.txt` | Home and every indexable case study; Kryora is noindexed and left out |
+| 404 | `app/not-found.tsx`, which lists the work |
 
 ## Architecture
 
-Single-page site composed in `app/page.tsx`. Content is one typed source of
-truth in `lib/content.ts` — there is no CMS. Components are grouped by surface
-(`components/hero`, `components/work`, `components/chrome`, …) with reusable
-primitives in `components/ui`. SEO/metadata is wired in `app/layout.tsx` with
-`app/robots.ts`, `app/sitemap.ts`, and a generated OG card in
-`app/opengraph-image.tsx`.
+Content is a typed source of truth, with no CMS: `lib/content.ts` holds the home
+copy and the ordered project list, and `lib/work/<slug>.ts` holds one case study
+per module, each with a header naming its sources and what it must not say.
+Pages, sections and rows are server components; client components sit only at
+the leaves (motion, the work-index preview, the menu, the form).
 
 ```
-app/            routes, layout, metadata, contact Server Action
-components/     UI grouped by surface area
-lib/            content.ts (copy), hooks, schemas, site.ts (canonical URL)
+app/            routes, layout, metadata, share cards, contact Server Action
+components/     UI grouped by surface (hero, work, case-study, motion, chrome, ...)
+lib/            content, case studies, motion loader, view-transition names, OG renderer
+assets/og/      static font cuts for the share cards
 public/         resume.pdf, /work screenshots
+e2e/            Playwright specs
 ```
 
 ## Local development
@@ -62,15 +81,23 @@ See [`.env.example`](./.env.example). Generate a template with
 | `NEXT_PUBLIC_SITE_URL` | optional | Canonical origin for metadata/sitemap/OG. Falls back to the    |
 |                        |          | Vercel production URL, then `localhost`.                       |
 
-## Scripts
+## Scripts and tests
 
 ```bash
 pnpm dev          # dev server (Turbopack)
 pnpm build        # production build
 pnpm start        # serve the production build
-pnpm typecheck    # tsc --noEmit
-pnpm test:e2e     # Playwright smoke tests (hero, nav, contact validation)
+pnpm typecheck    # next typegen && tsc --noEmit
+pnpm test:e2e     # Playwright against the dev server
+E2E_PROD=1 pnpm test:e2e     # against a production build; also runs the performance budgets
+SHOTS=1 pnpm exec playwright test e2e/shots.spec.ts --project=chromium
+                  # review captures and transition recordings in test-results/shots
 ```
+
+The suite includes the gates the copy has to pass: `e2e/content.spec.ts`
+(retired claims, house style), `e2e/case-content.spec.ts` (word budgets,
+structure and each project's must-not-say list), and an axe WCAG 2.2 AA check
+on every route.
 
 ## Deployment
 

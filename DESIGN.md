@@ -1,231 +1,249 @@
 ---
-name: Dimitrios Tsiakmakis — Portfolio
-description: A dark editorial portfolio with devtools precision; an engineer's logbook.
+name: Dimitrios Tsiakmakis Portfolio
+description: A bold typographic portfolio on a dark canvas; monumental type carries the voice, exact labels carry the facts.
 colors:
-  canvas: "#0a0a0a"
-  panel: "#0d0d0d"
-  surface: "#171717"
-  elevated: "#1f1f1f"
-  line: "#262626"
-  line-strong: "#404040"
-  fg: "#f5f5f5"
-  fg-secondary: "#a3a3a3"
-  fg-muted: "#8a8a8a"
-  ember: "#3b9dff"
-  ember-hi: "#66b4ff"
+  canvas: "#0b0b0c"
+  raised: "#141415"
+  line: "#2a2a2b"
+  line-strong: "#6b6964"
+  ink: "#f2f0ea"
+  paper: "#f2f0ea"
+  ink-2: "#a19e96"
+  ink-3: "#8c8a84"
+  ink-dim: "#6b6964"
+  blue: "#3b9dff"
+  danger: "#f87171"
 typography:
   display:
     fontFamily: "Cabinet Grotesk, Helvetica Neue, Arial, sans-serif"
-    fontSize: "clamp(2.75rem, 1rem + 8vw, 6.5rem)"
-    fontWeight: 700
-    lineHeight: 0.95
-    letterSpacing: "-0.04em"
+    fontSize: "clamp(4.5rem, 20vw, 22rem)"
+    fontWeight: 800
+    lineHeight: 0.8
+    letterSpacing: "-0.05em"
+  hero:
+    fontFamily: "Cabinet Grotesk, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(3rem, min(10vw, 15.5svh), 12rem)"
+    fontWeight: 300
+    lineHeight: 0.82
+    letterSpacing: "-0.045em"
+  statement:
+    fontFamily: "Cabinet Grotesk, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(2.75rem, 8vw, 9.5rem)"
+    fontWeight: 800
+    lineHeight: 0.82
+    letterSpacing: "-0.045em"
   headline:
     fontFamily: "Cabinet Grotesk, Helvetica Neue, Arial, sans-serif"
-    fontSize: "clamp(2rem, 1.2rem + 3vw, 3.75rem)"
-    fontWeight: 700
-    lineHeight: 1
-    letterSpacing: "-0.03em"
+    fontSize: "clamp(2.25rem, 5vw, 5rem)"
+    fontWeight: 800
+    lineHeight: 0.9
+    letterSpacing: "-0.035em"
   title:
     fontFamily: "Cabinet Grotesk, Helvetica Neue, Arial, sans-serif"
-    fontSize: "clamp(1.875rem, 1.4rem + 1.6vw, 2.25rem)"
-    fontWeight: 700
-    lineHeight: 1.05
-    letterSpacing: "-0.02em"
+    fontSize: "clamp(1.5rem, 1.1rem + 1.4vw, 2.25rem)"
+    fontWeight: 300
+    lineHeight: 1.2
+    letterSpacing: "-0.015em"
   body:
-    fontFamily: "IBM Plex Mono, ui-monospace, SF Mono, Menlo, monospace"
-    fontSize: "1rem"
+    fontFamily: "Cabinet Grotesk, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(1.125rem, 1rem + 0.3vw, 1.25rem)"
     fontWeight: 400
-    lineHeight: 1.625
-    letterSpacing: "normal"
+    lineHeight: 1.55
   label:
     fontFamily: "IBM Plex Mono, ui-monospace, SF Mono, Menlo, monospace"
-    fontSize: "0.72rem"
+    fontSize: "0.75rem"
     fontWeight: 400
-    lineHeight: 1
-    letterSpacing: "0.25em"
+    lineHeight: 1.3
+    letterSpacing: "0.14em"
+    fontFeature: "\"zero\" 1"
 rounded:
-  md: "0px"
-  xl: "0px"
-  full: "0px"
+  none: "0px"
+  pill: "9999px"
 spacing:
-  xs: "8px"
-  sm: "12px"
-  md: "20px"
-  lg: "40px"
-  section: "clamp(5rem, 4rem + 5vw, 9rem)"
+  gutter: "clamp(1.25rem, 4vw, 3.5rem)"
+  section: "clamp(6rem, 4rem + 8vw, 12rem)"
 components:
-  button-primary:
-    backgroundColor: "{colors.fg}"
+  pill-blue:
+    backgroundColor: "{colors.blue}"
     textColor: "{colors.canvas}"
-    rounded: "{rounded.md}"
+    rounded: "{rounded.pill}"
     padding: "12px 24px"
-  button-primary-hover:
-    backgroundColor: "{colors.ember}"
-    textColor: "{colors.canvas}"
-    rounded: "{rounded.md}"
-    padding: "12px 24px"
-  button-secondary:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.fg-secondary}"
-    rounded: "{rounded.full}"
-    padding: "10px 20px"
-  button-secondary-hover:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.fg}"
-    rounded: "{rounded.full}"
-    padding: "10px 20px"
-  button-icon:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.fg-secondary}"
-    rounded: "{rounded.md}"
-    size: "36px"
-  chip:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.fg-muted}"
-    rounded: "{rounded.full}"
-    padding: "4px 12px"
     typography: "{typography.label}"
+  pill-blue-hover:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.canvas}"
+  pill-ghost:
+    backgroundColor: "{colors.canvas}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.pill}"
+    padding: "12px 24px"
+    typography: "{typography.label}"
+  pill-ghost-hover:
+    textColor: "{colors.blue}"
+  pill-ink:
+    backgroundColor: "{colors.blue}"
+    textColor: "{colors.canvas}"
+    rounded: "{rounded.pill}"
+    padding: "12px 24px"
+    typography: "{typography.label}"
+  cta-round:
+    backgroundColor: "{colors.blue}"
+    textColor: "{colors.canvas}"
+    rounded: "{rounded.pill}"
+    size: "10rem"
+    typography: "{typography.label}"
+  input:
+    backgroundColor: "{colors.raised}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.none}"
+    padding: "12px 16px"
+    typography: "{typography.body}"
 ---
 
-# Design System: Dimitrios Tsiakmakis — Portfolio
-
-> **2026-06-17 — Bold neo-brutalist re-skin (authoritative).** The site was rebuilt to match a new reference design. Where the detailed sections below (the prior "Engineer's Logbook" direction) conflict with this note, **this note wins**; the frontmatter tokens above are current.
->
-> **Changed:** Type is now **Cabinet Grotesk** (display/headings, self-hosted via `next/font/local`) + **IBM Plex Mono** (body *and* metadata — body is mono now), replacing Geist. Palette is **true-neutral** graphite (`#0a0a0a → #0d0d0d → #171717`, hairline `#262626`) with a saturated **signal amber `#F59E0B`** (was peach `#e9a86a`); `fg-muted` held at `#8a8a8a` to clear WCAG AA. **All corners are sharp (`rounded-none`).** The **primary button is a white fill** with dark text, warming to amber on hover. Section headings open with a short amber hairline and a mono label (no numeric indices); a fact-ledger strip sits under the hero.
->
-> **Preserved:** dark canvas, single semantic amber, mono-for-metadata, depth via tonal surfaces + 1px hairlines (no shadows), work as logbook rows (not cards), WCAG 2.2 AA, full `prefers-reduced-motion` support.
->
-> **New motion / surfaces:** a lazy WebGL node-network behind the hero (three.js + react-three-fiber, reduced-motion/offscreen-guarded), a drifting technical grid, a scroll-progress bar, active-section nav, and a word-by-word hero headline reveal. Selected Work shows **real grayscale screenshots** for live projects (Aegeon, T.E. Learning Center) and a typographic spec-panel for the rest. Contact is a working form (Server Action + Zod + honeypot + Resend).
->
-> `.impeccable/design.json` is a generated artifact and is now **stale** — regenerate it from this file on the next impeccable run.
-
-> **2026-06-18 — Instrument-badge eyebrow (authoritative; supersedes the eyebrow descriptions below).** The section eyebrow is now a sharp-cornered hairline **badge**: a `line-strong` (`#404040`) box that `inline-flex` shrink-wraps a mono, uppercase, wide-tracked label in **`fg-secondary` (`#a3a3a3`)** — lifted out of the old washed-out `fg-muted` — led by a **6px filled-amber square marker** in place of the former 24px leading hairline. It reads as interface instrumentation: a functional marker, not decoration (the Factory.ai / mono.frm.fm idiom). It lives in one shared component, `components/ui/Eyebrow.tsx`, so every section inherits it; WCAG AA still holds (`#a3a3a3` on `#0a0a0a` ≈ 4.5:1). The **hero availability kicker now uses the same component** (it was previously a separate inline dash + `fg-muted` implementation), so there is no eyebrow exception anywhere on the page. This supersedes both "Section headings open with a short amber hairline and a mono label" above and the §5 "Eyebrow (signature label)" entry below.
-
-> **2026-06-23 — Accent recolor: electric blue (authoritative; supersedes every amber/Ember color value below).** The single signal accent changed from amber `#f59e0b` / hi `#fbbf24` to **electric blue `#3b9dff`** / hi `#66b4ff` (≈6.95:1 on `#0a0a0a`, clears WCAG AA for text). It replaces amber 1:1 everywhere — accent text and the hero "AI systems" run, the drawn underline, eyebrow square markers, links / focus ring / selection, the scroll-progress bar, the hero WebGL accent nodes, the cursor instrument-pool glow, and the generated OG card. Every rule still holds: lone semantic signal, tiny footprint (~10%), always paired with a non-color partner. The frontmatter `ember` / `ember-hi` token values are updated; the **"Ember" name throughout this doc is legacy — read it as "the accent."**
+# Design System: Dimitrios Tsiakmakis Portfolio
 
 ## 1. Overview
 
-**Creative North Star: "The Engineer's Logbook"**
+**Creative North Star: "The Monument and the Footnote"**
 
-This is a precise, honest record, not a brochure. The interface reads like the workspace of the engineer it represents: a dark graphite canvas, structure drawn in hairlines instead of boxes, and a single warm signal that appears only where it means something. Metadata (roles, dates, status, stack, the email) is set in monospace and reads like log entries; project work is numbered and listed, not packaged into glossy cards. Nothing is embellished, because the brand's core asset is credibility and embellishment spends it.
+Two voices share every screen. The monument is type set so large it becomes the image: the hero statement, the width-fitted project titles, the full-bleed statement bands, the footer wordmark. The footnote is small, exact and mono: the crumb, the section labels, the meta strip, the captions. The monument makes the page bold; the footnote keeps it honest. Neither borrows the other's job, which is how the site stays loud in form and plain in its words.
 
-The personality is **precise, understated, and honest**. Density is editorial: generous vertical breathing room, a single centered column capped at a comfortable measure, large display type for the few statements that matter and quiet monospace for everything that supports them. The emotional target is **quietly impressive**: the design earns trust by not trying too hard, and the proof of craft is that every detail holds up under inspection (because the people reading this screen-by-screen are exactly the people who inspect details).
+The canvas is near-black, the one color is an electric blue used loudly (full-bleed bands, the page-transition curtain, a single accent run in the hero), and the only second surface is warm paper, used as a band. Motion is slow and gliding on one curve (the glide, identical to GSAP's expo.out), tied to scroll rather than running on its own, and it arrives after the page is already readable. Typography is the visual: there is no illustration, no decorative imagery and no chrome that competes with the words.
 
-This system explicitly rejects the **generic developer-portfolio template** (hero plus animated skill bars plus a uniform grid of identical project cards plus a decorative gradient blob) and the **corporate SaaS landing page** (cream or pastel backgrounds, soft rounded cards, gentle gradients, the big-number hero-metric template). Both look like everyone else and perform confidence instead of earning it.
+The system rejects the **generic developer-portfolio template** (hero plus animated skill bars plus a uniform grid of identical project cards plus a decorative gradient blob) and the **corporate SaaS landing page** (cream or pastel backgrounds, soft rounded cards, gentle gradients, the big-number hero-metric template). Both look like everyone else and perform confidence instead of earning it.
 
 **Key Characteristics:**
-- Dark graphite canvas with stepped tonal surfaces; depth comes from layering and hairlines, never shadows.
-- One warm accent (Ember), held to a tiny footprint and always semantic.
-- A strict Sans-for-prose / Mono-for-metadata split that does the work of an information hierarchy.
-- Editorial type scale: a few very large statements, everything else quiet.
-- Work presented as numbered logbook rows, not cards.
-- Motion is restraint plus one soft reveal; everything collapses cleanly under reduced-motion.
+- Monumental Cabinet Grotesk, weight 300 against 800, at line-heights near 0.8.
+- One loud blue, carried by bands and one accent run, never by decoration.
+- Mono labels in wide uppercase for every fact that supports the type.
+- Pills or square corners, nothing in between.
+- Slow, scroll-linked motion that loads after the page and respects reduced motion completely.
+- A blue curtain between pages, with the project title and image morphing from the index into the case study.
 
-## 2. Colors: The Ember-on-Graphite Palette
+## 2. Colors: The Night and Signal Palette
 
-A near-monochrome graphite stack lit by a single warm amber. The palette is almost entirely neutral so that the one accent can carry meaning rather than decoration.
+A near-black canvas, warm off-white ink stepped down for hierarchy, and one electric blue that is either a whole band or a single word.
 
 ### Primary
-- **Ember** (`#e9a86a`): The lone accent. A warm amber used semantically and sparingly: the terminal prompt arrow, eyebrow labels and their leading hairline, the active link and "Live"/"Source" project links, the work-title-on-hover, focus rings, and text selection. It is the eye's only color cue, so it always marks something that matters.
-- **Ember Hi** (`#f2bc84`): The brighter step, used only as the hover state of the primary (Ember-filled) button.
+- **Electric Signal Blue** (#3b9dff): full-bleed statement bands, the page-transition curtain, the hero's accent run, the primary pill, the round contact action, focus rings and selection. As text it lives only on the canvas (7.0:1).
 
 ### Neutral
-- **Canvas** (`#0b0c0e`): The page itself. A tinted near-black (never pure `#000`), it is the lowest surface and the default background everywhere.
-- **Surface** (`#131419`): The first step up. Used for raised elements that sit on the canvas: the hero terminal panel and the hover background of icon buttons.
-- **Elevated** (`#1c1e24`): The highest tonal surface, reserved for the rare element that must read as lifted (e.g. the focused skip link).
-- **Line** (`#2a2d34`): The hairline. Every divider, border, section rule, and chip outline. This color does the structural work that shadows would do elsewhere.
-- **FG** (`#f4f5f6`): Primary text (never pure `#fff`). Headlines, the wordmark, hovered links.
-- **FG Secondary** (`#9ca0a6`): Body copy and supporting prose. The most-used text color.
-- **FG Muted** (`#7c818c`): Mono metadata, index numbers, placeholder dots. Deliberately lifted from a darker draft to clear WCAG AA (4.5:1) on the canvas for small text.
+- **Night Canvas** (#0b0b0c): the page and every section by default; tinted, never pure black.
+- **Raised Canvas** (#141415): form fields and the one raised panel (the form's sent state).
+- **Hairline** (#2a2a2b): decorative dividers only (the meta strip, the decisions list, the work index).
+- **Strong Hairline** (#6b6964): control borders, 3.6:1, for inputs and the ghost pill.
+- **Warm Ink** (#f2f0ea): headlines and primary text, 17.3:1.
+- **Warm Paper** (#f2f0ea): the paper band surface, the same value as the ink, used as ground.
+- **Secondary Ink** (#a19e96): body copy and supporting prose, 7.3:1.
+- **Label Ink** (#8c8a84): mono labels and captions, 5.7:1.
+- **Dim Ink** (#6b6964): large text only, 3.6:1.
+- **Alert Red** (#f87171): form errors, always paired with an icon and a message.
 
 ### Named Rules
-**The One Ember Rule.** The accent appears on no more than ~10% of any screen. Its rarity is the point: it is a signal, not a theme. If a second thing wants to be amber, one of them is wrong.
+**The Blue-Band Ink Rule.** Blue and paper bands carry canvas-colored text only; ink on blue and blue on paper are both 2.5:1 and fail. Focus rings and selection invert inside a band.
 
-**The Tinted-Black Rule.** Never `#000` and never `#fff`. The darkest surface is `#0b0c0e` and the lightest text is `#f4f5f6`. Every neutral is tinted cool toward the graphite hue; pure black or white reads as unfinished here.
+**The Blue-Only-On-Dark Rule.** Blue is text only on the canvas, never text on paper.
 
-**The Color-Plus-Partner Rule.** Ember never carries meaning alone. Wherever it signals (link, status, prompt), a non-color partner travels with it (position, an icon, a weight shift, the leading hairline) so the meaning survives for color-blind readers.
+**The Ink-Dim-Large-Only Rule.** Dim ink (3.6:1) is for text of 24px and up only; anything smaller steps up to label ink or secondary ink.
 
 ## 3. Typography
 
-**Display / Body Font:** Geist Sans (with `ui-sans-serif, system-ui, sans-serif`)
-**Label / Metadata Font:** Geist Mono (with `ui-monospace, SF Mono, Menlo, monospace`)
+**Display Font:** Cabinet Grotesk variable, 100 to 900 (with Helvetica Neue, Arial, sans-serif)
+**Body Font:** Cabinet Grotesk variable (with the same fallbacks)
+**Label/Mono Font:** IBM Plex Mono, Latin subset, weight 400 (with ui-monospace, SF Mono, Menlo)
 
-**Character:** One contemporary neo-grotesque sans does all the human-readable work; its monospace sibling does all the machine-readable work. The pairing is the whole personality: Sans speaks, Mono records. The sans is set tight and confident at large sizes (negative tracking on display); the mono is set wide and calm (generous letter-spacing on labels). There is no serif and no third family.
+**Character:** one grotesk does all the talking, pushed from a hairline 300 to a heavy 800 and set tight at monumental sizes; the mono only records, in small wide capitals with a slashed zero.
 
 ### Hierarchy
-- **Display** (Geist Sans, 600, `clamp(2.6rem, 1.1rem + 6.6vw, 6rem)`, line-height 0.98, tracking -0.03em): The few headline statements that anchor a section. Hero h1 and the Contact close. Used at most once or twice per view.
-- **Headline** (Geist Sans, 600, `clamp(1.7rem, 1.1rem + 2.2vw, 2.7rem)`, line-height 1.08, tracking -0.02em): Section headings ("Selected work", "Tools I reach for").
-- **Title** (Geist Sans, 500, ~`1.5–1.875rem`, tracking tight): Project names in the work log; shifts to Ember on row hover.
-- **Body** (Geist Sans, 400, `1rem`, line-height 1.625, color FG Secondary): Descriptions and supporting prose, capped at ~65–75ch (`max-w-xl`). Lead paragraphs (hero subhead, contact body) step up to `1.125rem` (text-lg).
-- **Label** (Geist Mono, 400, `0.78rem`, tracking 0.16em, uppercase, color Ember): Section eyebrows, each preceded by a 24px Ember hairline. Smaller mono labels (`text-xs`, wider tracking) head the skill groups, also in Ember.
-- **Metadata** (Geist Mono, `text-xs`/`text-sm`, color FG Muted): Index numbers, roles, periods, status, stack chips, the email address. The supporting record layer.
+- **Display** (800, clamp(4.5rem, 20vw, 22rem), 0.8): “Let’s talk.” and the 404.
+- **Hero** (300 against 800, clamp(3rem, min(10vw, 15.5svh), 12rem), 0.82): the home statement; capped by viewport height so the call to action stays above the fold.
+- **Statement** (800, clamp(2.75rem, 8vw, 9.5rem), 0.82): statement bands, the manifesto fill and section statements.
+- **Fitted title** (800, computed per title): project titles fill their row exactly; the index row and the case-study h1 share one fit rule, so the morph between them is nearly a pure translate.
+- **Headline** (800, clamp(2.25rem, 5vw, 5rem), 0.9): section headings and decision summaries.
+- **Title / lead** (300 or 400, clamp(1.5rem, 1.1rem + 1.4vw, 2.25rem), 1.2): taglines and lead paragraphs.
+- **Body** (400, clamp(1.125rem, 1rem + 0.3vw, 1.25rem), 1.55): prose, capped at 62ch.
+- **Label** (Plex Mono 400, 0.75rem, 0.14em, uppercase): crumbs, section labels, meta terms, captions, pills.
 
 ### Named Rules
-**The Mono Metadata Rule.** Prose is Sans; metadata is Mono. Roles, dates, status, stack tags, eyebrows, terminal text, and the email are always monospace. This split is not decorative; it is the information hierarchy. A date in Sans or a sentence in Mono breaks the logbook conceit.
+**The One-Monument-Per-Viewport Rule.** One monumental type block per screen. A fitted title, a statement band or the wordmark; never two competing in one view.
 
-**The Sparse-Display Rule.** Display type is rationed. At most one or two display-scale statements per view, surrounded by quiet. Its size is the emphasis; do not dilute it by setting ordinary copy large.
+**The LCP-Text-Never-Waits-On-JS Rule.** The hero h1 is split into words on the server and animated with CSS only, so it is the largest paint at first paint and never waits on a script.
 
 ## 4. Elevation
 
-This system uses **no shadows at all**. Depth is built entirely from stepped tonal surfaces (Canvas → Surface → Elevated) and 1px hairline borders in the Line color. A raised element is raised because it is a half-step lighter and outlined in a hairline, not because it floats on a blur. The only "lift" affordances are state-driven: the scroll-reveal translate, the secondary-button border brightening, and the sticky top bar's `backdrop-blur` over a translucent canvas.
+This system is flat. There are no shadows anywhere: depth comes from the canvas stepping up to the raised surface, from 1px hairlines, and from the bands, which change the ground itself. The only thing that ever sits above the page is the fixed header, and it earns its separation with a solid canvas background once the page scrolls, not with a shadow.
 
 ### Named Rules
-**The No-Shadow Rule.** `box-shadow` is forbidden as a depth device. If something needs to read as elevated, step its background up one tonal surface and give it a hairline border. A drop shadow here reads as a foreign import from a Material/SaaS system, which is exactly the anti-reference.
-
-**The Hairline Rule.** Structure is drawn in 1px Line (`#2a2d34`) borders and never thicker as a decorative device. No 2px+ colored side-stripes, no heavy rules; the hairline's restraint is the aesthetic.
+**The Flat-Ground Rule.** Box shadows are prohibited. If something must read as separate, give it a band, a raised surface or a hairline.
 
 ## 5. Components
 
-Component character: **quiet but confident.** At rest everything is understated; in state (hover, focus) the response is decisive and immediate, mostly a color or border shift on a 150ms curve. No bounce, no scale-pop, no glass.
+Components are few and quiet at rest; the type does the performing. States answer on the glide curve over 300 to 500ms.
 
-### Buttons
-- **Shape:** Fully pill-rounded (`9999px`) for text buttons; small `6px` radius for icon-only buttons.
-- **Primary:** Ember fill, Canvas-dark text, `10px 20px` padding, `text-sm` weight 500. The single highest-intent action (first CTA, usually Email).
-- **Hover / Focus:** Primary brightens fill to Ember Hi (`#f2bc84`) over 150ms. Secondary brightens its border from Line to FG Muted and its text from FG Secondary to FG. Focus is the global 2px Ember outline at 3px offset.
-- **Secondary:** Transparent on Canvas with a Line hairline border, FG Secondary text; same pill shape and padding. Used for all non-primary CTAs in a cluster.
-- **Icon (ghost):** 36px square, `6px` radius, FG Secondary glyph; on hover the background fills to Surface and the glyph turns Ember. Used in the persistent top bar.
-
-### Chips (stack tags)
-- **Style:** Pill (`9999px`) with a Line hairline border, transparent fill, Mono `text-xs` in FG Muted, `4px 12px` padding. They read as quiet labels, not buttons.
-- **State:** Static. Chips are informational and do not have hover or selected states.
-
-### Cards / Containers
-- **The default is no card.** See the No-Card Rule below. The one true container is the hero **Terminal** panel: `12px` radius, Surface background, Line hairline border, a faux titlebar (three muted dots plus a mono `~/dimitrios` path) over a monospace body where prompt lines are FG Muted, output is FG Secondary, and the leading arrow is Ember.
+### Buttons (pills)
+- **Shape:** full pill (9999px) or square; never a small radius.
+- **Blue pill:** blue ground, canvas text, 12px by 24px, mono label; hover turns the ground to ink.
+- **Ghost pill:** strong-hairline border, ink text; hover moves border and text to blue.
+- **Ink pill:** the action inside a band; a canvas border and canvas text, filling with canvas on hover.
+- **Round contact action:** a 10rem blue circle with a mono label, magnetic toward a fine pointer.
 
 ### Inputs / Fields
-- None currently. The contact flow is mailto plus a click-to-copy email; there are no text inputs in the system today. If introduced, follow the hairline doctrine: Line border at rest, Ember focus ring, no inner shadow.
+- **Style:** raised canvas, strong-hairline border (3.6:1), square corners, body type, label ink for placeholders.
+- **Focus:** the border turns blue, plus the global 2px blue ring at 3px offset.
+- **Error:** the border turns alert red; the message below carries an icon, and the field is marked invalid for assistive tech. The honeypot never shows.
 
 ### Navigation
-- **Top bar:** Sticky, translucent Canvas (`/80`) with `backdrop-blur`, a single bottom Line hairline. Left: wordmark (hover → Ember) plus a mono "Berlin" badge (pill, Line border, uppercase `11px`). Right: section links plus the icon CTA cluster, divided by a short vertical hairline.
-- **Nav links:** `text-sm`, FG Secondary, with the signature animated hairline underline (scaleX 0 → 1, left origin, 300ms deliberate curve) that also fires on focus; text shifts to FG on hover.
+- **TopBar:** fixed; transparent over the hero, solid canvas once scrolled. The wordmark "DT." with a blue period on the left, mono uppercase section links in the middle with a blue hairline that draws in on hover and marks the current section, a ghost pill on the right. On case studies the section links lead back to the home sections under the reverse curtain.
+- **MobileMenu:** a native dialog with focus kept inside, closed by Escape, with scrolling paused behind it.
 
-### Work Entry (signature component)
-The project log row, and the system's most opinionated piece. A 12-column grid separated from its neighbors by a top Line hairline: a mono index (`01`, `02`...) in column 1, the project name plus tagline plus description plus stack chips plus optional links in columns 2–8, and a right-aligned mono metadata stack (role / period / status) in the last four columns. The whole row is a hover group: the title shifts to Ember on hover. This is deliberately not a card.
+### Hero
+- **HeroHeadline:** the statement in hero type, 300 against 800, with "AI systems" in blue; words rise through masks on CSS alone, with a failsafe so nothing stays hidden.
+- **RotatingBadge:** a circular mono text ring that turns only with scroll and links to the work.
 
-### Copy-Email (signature interaction)
-A mono button showing the address with a trailing copy icon; on click it writes to the clipboard, swaps the icon to a check for 2s, and announces "Copied to clipboard" via an `aria-live` status region. The icon tints Ember on hover. Degrades silently (address stays visible) when the clipboard API is unavailable.
+### Scroll-driven type
+- **ScrollFillText:** the manifesto, filling word by word from dim to ink as it scrolls through.
+- **SplitReveal:** below-the-fold headings and leads rising line by line through masks, once; a reader who already scrolled past sees them in place.
+- **VelocityMarquee:** the oversized band of skills in the blue stack section, moving and leaning only with scroll; decorative, with the real list beside it.
 
-### Eyebrow (signature label)
-Every block opens with one — the five section headings **and** the hero availability kicker, all from the shared `Eyebrow` component. It is a sharp-cornered hairline **badge**: a `line-strong` box that `inline-flex` shrink-wraps a Mono, uppercase, wide-tracked `fg-secondary` label, led by a 6px filled-amber **square marker**. The marker reads as a functional status indicator (interface instrumentation), not decoration — the most consistent expression of the logbook theme. (Updated 2026-06-18 from the earlier "24px hairline + label" form; see the authoritative note at the top of this file.)
+### Work index
+Seven full-width title links, each fitted to its row, with a mono index, year, tagline and status. On a fine pointer a 16:10 preview follows the cursor and becomes the image that morphs into the case study; Escape dismisses it. Phones show type only.
+
+### Case-study frame
+A mono crumb and a way back to the index, the fitted h1 (the morph lands here), a light tagline, a 16:10 hero image or, without one, a blue band with the status set large and a way to ask for a walkthrough. Then the lead, a meta strip of role, year, status, stack and public links, and the sections: prose under sticky mono labels, a numbered list of decisions, captioned figures no wider than their source.
+
+### StatementBand
+A verified fact set in statement type on a full-bleed band. Tones alternate blue then paper and never sit side by side; always a paragraph, never a quote.
+
+### NextProject
+The next project's name fitted to the width like its index title, its tagline beneath, and the "All work" pill. It changes pages under the curtain, with no title morph.
+
+### Page transitions
+A blue curtain between pages: the old page lifts off a blue ground and the new one rises in over it. Going from the index to a case study, the title and image morph into place above the curtain. The browser's Back and Forward swap instantly.
+
+### Named Rules
+**The Pill-or-Zero Rule.** Full pills (the round call to action, the badge, the pills) or zero radius. Nothing in between.
+
+**The Scroll-Linked-Never-Autonomous Rule.** The marquee and the badge move only with scroll, never on their own (WCAG 2.2.2).
+
+**The Motion-After-Load Rule.** GSAP loads after the page's load event (lib/motion/load.ts), so no motion code is on the first paint's critical path; reveals the reader has already reached stay put.
 
 ## 6. Do's and Don'ts
 
 ### Do:
-- **Do** keep Ember (`#e9a86a`) under ~10% of any screen and always semantic (link, prompt, status, focus, active). Rarity is what makes it a signal.
-- **Do** build depth with tonal surfaces (`#0b0c0e` → `#131419` → `#1c1e24`) and 1px Line (`#2a2d34`) hairlines.
-- **Do** set all metadata (roles, dates, status, stack, eyebrows, email) in Geist Mono and all prose in Geist Sans.
-- **Do** ration display type: one or two display-scale statements per view, surrounded by quiet.
-- **Do** pair every Ember signal with a non-color cue (icon, position, weight, the leading hairline).
-- **Do** give every interactive element a designed hover and a visible focus state (the 2px Ember ring), and make sure it all collapses under `prefers-reduced-motion`.
-- **Do** hold the whole site to WCAG 2.2 AA, including contrast on the small mono metadata.
+- **Do** set every band's text in the canvas color (#0b0b0c), and put blue text only on the canvas.
+- **Do** keep one monumental block per viewport, and let the mono labels carry the facts around it.
+- **Do** use the glide curve (cubic-bezier(0.19, 1, 0.22, 1)) at 0.8 to 1.1s for anything that moves, tie it to scroll where possible, and collapse all of it under reduced motion.
+- **Do** keep the hero h1 server-rendered and CSS-animated so it paints first.
+- **Do** keep text of 24px and up as the only home for dim ink (3.6:1).
+- **Do** give every interactive element the 2px blue focus ring at 3px offset, inverted to canvas inside a band.
+- **Do** meet WCAG 2.2 AA everywhere, including the small mono labels.
 
 ### Don't:
-- **Don't** ship the **generic developer-portfolio template**: no animated skill bars, no uniform grid of identical project cards, no decorative gradient blob. Work goes in logbook rows.
-- **Don't** drift toward the **corporate SaaS landing page**: no cream or pastel backgrounds, no soft rounded cards, no gentle gradients, no big-number hero-metric template.
-- **Don't** use `box-shadow` as a depth device; step a tonal surface and add a hairline instead.
-- **Don't** use pure `#000` or `#fff`; the tinted graphite neutrals are the floor and ceiling.
-- **Don't** use `background-clip: text` gradient text, or any decorative gradient. Emphasis comes from scale and weight.
-- **Don't** introduce a second accent color or a third type family. One Ember, one Sans, one Mono.
-- **Don't** use a colored side-stripe (`border-left`/`border-right` > 1px) as an accent on any element. Hairlines are full and uniform.
-- **Don't** reach for a card or a modal by reflex. Prefer the bordered grid row and the inline progressive pattern the system already uses.
+- **Don't** ship the **generic developer-portfolio template**: hero plus animated skill bars plus a uniform grid of identical project cards plus a decorative gradient blob.
+- **Don't** drift toward the **corporate SaaS landing page**: cream or pastel backgrounds, soft rounded cards, gentle gradients, the big-number hero-metric template.
+- **Don't** set ink on blue or blue on paper; both are 2.5:1.
+- **Don't** use any radius other than a full pill or zero.
+- **Don't** let anything move on its own: no autoplaying marquee, no spinning badge without scroll.
+- **Don't** make the first paint wait on JavaScript, or load the motion library before the page's load event.
+- **Don't** use box shadows, glassmorphism, gradient text or a second accent color.
+- **Don't** put an adjective or an invented number where a fact should be; the form is loud so the words don't have to be.

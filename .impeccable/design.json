@@ -1,216 +1,389 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-06-18T20:10:00Z",
-  "title": "Design System: Dimitrios Tsiakmakis — Portfolio",
+  "generatedAt": "2026-09-26T12:54:47Z",
+  "title": "Design System: Dimitrios Tsiakmakis Portfolio",
   "extensions": {
     "colorMeta": {
       "canvas": {
         "role": "neutral",
-        "displayName": "Canvas Graphite",
-        "canonical": "#0a0a0a",
-        "tonalRamp": ["#0a0a0a", "#171717", "#262626", "#404040", "#525252", "#737373", "#a3a3a3", "#f5f5f5"]
+        "displayName": "Night Canvas",
+        "canonical": "#0b0b0c",
+        "tonalRamp": [
+          "oklch(15% 0.003 286)",
+          "oklch(25% 0.003 286)",
+          "oklch(35% 0.003 286)",
+          "oklch(48% 0.003 286)",
+          "oklch(60% 0.003 286)",
+          "oklch(72% 0.003 286)",
+          "oklch(84% 0.003 286)",
+          "oklch(95% 0.003 286)"
+        ]
       },
-      "panel": {
+      "raised": {
         "role": "neutral",
-        "displayName": "Panel",
-        "canonical": "#0d0d0d",
-        "tonalRamp": ["#0a0a0a", "#0d0d0d", "#171717", "#262626", "#404040", "#525252", "#737373", "#a3a3a3"]
-      },
-      "surface": {
-        "role": "neutral",
-        "displayName": "Surface",
-        "canonical": "#171717",
-        "tonalRamp": ["#0a0a0a", "#171717", "#262626", "#404040", "#525252", "#737373", "#a3a3a3", "#f5f5f5"]
-      },
-      "elevated": {
-        "role": "neutral",
-        "displayName": "Elevated",
-        "canonical": "#1f1f1f",
-        "tonalRamp": ["#0d0d0d", "#1f1f1f", "#262626", "#404040", "#525252", "#737373", "#a3a3a3", "#f5f5f5"]
+        "displayName": "Raised Canvas",
+        "canonical": "#141415",
+        "tonalRamp": [
+          "oklch(15% 0.003 286)",
+          "oklch(25% 0.003 286)",
+          "oklch(35% 0.003 286)",
+          "oklch(48% 0.003 286)",
+          "oklch(60% 0.003 286)",
+          "oklch(72% 0.003 286)",
+          "oklch(84% 0.003 286)",
+          "oklch(95% 0.003 286)"
+        ]
       },
       "line": {
         "role": "neutral",
         "displayName": "Hairline",
-        "canonical": "#262626",
-        "tonalRamp": ["#171717", "#262626", "#404040", "#525252", "#737373", "#8a8a8a", "#a3a3a3", "#f5f5f5"]
+        "canonical": "#2a2a2b",
+        "tonalRamp": [
+          "oklch(15% 0.003 286)",
+          "oklch(25% 0.003 286)",
+          "oklch(35% 0.003 286)",
+          "oklch(48% 0.003 286)",
+          "oklch(60% 0.003 286)",
+          "oklch(72% 0.003 286)",
+          "oklch(84% 0.003 286)",
+          "oklch(95% 0.003 286)"
+        ]
       },
       "line-strong": {
         "role": "neutral",
         "displayName": "Strong Hairline",
-        "canonical": "#404040",
-        "tonalRamp": ["#171717", "#262626", "#404040", "#525252", "#737373", "#8a8a8a", "#a3a3a3", "#f5f5f5"]
+        "canonical": "#6b6964",
+        "tonalRamp": [
+          "oklch(15% 0.008 90)",
+          "oklch(25% 0.008 90)",
+          "oklch(35% 0.008 90)",
+          "oklch(48% 0.008 90)",
+          "oklch(60% 0.008 90)",
+          "oklch(72% 0.008 90)",
+          "oklch(84% 0.008 90)",
+          "oklch(95% 0.008 90)"
+        ]
       },
-      "fg": {
+      "ink": {
         "role": "neutral",
-        "displayName": "Foreground",
-        "canonical": "#f5f5f5",
-        "tonalRamp": ["#404040", "#525252", "#737373", "#8a8a8a", "#a3a3a3", "#c4c4c4", "#e5e5e5", "#f5f5f5"]
+        "displayName": "Warm Ink",
+        "canonical": "#f2f0ea",
+        "tonalRamp": [
+          "oklch(15% 0.009 91)",
+          "oklch(25% 0.009 91)",
+          "oklch(35% 0.009 91)",
+          "oklch(48% 0.009 91)",
+          "oklch(60% 0.009 91)",
+          "oklch(72% 0.009 91)",
+          "oklch(84% 0.009 91)",
+          "oklch(95% 0.009 91)"
+        ]
       },
-      "fg-secondary": {
+      "paper": {
         "role": "neutral",
-        "displayName": "Secondary Text",
-        "canonical": "#a3a3a3",
-        "tonalRamp": ["#262626", "#404040", "#525252", "#737373", "#8a8a8a", "#a3a3a3", "#c4c4c4", "#f5f5f5"]
+        "displayName": "Warm Paper",
+        "canonical": "#f2f0ea",
+        "tonalRamp": [
+          "oklch(15% 0.009 91)",
+          "oklch(25% 0.009 91)",
+          "oklch(35% 0.009 91)",
+          "oklch(48% 0.009 91)",
+          "oklch(60% 0.009 91)",
+          "oklch(72% 0.009 91)",
+          "oklch(84% 0.009 91)",
+          "oklch(95% 0.009 91)"
+        ]
       },
-      "fg-muted": {
+      "ink-2": {
         "role": "neutral",
-        "displayName": "Muted Metadata",
-        "canonical": "#8a8a8a",
-        "tonalRamp": ["#262626", "#404040", "#525252", "#737373", "#8a8a8a", "#a3a3a3", "#c4c4c4", "#e5e5e5"]
+        "displayName": "Secondary Ink",
+        "canonical": "#a19e96",
+        "tonalRamp": [
+          "oklch(15% 0.012 87)",
+          "oklch(25% 0.012 87)",
+          "oklch(35% 0.012 87)",
+          "oklch(48% 0.012 87)",
+          "oklch(60% 0.012 87)",
+          "oklch(72% 0.012 87)",
+          "oklch(84% 0.012 87)",
+          "oklch(95% 0.012 87)"
+        ]
       },
-      "fg-faint": {
+      "ink-3": {
         "role": "neutral",
-        "displayName": "Faint Mark",
-        "canonical": "#525252",
-        "tonalRamp": ["#171717", "#262626", "#404040", "#525252", "#737373", "#8a8a8a", "#a3a3a3", "#c4c4c4"]
+        "displayName": "Label Ink",
+        "canonical": "#8c8a84",
+        "tonalRamp": [
+          "oklch(15% 0.008 95)",
+          "oklch(25% 0.008 95)",
+          "oklch(35% 0.008 95)",
+          "oklch(48% 0.008 95)",
+          "oklch(60% 0.008 95)",
+          "oklch(72% 0.008 95)",
+          "oklch(84% 0.008 95)",
+          "oklch(95% 0.008 95)"
+        ]
       },
-      "accent": {
+      "ink-dim": {
+        "role": "neutral",
+        "displayName": "Dim Ink",
+        "canonical": "#6b6964",
+        "tonalRamp": [
+          "oklch(15% 0.008 90)",
+          "oklch(25% 0.008 90)",
+          "oklch(35% 0.008 90)",
+          "oklch(48% 0.008 90)",
+          "oklch(60% 0.008 90)",
+          "oklch(72% 0.008 90)",
+          "oklch(84% 0.008 90)",
+          "oklch(95% 0.008 90)"
+        ]
+      },
+      "blue": {
         "role": "primary",
-        "displayName": "Signal Amber",
-        "canonical": "#f59e0b",
-        "tonalRamp": ["#451a03", "#78350f", "#b45309", "#d97706", "#f59e0b", "#fbbf24", "#fcd34d", "#fde68a"]
-      },
-      "accent-hi": {
-        "role": "primary",
-        "displayName": "Amber Hi",
-        "canonical": "#fbbf24",
-        "tonalRamp": ["#78350f", "#b45309", "#d97706", "#f59e0b", "#fbbf24", "#fcd34d", "#fde68a", "#fef3c7"]
+        "displayName": "Electric Signal Blue",
+        "canonical": "#3b9dff",
+        "tonalRamp": [
+          "oklch(15% 0.17 253)",
+          "oklch(25% 0.17 253)",
+          "oklch(35% 0.17 253)",
+          "oklch(48% 0.17 253)",
+          "oklch(60% 0.17 253)",
+          "oklch(72% 0.17 253)",
+          "oklch(84% 0.17 253)",
+          "oklch(95% 0.17 253)"
+        ]
       },
       "danger": {
-        "role": "semantic",
-        "displayName": "Danger",
+        "role": "neutral",
+        "displayName": "Alert Red",
         "canonical": "#f87171",
-        "tonalRamp": ["#450a0a", "#7f1d1d", "#b91c1c", "#dc2626", "#ef4444", "#f87171", "#fca5a5", "#fecaca"]
+        "tonalRamp": [
+          "oklch(15% 0.16 22)",
+          "oklch(25% 0.16 22)",
+          "oklch(35% 0.16 22)",
+          "oklch(48% 0.16 22)",
+          "oklch(60% 0.16 22)",
+          "oklch(72% 0.16 22)",
+          "oklch(84% 0.16 22)",
+          "oklch(95% 0.16 22)"
+        ]
       }
     },
     "typographyMeta": {
-      "display": { "displayName": "Display", "purpose": "Anchor statements only: the hero h1 and the contact close. Cabinet Grotesk 700, fluid clamp to 6.5rem, tracking -0.04em. One or two per view." },
-      "headline": { "displayName": "Headline (h2)", "purpose": "Section headings (About, Selected work, Contact close). Cabinet Grotesk 700, fluid to 3.75rem, tracking -0.03em." },
-      "title": { "displayName": "Title", "purpose": "Project names in the work log; shift to amber on row hover. Cabinet Grotesk 700, fluid to 2.5rem, held a step below h2 at every viewport." },
-      "body": { "displayName": "Body / Mono", "purpose": "All prose and metadata: descriptions, roles, dates, status, stack tags, the email, eyebrow labels. IBM Plex Mono 400; lead paragraphs step up to 1.125rem. Body is mono now, not sans." },
-      "label": { "displayName": "Eyebrow / Label", "purpose": "Instrument-badge eyebrows and small mono labels. IBM Plex Mono, 0.72rem, tracking 0.25em, uppercase." }
+      "display": {
+        "displayName": "Display",
+        "purpose": "“Let’s talk.” and the 404."
+      },
+      "hero": {
+        "displayName": "Hero",
+        "purpose": "The home statement, 300 against 800, capped by viewport height."
+      },
+      "statement": {
+        "displayName": "Statement",
+        "purpose": "Statement bands, the manifesto fill and section statements."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings and decision summaries."
+      },
+      "title": {
+        "displayName": "Title / lead",
+        "purpose": "Taglines and lead paragraphs."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Prose, capped at 62ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Crumbs, section labels, meta terms, captions, pills."
+      }
     },
-    "shadows": [
-      { "name": "none", "value": "none", "purpose": "No box-shadow anywhere. Depth is true-neutral tonal layering (canvas to panel to surface to elevated) plus 1px hairline borders. Shadows are forbidden as a depth device." }
-    ],
+    "shadows": [],
     "motion": [
-      { "name": "ease-expo", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Scroll-reveal entrances (opacity + 20px translateY, 0.6s), the hero word-by-word clip reveal (0.72s), and the self-drawing amber headline underline (0.55s)." },
-      { "name": "ease-deliberate", "value": "cubic-bezier(0.44, 0, 0.56, 1)", "purpose": "Animated hairline underline on inline text links (scaleX 0 to 1, 0.3s)." },
-      { "name": "state-transition", "value": "150ms ease (color / border-color)", "purpose": "Hover and focus color and border shifts on buttons, links, inputs, nav. Snappy, no choreography." },
-      { "name": "nav-underline", "value": "width 200ms ease", "purpose": "Top-bar nav link underline grows from 0 to full width on hover and for the active section." }
+      {
+        "name": "ease-glide",
+        "value": "cubic-bezier(0.19, 1, 0.22, 1)",
+        "purpose": "The one curve for everything that moves; identical to GSAP expo.out."
+      },
+      {
+        "name": "dur-glide",
+        "value": "1.1s",
+        "purpose": "Reveals, the hero word rise and the title and media morph."
+      },
+      {
+        "name": "curtain",
+        "value": "0.8s, the reveal delayed 0.3s",
+        "purpose": "The blue page-transition curtain."
+      },
+      {
+        "name": "state",
+        "value": "300ms to 500ms",
+        "purpose": "Hover and focus changes on links, pills and fields."
+      }
     ],
     "breakpoints": [
-      { "name": "sm", "value": "640px" },
-      { "name": "md", "value": "768px" },
-      { "name": "lg", "value": "1024px" },
-      { "name": "container-max", "value": "1400px" }
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "fit-wrap",
+        "value": "40rem container"
+      }
     ]
   },
   "components": [
     {
-      "name": "Eyebrow Badge",
+      "name": "Blue Pill",
+      "kind": "button",
+      "refersTo": "pill-blue",
+      "description": "The primary action on the canvas.",
+      "html": "<a class=\"ds-pill-blue\" href=\"#\">Get in touch</a>",
+      "css": ".ds-pill-blue{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:9999px;padding:12px 24px;font-family:var(--font-plex-mono), ui-monospace, 'SF Mono', Menlo, monospace;font-size:0.75rem;letter-spacing:0.14em;text-transform:uppercase;transition:background-color .5s cubic-bezier(0.19,1,0.22,1),border-color .5s cubic-bezier(0.19,1,0.22,1),color .5s cubic-bezier(0.19,1,0.22,1);cursor:pointer;background:var(--color-blue);color:var(--color-canvas);border:0;text-decoration:none}.ds-pill-blue:hover{background:var(--color-ink)}.ds-pill-blue:focus-visible{outline:2px solid var(--color-blue);outline-offset:3px;}"
+    },
+    {
+      "name": "Ghost Pill",
+      "kind": "button",
+      "refersTo": "pill-ghost",
+      "description": "A secondary action on the canvas.",
+      "html": "<a class=\"ds-pill-ghost\" href=\"#\">All work</a>",
+      "css": ".ds-pill-ghost{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:9999px;padding:12px 24px;font-family:var(--font-plex-mono), ui-monospace, 'SF Mono', Menlo, monospace;font-size:0.75rem;letter-spacing:0.14em;text-transform:uppercase;transition:background-color .5s cubic-bezier(0.19,1,0.22,1),border-color .5s cubic-bezier(0.19,1,0.22,1),color .5s cubic-bezier(0.19,1,0.22,1);cursor:pointer;background:transparent;color:var(--color-ink);border:1px solid var(--color-line-strong);text-decoration:none}.ds-pill-ghost:hover{border-color:var(--color-blue);color:var(--color-blue)}.ds-pill-ghost:focus-visible{outline:2px solid var(--color-blue);outline-offset:3px;}"
+    },
+    {
+      "name": "Ink Pill in a Band",
+      "kind": "button",
+      "refersTo": "pill-ink",
+      "description": "The action inside a blue or paper band: canvas-colored only.",
+      "html": "<div class=\"ds-band\"><a class=\"ds-pill-ink\" href=\"#\">Walkthrough on request</a></div>",
+      "css": ".ds-band{background:var(--color-blue);padding:32px}.ds-pill-ink{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:9999px;padding:12px 24px;font-family:var(--font-plex-mono), ui-monospace, 'SF Mono', Menlo, monospace;font-size:0.75rem;letter-spacing:0.14em;text-transform:uppercase;transition:background-color .5s cubic-bezier(0.19,1,0.22,1),border-color .5s cubic-bezier(0.19,1,0.22,1),color .5s cubic-bezier(0.19,1,0.22,1);cursor:pointer;background:transparent;color:var(--color-canvas);border:1px solid var(--color-canvas);text-decoration:none}.ds-pill-ink:hover{background:var(--color-canvas);color:var(--color-paper)}.ds-pill-ink:focus-visible{outline:2px solid var(--color-canvas);outline-offset:3px}"
+    },
+    {
+      "name": "Round Contact Action",
       "kind": "custom",
-      "refersTo": null,
-      "description": "Signature block opener (every section and the hero availability kicker): a sharp-cornered hairline badge that shrink-wraps a mono, uppercase, wide-tracked label, led by a 6px filled-amber square marker that reads as a functional status indicator, not decoration.",
-      "html": "<p class=\"ds-eyebrow\"><span class=\"ds-eyebrow-marker\" aria-hidden=\"true\"></span><span>Selected work</span></p>",
-      "css": ".ds-eyebrow { display: inline-flex; align-items: center; gap: 10px; margin: 0; border: 1px solid #404040; border-radius: 0; padding: 6px 10px; font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; font-size: 0.72rem; line-height: 1; letter-spacing: 0.25em; text-transform: uppercase; color: #a3a3a3; } .ds-eyebrow-marker { display: inline-block; width: 6px; height: 6px; background: #f59e0b; }"
+      "refersTo": "cta-round",
+      "description": "The 10rem blue circle that ends the contact section.",
+      "html": "<a class=\"ds-cta-round\" href=\"#\">Write to me</a>",
+      "css": ".ds-cta-round{display:grid;place-items:center;width:10rem;height:10rem;border-radius:9999px;background:var(--color-blue);color:var(--color-canvas);font-family:var(--font-plex-mono), ui-monospace, 'SF Mono', Menlo, monospace;font-size:0.75rem;letter-spacing:0.14em;text-transform:uppercase;text-align:center;text-decoration:none;transition:background-color .5s cubic-bezier(0.19,1,0.22,1)}.ds-cta-round:hover{background:var(--color-ink)}.ds-cta-round:focus-visible{outline:2px solid var(--color-blue);outline-offset:3px;}"
     },
     {
-      "name": "Primary Button",
-      "kind": "button",
-      "refersTo": "button-primary",
-      "description": "Highest-intent action (hero 'Selected work', contact 'Send message'). White fill on dark text, warming to amber on hover. Sharp corners.",
-      "html": "<a class=\"ds-btn-primary\" href=\"#\">Selected work<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7 7h10v10\"/><path d=\"M7 17 17 7\"/></svg></a>",
-      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 8px; background: #f5f5f5; color: #0a0a0a; border: none; border-radius: 0; padding: 12px 24px; font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: background 150ms; } .ds-btn-primary:hover { background: #f59e0b; } .ds-btn-primary:focus-visible { outline: 2px solid #f59e0b; outline-offset: 2px; }"
-    },
-    {
-      "name": "Secondary Button",
-      "kind": "button",
-      "refersTo": "button-secondary",
-      "description": "Non-primary CTAs (hero 'Get in touch', top-bar 'Email', 'Send another'). Transparent with a strong hairline border; text and border warm to amber on hover. Sharp corners.",
-      "html": "<a class=\"ds-btn-secondary\" href=\"#\">Get in touch</a>",
-      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: #a3a3a3; border: 1px solid #404040; border-radius: 0; padding: 12px 24px; font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: color 150ms, border-color 150ms; } .ds-btn-secondary:hover { color: #f59e0b; border-color: #f59e0b; } .ds-btn-secondary:focus-visible { outline: 2px solid #f59e0b; outline-offset: 2px; }"
-    },
-    {
-      "name": "Nav Link",
-      "kind": "nav",
-      "refersTo": null,
-      "description": "Top-bar section link, mono uppercase, with an amber underline that grows from 0 to full width on hover and stays full for the active section (also drives aria-current).",
-      "html": "<a class=\"ds-nav-link\" href=\"#\" aria-current=\"true\">Work</a>",
-      "css": ".ds-nav-link { position: relative; font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #a3a3a3; text-decoration: none; transition: color 150ms; } .ds-nav-link::after { content: ''; position: absolute; left: 0; bottom: -4px; height: 1px; width: 0; background: #f59e0b; transition: width 200ms; } .ds-nav-link:hover { color: #f5f5f5; } .ds-nav-link[aria-current=\"true\"] { color: #f5f5f5; } .ds-nav-link:hover::after, .ds-nav-link[aria-current=\"true\"]::after { width: 100%; } .ds-nav-link:focus-visible { outline: 2px solid #f59e0b; outline-offset: 2px; }"
-    },
-    {
-      "name": "Stack Chip",
-      "kind": "chip",
-      "refersTo": "chip",
-      "description": "Quiet informational tech-stack tag in the work log. Sharp-cornered hairline box, mono uppercase muted text. No interactive state.",
-      "html": "<span class=\"ds-chip\">Next.js 16</span>",
-      "css": ".ds-chip { display: inline-block; border: 1px solid #262626; border-radius: 0; padding: 4px 10px; font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #8a8a8a; }"
-    },
-    {
-      "name": "Input Field",
+      "name": "Text Field",
       "kind": "input",
-      "refersTo": null,
-      "description": "Contact-form text input: transparent with a strong hairline border that turns amber on focus; mono label above. Error state swaps the border to danger and shows an AlertTriangle-led helper so the signal never rests on color alone.",
-      "html": "<label class=\"ds-label\" for=\"email\">Email <span class=\"ds-req\">*</span></label><input class=\"ds-input\" id=\"email\" name=\"email\" type=\"email\" placeholder=\"you@company.com\" />",
-      "css": ".ds-label { display: block; margin-bottom: 8px; font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #8a8a8a; } .ds-req { color: #f59e0b; } .ds-input { width: 100%; border: 1px solid #404040; border-radius: 0; background: transparent; padding: 12px 16px; font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; font-size: 1rem; color: #f5f5f5; transition: border-color 150ms; } .ds-input::placeholder { color: #525252; } .ds-input:focus { border-color: #f59e0b; outline: none; }"
+      "refersTo": "input",
+      "description": "A contact-form field with its mono label.",
+      "html": "<label class=\"ds-label\" for=\"ds-name\">Name</label><input class=\"ds-input\" id=\"ds-name\" placeholder=\"Your name\">",
+      "css": ".ds-label{display:block;margin-bottom:8px;font-family:var(--font-plex-mono), ui-monospace, 'SF Mono', Menlo, monospace;font-size:0.75rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-ink-3)}.ds-input{width:100%;background:var(--color-raised);color:var(--color-ink);border:1px solid var(--color-line-strong);border-radius:0;padding:12px 16px;font-family:var(--font-cabinet), 'Helvetica Neue', Arial, sans-serif;font-size:1.125rem;transition:border-color .3s}.ds-input::placeholder{color:var(--color-ink-3)}.ds-input:focus{border-color:var(--color-blue)}.ds-input:focus-visible{outline:2px solid var(--color-blue);outline-offset:3px;}"
     },
     {
-      "name": "Work Entry Row",
+      "name": "Top Bar",
+      "kind": "nav",
+      "refersTo": "",
+      "description": "Wordmark, mono section links with a drawn blue hairline, and a ghost pill.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-mark\" href=\"#\">DT<span>.</span></a><a class=\"ds-link ds-current\" href=\"#\">Work</a><a class=\"ds-link\" href=\"#\">Contact</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:32px;padding:16px 24px;background:var(--color-canvas)}.ds-mark{font-family:var(--font-cabinet), 'Helvetica Neue', Arial, sans-serif;font-weight:800;font-size:1.25rem;color:var(--color-ink);text-decoration:none;margin-right:auto}.ds-mark span{color:var(--color-blue)}.ds-link{position:relative;font-family:var(--font-plex-mono), ui-monospace, 'SF Mono', Menlo, monospace;font-size:0.75rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-ink-2);text-decoration:none;transition:color .3s}.ds-link::after{content:'';position:absolute;left:0;bottom:-6px;height:1px;width:100%;background:var(--color-blue);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(0.19,1,0.22,1)}.ds-link:hover,.ds-current{color:var(--color-ink)}.ds-link:hover::after,.ds-current::after{transform:scaleX(1)}.ds-link:focus-visible{outline:2px solid var(--color-blue);outline-offset:3px;}"
+    },
+    {
+      "name": "Statement Band",
       "kind": "custom",
-      "refersTo": null,
-      "description": "Signature project log row: a two-column grid (meta 5 / media 7) separated from its neighbours by a top hairline. Mono period, Cabinet Grotesk title that shifts to amber on row hover, tagline, description, a Role/Status mono key-value stack, hairline stack chips, and amber hairline-underline links. No numeric index. Deliberately not a card.",
-      "html": "<article class=\"ds-work\"><div class=\"ds-work-meta\"><span class=\"ds-work-period\">2026</span><h3 class=\"ds-work-title\">Aegeon</h3><p class=\"ds-work-tag\">A Greek vacation-rental booking platform.</p><dl class=\"ds-work-kv\"><div><dt>Role</dt><dd>Solo: design + full-stack</dd></div><div><dt>Status</dt><dd>In production</dd></div></dl><a class=\"ds-work-link\" href=\"#\">Visit</a></div><div class=\"ds-work-media\"></div></article>",
-      "css": ".ds-work { display: grid; grid-template-columns: 1fr; gap: 32px; border-top: 1px solid #262626; padding: 48px 0; } @media (min-width: 1024px) { .ds-work { grid-template-columns: 5fr 7fr; gap: 40px; } } .ds-work-period { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #8a8a8a; } .ds-work-title { margin: 16px 0 0; font-family: 'Cabinet Grotesk', 'Helvetica Neue', sans-serif; font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; color: #f5f5f5; transition: color 200ms; } .ds-work:hover .ds-work-title { color: #f59e0b; } .ds-work-tag { margin: 8px 0 0; font-family: 'IBM Plex Mono', monospace; color: #a3a3a3; } .ds-work-kv { margin: 20px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; } .ds-work-kv div { display: flex; gap: 12px; } .ds-work-kv dt { color: #8a8a8a; } .ds-work-kv dd { margin: 0; color: #a3a3a3; } .ds-work-link { display: inline-block; margin-top: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #f59e0b; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 300ms; } .ds-work-link:hover { border-color: #f59e0b; } .ds-work-media { aspect-ratio: 16 / 10; border: 1px solid #262626; background: #0d0d0d; }"
+      "refersTo": "",
+      "description": "A verified fact at statement size on a full-bleed blue band.",
+      "html": "<div class=\"ds-statement\"><p>Bookings are requests, not payments.</p></div>",
+      "css": ".ds-statement{background:var(--color-blue);color:var(--color-canvas);padding:64px 32px}.ds-statement p{margin:0;max-width:18ch;font-family:var(--font-cabinet), 'Helvetica Neue', Arial, sans-serif;font-weight:800;font-size:4rem;line-height:0.82;letter-spacing:-0.045em}"
     },
     {
-      "name": "Spec Panel",
-      "kind": "card",
-      "refersTo": null,
-      "description": "Honest stand-in for a project with no public demo (e.g. an app behind SSO): a 16:10 panel with a faint technical grid, an amber hairline, and a mono 'Walkthrough on request' label. Used instead of a screenshot rather than faking one.",
-      "html": "<div class=\"ds-spec\"><span class=\"ds-spec-rule\" aria-hidden=\"true\"></span><span class=\"ds-spec-label\">Walkthrough on request</span></div>",
-      "css": ".ds-spec { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; aspect-ratio: 16 / 10; border: 1px solid #262626; background: #0d0d0d; background-image: linear-gradient(to right, rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.025) 1px, transparent 1px); background-size: 32px 32px; } .ds-spec-rule { width: 32px; height: 1px; background: #f59e0b; } .ds-spec-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #8a8a8a; }"
+      "name": "Section Label and Prose",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "The footnote voice: a mono label beside body prose.",
+      "html": "<section class=\"ds-prose\"><h2>Context</h2><p>Parents decide, usually on a phone in the evening.</p></section>",
+      "css": ".ds-prose{display:grid;grid-template-columns:12rem 1fr;gap:24px;background:var(--color-canvas);padding:32px}.ds-prose h2{margin:0;font-family:var(--font-plex-mono), ui-monospace, 'SF Mono', Menlo, monospace;font-weight:400;font-size:0.75rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-ink-3)}.ds-prose p{margin:0;max-width:62ch;font-family:var(--font-cabinet), 'Helvetica Neue', Arial, sans-serif;font-size:1.125rem;line-height:1.55;color:var(--color-ink-2)}"
     }
   ],
   "narrative": {
-    "northStar": "The Engineer's Logbook",
-    "overview": "A precise, honest record rebuilt in a bold neo-brutalist Swiss key: a true-neutral graphite canvas, structure drawn in 1px hairlines instead of boxes, sharp corners everywhere, and a single warm signal (amber #f59e0b) that appears only where it means something. Metadata and prose alike are set in IBM Plex Mono and read like log entries; the few statements that anchor a section are set large in Cabinet Grotesk. Project work is listed as logbook rows, never packaged into glossy cards, and is no longer numbered. The personality is precise, understated, and honest; the emotional target is quietly impressive. It earns trust by not trying too hard, and every detail holds up under inspection, because the people reading this screen-by-screen are exactly the people who inspect details.",
+    "northStar": "The Monument and the Footnote",
+    "overview": "Two voices share every screen. The monument is type set so large it becomes the image: the hero statement, the width-fitted project titles, the full-bleed statement bands, the footer wordmark. The footnote is small, exact and mono: the crumb, the section labels, the meta strip, the captions. The monument makes the page bold; the footnote keeps it honest. Neither borrows the other's job, which is how the site stays loud in form and plain in its words.\n\nThe canvas is near-black, the one color is an electric blue used loudly (full-bleed bands, the page-transition curtain, a single accent run in the hero), and the only second surface is warm paper, used as a band. Motion is slow and gliding on one curve (the glide, identical to GSAP's expo.out), tied to scroll rather than running on its own, and it arrives after the page is already readable. Typography is the visual: there is no illustration, no decorative imagery and no chrome that competes with the words.\n\nThe system rejects the **generic developer-portfolio template** (hero plus animated skill bars plus a uniform grid of identical project cards plus a decorative gradient blob) and the **corporate SaaS landing page** (cream or pastel backgrounds, soft rounded cards, gentle gradients, the big-number hero-metric template). Both look like everyone else and perform confidence instead of earning it.",
     "keyCharacteristics": [
-      "True-neutral graphite canvas with stepped tonal surfaces (#0a0a0a to #0d0d0d to #171717 to #1f1f1f); depth from layering and 1px hairlines, never shadows.",
-      "One warm accent (signal amber #f59e0b), held to a tiny footprint and always semantic; danger red appears only on form errors, always with an icon.",
-      "Cabinet Grotesk for the few display statements; IBM Plex Mono for everything else, body and metadata alike.",
-      "Sharp corners everywhere (0px radius) and a white-fill primary button that warms to amber on hover.",
-      "Work presented as logbook rows, not cards, with no numeric indices; each section opens with an instrument-badge eyebrow.",
-      "Motion is restraint plus a deferred WebGL node-network behind the hero on capable desktop; everything collapses cleanly under reduced-motion and the static hero is the universal baseline."
+      "Monumental Cabinet Grotesk, weight 300 against 800, at line-heights near 0.8.",
+      "One loud blue, carried by bands and one accent run, never by decoration.",
+      "Mono labels in wide uppercase for every fact that supports the type.",
+      "Pills or square corners, nothing in between.",
+      "Slow, scroll-linked motion that loads after the page and respects reduced motion completely.",
+      "A blue curtain between pages, with the project title and image morphing from the index into the case study."
     ],
     "rules": [
-      { "name": "The One Ember Rule", "body": "The amber accent (#f59e0b) appears on no more than ~10% of any screen. Its rarity is the point: it is a signal, not a theme. If a second thing wants to be amber, one of them is wrong.", "section": "colors" },
-      { "name": "The True-Neutral Rule", "body": "Never #000 and never #fff. The darkest surface is #0a0a0a and the lightest text is #f5f5f5, and every neutral is untinted graphite. Pure black or white reads as unfinished here.", "section": "colors" },
-      { "name": "The Color-Plus-Partner Rule", "body": "Amber and danger never carry meaning alone. Wherever a color signals (link, status, focus, a form error), a non-color partner travels with it (position, an icon, a weight shift, the leading square marker) so the meaning survives for color-blind readers.", "section": "colors" },
-      { "name": "The Mono-Everything Rule", "body": "Only the few display-scale anchor statements are Cabinet Grotesk; all prose and all metadata are IBM Plex Mono. A sentence and a date share one machine-readable voice, which is the logbook conceit.", "section": "typography" },
-      { "name": "The Sparse-Display Rule", "body": "Display type is rationed: at most one or two display-scale statements per view, surrounded by quiet. Its size is the emphasis; do not dilute it by setting ordinary copy large.", "section": "typography" },
-      { "name": "The No-Shadow Rule", "body": "box-shadow is forbidden as a depth device. If something needs to read as elevated, step its background up one tonal surface and give it a hairline border.", "section": "elevation" },
-      { "name": "The Hairline Rule", "body": "Structure is drawn in 1px borders (#262626, or #404040 for controls) and never thicker as a decorative device. No 2px+ colored side-stripes.", "section": "elevation" },
-      { "name": "The No-Card Rule", "body": "Don't reach for a card or modal by reflex. Work goes in bordered logbook rows; prefer inline progressive patterns over modals.", "section": "elevation" }
+      {
+        "name": "The Blue-Band Ink Rule",
+        "body": "Blue and paper bands carry canvas-colored text only; ink on blue and blue on paper are both 2.5:1 and fail. Focus rings and selection invert inside a band.",
+        "section": "colors"
+      },
+      {
+        "name": "The Blue-Only-On-Dark Rule",
+        "body": "Blue is text only on the canvas, never text on paper.",
+        "section": "colors"
+      },
+      {
+        "name": "The Ink-Dim-Large-Only Rule",
+        "body": "Dim ink (3.6:1) is for text of 24px and up only; anything smaller steps up to label ink or secondary ink.",
+        "section": "colors"
+      },
+      {
+        "name": "The One-Monument-Per-Viewport Rule",
+        "body": "One monumental type block per screen. A fitted title, a statement band or the wordmark; never two competing in one view.",
+        "section": "typography"
+      },
+      {
+        "name": "The LCP-Text-Never-Waits-On-JS Rule",
+        "body": "The hero h1 is split into words on the server and animated with CSS only, so it is the largest paint at first paint and never waits on a script.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-Ground Rule",
+        "body": "Box shadows are prohibited. If something must read as separate, give it a band, a raised surface or a hairline.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Pill-or-Zero Rule",
+        "body": "Full pills (the round call to action, the badge, the pills) or zero radius. Nothing in between.",
+        "section": "components"
+      },
+      {
+        "name": "The Scroll-Linked-Never-Autonomous Rule",
+        "body": "The marquee and the badge move only with scroll, never on their own (WCAG 2.2.2).",
+        "section": "components"
+      },
+      {
+        "name": "The Motion-After-Load Rule",
+        "body": "GSAP loads after the page's load event (lib/motion/load.ts), so no motion code is on the first paint's critical path; reveals the reader has already reached stay put.",
+        "section": "components"
+      }
     ],
     "dos": [
-      "Do keep amber (#f59e0b) under ~10% of any screen and always semantic (link, marker, status, focus, active).",
-      "Do build depth with true-neutral tonal surfaces (#0a0a0a to #0d0d0d to #171717 to #1f1f1f) and 1px hairlines (#262626 / #404040).",
-      "Do set all text, prose and metadata alike, in IBM Plex Mono, reserving Cabinet Grotesk for the one or two display statements per view.",
-      "Do keep every corner sharp (0px radius) and make the primary button a white fill that warms to amber on hover.",
-      "Do open every block with the instrument-badge eyebrow (hairline box plus a 6px amber square marker), the hero kicker included.",
-      "Do pair every amber or danger signal with a non-color cue (icon, position, weight, the leading square), and give every interactive element a designed hover plus the 2px amber focus ring.",
-      "Do hold the whole site to WCAG 2.2 AA, including contrast on the small mono metadata, and collapse all motion under prefers-reduced-motion."
+      "Do set every band's text in the canvas color (#0b0b0c), and put blue text only on the canvas.",
+      "Do keep one monumental block per viewport, and let the mono labels carry the facts around it.",
+      "Do use the glide curve (cubic-bezier(0.19, 1, 0.22, 1)) at 0.8 to 1.1s for anything that moves, tie it to scroll where possible, and collapse all of it under reduced motion.",
+      "Do keep the hero h1 server-rendered and CSS-animated so it paints first.",
+      "Do keep text of 24px and up as the only home for dim ink (3.6:1).",
+      "Do give every interactive element the 2px blue focus ring at 3px offset, inverted to canvas inside a band.",
+      "Do meet WCAG 2.2 AA everywhere, including the small mono labels."
     ],
     "donts": [
-      "Don't ship the generic developer-portfolio template: no animated skill bars, no uniform grid of identical project cards, no decorative gradient blob. Work goes in logbook rows.",
-      "Don't drift toward the corporate SaaS landing page: no cream or pastel backgrounds, no soft rounded cards, no gentle gradients, no big-number hero-metric template.",
-      "Don't use box-shadow as a depth device; step a tonal surface and add a hairline instead.",
-      "Don't use pure #000 or #fff; the true-neutral graphite floor (#0a0a0a) and ceiling (#f5f5f5) are the limits.",
-      "Don't use background-clip: text gradient text, or any decorative gradient. Emphasis comes from scale and weight.",
-      "Don't introduce a second accent color or a third type family. One amber, one display face (Cabinet Grotesk), one mono (IBM Plex Mono).",
-      "Don't use a colored side-stripe (border-left/border-right greater than 1px) as an accent on any element. Hairlines are full and uniform.",
-      "Don't reach for a card or a modal by reflex. Prefer the bordered logbook row and the inline progressive pattern."
+      "Don't ship the generic developer-portfolio template: hero plus animated skill bars plus a uniform grid of identical project cards plus a decorative gradient blob.",
+      "Don't drift toward the corporate SaaS landing page: cream or pastel backgrounds, soft rounded cards, gentle gradients, the big-number hero-metric template.",
+      "Don't set ink on blue or blue on paper; both are 2.5:1.",
+      "Don't use any radius other than a full pill or zero.",
+      "Don't let anything move on its own: no autoplaying marquee, no spinning badge without scroll.",
+      "Don't make the first paint wait on JavaScript, or load the motion library before the page's load event.",
+      "Don't use box shadows, glassmorphism, gradient text or a second accent color.",
+      "Don't put an adjective or an invented number where a fact should be; the form is loud so the words don't have to be."
     ]
   }
 }

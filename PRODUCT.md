@@ -15,15 +15,15 @@ The job to be done is the same for both: in under a minute, decide that Dimitrio
 
 ## Product Purpose
 
-A personal portfolio for Dimitrios Tsiakmakis, a Berlin-based full-stack engineer who builds web products end to end and the AI systems inside them. Three years of enterprise e-commerce frontend at KPS AG (Dehner, NORMA, Jungheinrich, EP:), now shipping multi-agent AI systems and LLM products solo (PawGuard, Lead Finder, Aegeon), alongside client sites (Ego Distillers, the T.E. Learning Center, Kryora) and AI tooling like the Career Ops Agent.
+A personal portfolio for Dimitrios Tsiakmakis, a Berlin-based full-stack engineer who builds web products end to end and the AI systems inside them. Three years of enterprise e-commerce frontend at KPS AG (Dehner, NORMA, Jungheinrich, EP:), now building multi-agent AI systems and LLM products solo (PawGuard, Lead Finder, Aegeon), alongside client sites (Ego Distillers, the T.E. Learning Center, Kryora) and AI tooling like the Career Ops Agent.
 
 The strategic claim is "frontend depth plus AI systems, shipped, not theorized." Success is a visitor leaving convinced enough to email, open the CV, or reach out about work. Because this is a brand surface, the design itself is part of the evidence: the portfolio of someone who runs accessibility audits and ships to hard performance budgets has to demonstrate that craft, not just describe it.
 
 ## Brand Personality
 
-**Precise. Understated. Honest.**
+**Precise. Bold. Honest.**
 
-The emotional target is "quietly impressive." Understatement is the confidence signal: let the work carry the weight, never oversell it. Voice is plain and exact, specific over superlative, with no inflated claims. The existing content already encodes this discipline (no invented metrics, no compensation talk, no unearned credentials), and the design should match that restraint. The visitor should leave thinking "this person is meticulous and senior," having been told that by what they saw rather than by adjectives.
+Loud form, honest words. The form is bold: monumental type, a loud electric blue, full-bleed bands and motion that glides. The words stay plain and exact, specific over superlative, with no inflated claims. The content already encodes that discipline (no invented metrics, no compensation talk, no unearned credentials), and the boldness never leaks into it. The visitor should leave thinking "this person is meticulous and senior," having been told that by what they saw rather than by adjectives.
 
 ## Anti-references
 
@@ -38,7 +38,7 @@ Both traps fail the same way: they look like everyone else and they perform conf
 2. **The site is itself a work sample.** Practice what you preach. Accessibility, performance, and precision are claimed in the copy, so they must be visibly true in the build. A sloppy detail anywhere quietly contradicts the whole pitch.
 3. **Honest by default.** Specificity beats superlatives. No invented metrics, no inflated scope, no manufactured urgency. Credibility is the brand's core asset and is easy to spend, hard to rebuild.
 4. **Credible to two rooms in one voice.** It must read as senior to an engineering lead and as trustworthy to a prospective client without splitting tone. When a choice serves one audience at the other's expense, prefer the version that holds for both.
-5. **Confidence through understatement.** The strongest signal is the thing that does not try too hard. Prefer the quieter solution when it still lands; loudness reads as compensation.
+5. **Loud form, honest words.** Expression lives in type and motion, never in adjectives or numbers. The louder the form, the more exact the words must be.
 
 ## Accessibility & Inclusion
 
