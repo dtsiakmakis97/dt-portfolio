@@ -1,0 +1,25 @@
+{
+  "jsBytes": 153494,
+  "cls": 0,
+  "measuredAt": "2026-09-26T00:07:27.549Z",
+  "commit": "5f8e626",
+  "lighthouse": {
+    "url": "https://dtsiakmakis.dev",
+    "mobile": {
+      "performance": 98,
+      "accessibility": 100,
+      "seo": 100,
+      "lcpMs": 2382,
+      "cls": 0,
+      "tbtMs": 25
+    },
+    "desktop": {
+      "performance": 100,
+      "accessibility": 100,
+      "seo": 100,
+      "lcpMs": 509,
+      "cls": 0,
+      "tbtMs": 38
+    }
+  }
+}

@@ -1,7 +1,11 @@
 import { defineConfig, devices } from "@playwright/test";
 
-/** Smoke-test config: one desktop browser, dev server auto-started (reused if
- *  one is already running locally). Deterministic — no timeout-based waits. */
+/** E2E config. Desktop Chrome runs everything except `@mobile` tests; a Pixel
+ *  7 project runs only `@mobile` tests (menu dialog, perf budgets).
+ *  E2E_PROD=1 serves a production build; required for perf budgets, and
+ *  refuses to reuse a running dev server. */
+const PROD = !!process.env.E2E_PROD;
+
 export default defineConfig({
   testDir: "./e2e",
   fullyParallel: true,
@@ -12,11 +16,14 @@ export default defineConfig({
     baseURL: "http://localhost:3000",
     trace: "on-first-retry",
   },
-  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
+  projects: [
+    { name: "chromium", use: { ...devices["Desktop Chrome"] }, grepInvert: /@mobile/ },
+    { name: "mobile-chromium", use: { ...devices["Pixel 7"] }, grep: /@mobile/ },
+  ],
   webServer: {
-    command: "pnpm dev",
+    command: PROD ? "pnpm build && pnpm start" : "pnpm dev",
     url: "http://localhost:3000",
-    timeout: 120 * 1000,
-    reuseExistingServer: !process.env.CI,
+    timeout: (PROD ? 300 : 120) * 1000,
+    reuseExistingServer: !process.env.CI && !PROD,
   },
 });
