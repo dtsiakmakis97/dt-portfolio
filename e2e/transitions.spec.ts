@@ -63,7 +63,17 @@ test.describe("page transitions", () => {
     expect(seen.some((s) => s.pseudo.startsWith("::view-transition-old(") && s.name === "vt-curtain-lift")).toBe(true);
     expect(seen.some((s) => s.pseudo.startsWith("::view-transition-new(") && s.name === "vt-curtain-reveal")).toBe(true);
     expect(seen.some((s) => s.pseudo === "::view-transition-group(project-title-pawguard)")).toBe(true);
+    expect(seen.some((s) => s.pseudo === "::view-transition-group(project-media-pawguard)")).toBe(true);
     expect(duplicates).toEqual([]);
+  });
+
+  test("Next runs the curtain without morphing any title", async ({ page }) => {
+    await page.goto("/work/pawguard");
+    await waitForMotion(page);
+    const seen = await recordTransition(page, () => page.getByRole("link", { name: "Next Lead Finder" }).click());
+    await expect(page).toHaveURL("/work/lead-finder");
+    expect(seen.map((s) => s.name)).toContain("vt-curtain-lift");
+    expect(seen.some((s) => s.pseudo.startsWith("::view-transition-group(project-"))).toBe(false);
   });
 
   test("Back returns home instantly, leaves nothing running, and Lenis follows", async ({ page }) => {

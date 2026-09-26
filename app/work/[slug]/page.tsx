@@ -3,9 +3,11 @@ import { notFound } from "next/navigation";
 import { ViewTransition } from "react";
 import { profile, projects } from "@/lib/content";
 import { baseOpenGraph } from "@/lib/metadata";
-import { caseNumber, findProject } from "@/lib/work";
-import { titleFit } from "@/lib/work/fit";
-import { CURTAIN_ENTER, CURTAIN_EXIT, SHARE_ON_NAV, vtTitle } from "@/lib/vt";
+import { caseNumber, findProject, getCaseStudy, getNextProject } from "@/lib/work";
+import { CURTAIN_ENTER, CURTAIN_EXIT } from "@/lib/vt";
+import { CaseHero } from "@/components/case-study/CaseHero";
+import { MetaStrip } from "@/components/case-study/MetaStrip";
+import { NextProject } from "@/components/case-study/NextProject";
 
 // Unknown slugs 404 in production; dev renders anyway, hence notFound() below.
 export const dynamicParams = false;
@@ -37,20 +39,16 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
   const { slug } = await params;
   const project = findProject(slug);
   if (!project) notFound();
+  const study = getCaseStudy(project.slug);
   return (
     // The page's own transition boundary: the curtain (lib/vt.ts CURTAIN_*).
     <ViewTransition enter={CURTAIN_ENTER} exit={CURTAIN_EXIT} default="none">
-      <article className="px-gutter pb-section pt-32">
-        <p className="font-mono text-label uppercase text-ink-3">
-          Case study {caseNumber(project.slug)} · {project.period}
-        </p>
-        <div className="fit mt-10">
-          <ViewTransition name={vtTitle(project.slug)} share={SHARE_ON_NAV} enter="none" exit="none" default="none">
-            <h1 className="fit-text font-display font-extrabold text-ink" style={titleFit(project.slug, project.name)}>
-              {project.name}
-            </h1>
-          </ViewTransition>
+      <article>
+        <CaseHero project={project} number={caseNumber(project.slug)} lead={study.lead} hero={study.hero ?? project.cover} />
+        <div className="mt-16 px-gutter">
+          <MetaStrip project={project} />
         </div>
+        <NextProject next={getNextProject(project.slug)} />
       </article>
     </ViewTransition>
   );

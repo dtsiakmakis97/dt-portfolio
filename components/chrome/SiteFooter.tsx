@@ -3,6 +3,7 @@ import { profile } from "@/lib/content";
 import { Label } from "@/components/ui/Label";
 import { pill } from "@/components/ui/pill";
 import { ArrowUpRight } from "@/components/ui/icons";
+import { WORDMARK_FIT_K } from "@/lib/work/fit";
 
 const linkClass = "text-body text-ink transition-colors duration-300 hover:text-blue";
 
@@ -42,7 +43,7 @@ export function SiteFooter() {
       <p aria-hidden="true" className="fit mt-24">
         <span
           className="fit-text font-extrabold text-ink"
-          style={{ "--chars": profile.name.length, "--fit-k": 0.43 } as CSSProperties}
+          style={{ "--chars": profile.name.length, "--fit-k": WORDMARK_FIT_K } as CSSProperties}
         >
           {profile.name}
         </span>

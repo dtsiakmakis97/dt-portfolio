@@ -16,6 +16,9 @@ const FIT_K: Record<ProjectSlug, number> = {
   kryora: 0.489,
 };
 
+/** Measured average advance per character of the footer wordmark (Cabinet 800). */
+export const WORDMARK_FIT_K = 0.43;
+
 /** Caps six-letter names on very wide screens; at 1440 every title fits under it. */
 const TITLE_FIT_MAX = "30rem";
 

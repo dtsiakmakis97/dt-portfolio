@@ -15,8 +15,8 @@ export function WorkRow({ project, index }: { project: Project; index: number })
         data-slug={project.slug}
         className="group block py-6 md:py-9"
       >
-        <span aria-hidden="true" className="flex justify-between font-mono text-label uppercase text-ink-3">
-          <span>{String(index + 1).padStart(2, "0")}</span>
+        <span className="flex justify-between font-mono text-label uppercase text-ink-3">
+          <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
           <span>{project.period}</span>
         </span>
         <span className="fit mt-3 block">
