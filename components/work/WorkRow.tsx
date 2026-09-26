@@ -1,7 +1,7 @@
 import { ViewTransition } from "react";
 import type { Project } from "@/lib/content";
 import { TransitionLink } from "@/components/motion/TransitionLink";
-import { NAV_FORWARD, vtTitle } from "@/lib/vt";
+import { NAV_FORWARD, SHARE_ON_NAV, vtTitle } from "@/lib/vt";
 import { titleFit } from "@/lib/work/fit";
 
 /** One project as a giant, width-fitted title link. The title carries the
@@ -20,7 +20,7 @@ export function WorkRow({ project, index }: { project: Project; index: number })
           <span>{project.period}</span>
         </span>
         <span className="fit mt-3 block">
-          <ViewTransition name={vtTitle(project.slug)} share="morph" enter="none" exit="none" default="none">
+          <ViewTransition name={vtTitle(project.slug)} share={SHARE_ON_NAV} enter="none" exit="none" default="none">
             <span
               className="fit-text font-extrabold text-ink transition-colors duration-500 ease-glide group-hover:text-blue group-focus-visible:text-blue"
               style={titleFit(project.slug, project.name)}

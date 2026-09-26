@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, ViewTransition, type PointerEvent, type ReactNode } from "react";
 import { useMotion } from "@/lib/motion/useMotion";
 import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
-import { vtMedia } from "@/lib/vt";
+import { SHARE_ON_NAV, vtMedia } from "@/lib/vt";
 
 interface Preview {
   readonly slug: string;
@@ -75,7 +75,7 @@ export function WorkIndexInteractive({ previews, children }: { previews: readonl
           aria-hidden="true"
           className="pointer-events-none fixed left-0 top-0 z-40 w-[min(34vw,460px)]"
         >
-          <ViewTransition name={shown ? vtMedia(shown) : undefined} share="morph" enter="none" exit="none" default="none">
+          <ViewTransition name={shown ? vtMedia(shown) : undefined} share={SHARE_ON_NAV} enter="none" exit="none" default="none">
             <div
               className={`relative aspect-[16/10] overflow-hidden transition-[opacity,scale] duration-500 ease-glide ${
                 shown ? "scale-100 opacity-100" : "scale-90 opacity-0"

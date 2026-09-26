@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./styles/motion.css";
+@import "./styles/view-transitions.css";
 
 /* ── Design tokens ──────────────────────────────────────────────
    Bold typographic system: docs/redesign/SPEC.md. Dark canvas, one loud

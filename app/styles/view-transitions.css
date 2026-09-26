@@ -1,0 +1,85 @@
+/* Page transitions: React <ViewTransition> plus next/link transitionTypes.
+   Typed navigations (nav-forward, nav-back) run the blue curtain; untyped ones
+   (Back/Forward, form actions) swap instantly. Every name comes from lib/vt.ts. */
+
+/* Untyped: no root animation. The UA default cross-fades with plus-lighter
+   blending, which flashes on a dark canvas. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* The fixed header stays put through every transition. */
+::view-transition-group(site-header),
+::view-transition-old(site-header),
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+/* Shared elements (title, media) morph on the house glide. */
+::view-transition-group(.morph) {
+  animation-duration: 1.1s;
+  animation-timing-function: var(--ease-glide);
+}
+::view-transition-old(.morph),
+::view-transition-new(.morph) {
+  mix-blend-mode: normal;
+}
+
+/* The curtain rides each page's own ViewTransition (see CURTAIN_* in lib/vt.ts):
+   React cancels the root snapshot when no ViewTransition changed layout. The
+   exiting page's group carries the blue ground the old page lifts away from;
+   the new page rises in over it. */
+::view-transition-group(.curtain-lift),
+::view-transition-group(.curtain-drop) {
+  background: var(--color-blue);
+  animation: none;
+}
+::view-transition-group(.curtain-reveal),
+::view-transition-group(.curtain-rise) {
+  animation: none;
+}
+::view-transition-old(.curtain-lift) {
+  animation: vt-curtain-lift 0.8s var(--ease-glide) both;
+}
+::view-transition-new(.curtain-reveal) {
+  animation: vt-curtain-reveal 0.8s var(--ease-glide) 0.3s both;
+}
+/* Back (typed links such as "All work"): the mirror image. */
+::view-transition-old(.curtain-drop) {
+  animation: vt-curtain-drop 0.8s var(--ease-glide) both;
+}
+::view-transition-new(.curtain-rise) {
+  animation: vt-curtain-rise 0.8s var(--ease-glide) 0.3s both;
+}
+
+@keyframes vt-curtain-lift {
+  to {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+@keyframes vt-curtain-reveal {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+}
+@keyframes vt-curtain-drop {
+  to {
+    clip-path: inset(100% 0 0 0);
+  }
+}
+@keyframes vt-curtain-rise {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
