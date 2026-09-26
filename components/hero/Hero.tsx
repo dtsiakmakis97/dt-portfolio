@@ -1,4 +1,4 @@
-import { facts, hero, profile } from "@/lib/content";
+import { hero, profile } from "@/lib/content";
 import { HeroHeadline } from "./HeroHeadline";
 import { RotatingBadge } from "@/components/motion/RotatingBadge";
 import { SectionLink } from "@/components/motion/SectionLink";
@@ -34,14 +34,6 @@ export function Hero() {
           <RotatingBadge label="Selected work" href="/#work" />
         </div>
       </div>
-
-      <ul aria-label="At a glance" className="mt-12 grid border-t border-line md:grid-cols-[repeat(3,auto)]">
-        {facts.map((fact) => (
-          <li key={fact} className="border-b border-line py-4 pr-6 font-mono text-label uppercase text-ink-3 md:border-b-0">
-            {fact}
-          </li>
-        ))}
-      </ul>
     </section>
   );
 }

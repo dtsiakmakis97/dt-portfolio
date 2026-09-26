@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { ViewTransition } from "react";
 import { profile, projects } from "@/lib/content";
 import { baseOpenGraph } from "@/lib/metadata";
-import { caseNumber, findProject, getCaseStudy, getNextProject } from "@/lib/work";
+import { findProject, getCaseStudy, getNextProject } from "@/lib/work";
 import { CURTAIN_ENTER, CURTAIN_EXIT } from "@/lib/vt";
 import { CaseHero } from "@/components/case-study/CaseHero";
 import { MetaStrip } from "@/components/case-study/MetaStrip";
@@ -46,7 +46,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
     <ViewTransition enter={CURTAIN_ENTER} exit={CURTAIN_EXIT} default="none">
       {/* Opaque, so the incoming snapshot reveals a dark page over the curtain's blue. */}
       <article className="bg-canvas">
-        <CaseHero project={project} number={caseNumber(project.slug)} lead={study.lead} hero={study.hero ?? project.cover} />
+        <CaseHero project={project} lead={study.lead} hero={study.hero ?? project.cover} />
         <div className="mt-16 px-gutter">
           <MetaStrip project={project} />
         </div>

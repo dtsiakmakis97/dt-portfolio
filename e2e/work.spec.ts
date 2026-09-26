@@ -1,13 +1,12 @@
 import { test, expect } from "@playwright/test";
 import { projects } from "../lib/content";
 import { PROJECT_SLUGS } from "../lib/work/types";
-import { caseNumber, getNextProject } from "../lib/work";
+import { getNextProject } from "../lib/work";
 
 test("projects follow PROJECT_SLUGS, and Next wraps from the last to the first", () => {
   expect(projects.map((p) => p.slug)).toEqual([...PROJECT_SLUGS]);
   expect(getNextProject("pawguard").slug).toBe("lead-finder");
   expect(getNextProject("kryora").slug).toBe("pawguard");
-  expect(caseNumber("pawguard")).toBe("01/07");
 });
 
 for (const project of projects) {

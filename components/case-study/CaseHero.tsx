@@ -10,8 +10,6 @@ import { CaseMedia } from "./CaseMedia";
 
 interface CaseHeroProps {
   project: Project;
-  /** "01/07" */
-  number: string;
   lead: string;
   hero?: Figure;
 }
@@ -19,12 +17,12 @@ interface CaseHeroProps {
 /** Crumb, the width-fitted h1 (the title morph lands here, so no GSAP
  *  entrance), tagline, hero media and the lead, which rises under the
  *  lifting curtain. */
-export function CaseHero({ project, number, lead, hero }: CaseHeroProps) {
+export function CaseHero({ project, lead, hero }: CaseHeroProps) {
   return (
     <header className="px-gutter pt-32">
       <div className="flex flex-wrap items-baseline justify-between gap-4">
         <Label>
-          Case study {number} · {project.period}
+          Case study · {project.period}
         </Label>
         <SectionLink
           href="/#work"

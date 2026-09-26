@@ -36,9 +36,3 @@ export function getNextProject(slug: ProjectSlug): Project {
   const index = projects.findIndex((project) => project.slug === slug);
   return projects[(index + 1) % projects.length];
 }
-
-/** "01/07": the project's place in the index. */
-export function caseNumber(slug: ProjectSlug): string {
-  const pad = (n: number) => String(n).padStart(2, "0");
-  return `${pad(projects.findIndex((project) => project.slug === slug) + 1)}/${pad(projects.length)}`;
-}

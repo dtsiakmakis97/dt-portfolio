@@ -25,6 +25,7 @@ const FORBIDDEN: readonly (readonly [RegExp, string])[] = [
   [/English school/i, "T.E.: the signage says English & IT; say language school"],
   [/bilingual SEO/i, "Kryora: SEO foundations only, and the preview is noindexed"],
   [/now shipping/i, "PawGuard is pre-launch: say building"],
+  [/Anthropic Claude API|Claude API/i, "Stack: no project uses the Anthropic SDK; the multi-agent work runs on Claude Code"],
 ];
 
 /** Hits the SPEC gate resolved on purpose, removed before matching. */

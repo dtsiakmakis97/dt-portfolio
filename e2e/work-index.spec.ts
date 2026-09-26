@@ -9,7 +9,10 @@ test.describe("work index", () => {
     for (const [i, project] of projects.entries()) {
       await expect(links.nth(i)).toHaveAttribute("href", `/work/${project.slug}`);
       await expect(links.nth(i)).toContainText(project.name);
+      // No numbering: a row carries its year, never an index like 01.
+      await expect(links.nth(i).locator("span").filter({ hasText: /^\s*\d{2}\s*$/ })).toHaveCount(0);
     }
+    await expect(page.locator("#work h2")).toHaveText("Selected work");
   });
 
   test("the keyboard reaches every row in order", async ({ page }) => {

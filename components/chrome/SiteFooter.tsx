@@ -49,10 +49,7 @@ export function SiteFooter() {
         </span>
       </p>
 
-      <div className="mt-8 flex flex-col gap-2 border-t border-line pt-6 font-mono text-label uppercase text-ink-3 md:flex-row md:justify-between">
-        <p>© 2026 {profile.name} · Built to the standard it claims · WCAG 2.2 AA</p>
-        <p>{profile.location}</p>
-      </div>
+      <p className="mt-8 border-t border-line pt-6 font-mono text-label uppercase text-ink-3">© 2026 {profile.name}</p>
     </footer>
   );
 }

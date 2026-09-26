@@ -208,7 +208,7 @@ Components are few and quiet at rest; the type does the performing. States answe
 - **VelocityMarquee:** the oversized band of skills in the blue stack section, moving and leaning only with scroll; decorative, with the real list beside it.
 
 ### Work index
-Seven full-width title links, each fitted to its row, with a mono index, year, tagline and status. On a fine pointer a 16:10 preview follows the cursor and becomes the image that morphs into the case study; Escape dismisses it. Phones show type only.
+Seven full-width title links, each fitted to its row, with a mono year above the title and the tagline and status below; no numbering. On a fine pointer a 16:10 preview follows the cursor and becomes the image that morphs into the case study; Escape dismisses it. Phones show type only.
 
 ### Case-study frame
 A mono crumb and a way back to the index, the fitted h1 (the morph lands here), a light tagline, a 16:10 hero image or, without one, a blue band with the status set large and a way to ask for a walkthrough. Then the lead, a meta strip of role, year, status, stack and public links, and the sections: prose under sticky mono labels, a numbered list of decisions, captioned figures no wider than their source.

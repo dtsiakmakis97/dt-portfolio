@@ -1,13 +1,13 @@
 import { test, expect } from "@playwright/test";
 import { projects } from "../lib/content";
-import { caseNumber, getNextProject } from "../lib/work";
+import { getNextProject } from "../lib/work";
 
 const pawguard = projects[0];
 
 test.describe("case-study frame", () => {
   test("crumb, fitted h1, tagline, hero media, meta strip, Next and All work", async ({ page }) => {
     await page.goto(`/work/${pawguard.slug}`);
-    await expect(page.getByText(`Case study ${caseNumber(pawguard.slug)} · ${pawguard.period}`)).toBeVisible();
+    await expect(page.getByText(`Case study · ${pawguard.period}`, { exact: true })).toBeVisible();
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(pawguard.name);
     await expect(page.getByText(pawguard.tagline, { exact: true })).toBeVisible();
     await expect(page.getByRole("img", { name: pawguard.cover!.alt })).toBeVisible();

@@ -1,11 +1,8 @@
 import { contact, profile } from "@/lib/content";
 import { Label } from "@/components/ui/Label";
 import { Magnetic } from "@/components/ui/Magnetic";
-import { CopyEmail } from "@/components/ui/CopyEmail";
 import { SplitReveal } from "@/components/motion/SplitReveal";
 import { ContactForm } from "./ContactForm";
-
-const linkClass = "text-body text-ink transition-colors duration-300 hover:text-blue";
 
 export function Contact() {
   return (
@@ -26,35 +23,6 @@ export function Contact() {
               </a>
             </Magnetic>
           </div>
-          <dl className="mt-12 space-y-6 border-t border-line pt-8">
-            <div>
-              <dt>
-                <Label>Email</Label>
-              </dt>
-              <dd className="mt-2">
-                <CopyEmail email={profile.email} />
-              </dd>
-            </div>
-            <div>
-              <dt>
-                <Label>Based in</Label>
-              </dt>
-              <dd className="mt-2 text-body text-ink">{profile.location}</dd>
-            </div>
-            <div>
-              <dt>
-                <Label>Elsewhere</Label>
-              </dt>
-              <dd className="mt-2 flex gap-6">
-                <a href={profile.github} target="_blank" rel="noopener noreferrer" className={linkClass}>
-                  GitHub
-                </a>
-                <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className={linkClass}>
-                  LinkedIn
-                </a>
-              </dd>
-            </div>
-          </dl>
         </div>
         <div className="lg:col-span-6 lg:col-start-7">
           <ContactForm />

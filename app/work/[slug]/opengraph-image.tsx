@@ -1,5 +1,5 @@
 import { projects } from "@/lib/content";
-import { caseNumber, findProject } from "@/lib/work";
+import { findProject } from "@/lib/work";
 import { OG_SIZE, renderCard } from "@/lib/og/render";
 
 // Static alt only (Next 16); the card's own text carries the project's name.
@@ -17,7 +17,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const project = findProject(slug);
   if (!project) return new Response("Not found", { status: 404 });
   return renderCard({
-    kicker: `Case study ${caseNumber(project.slug)} · ${project.period}`,
+    kicker: `Case study · ${project.period}`,
     title: project.name,
     subtitle: project.tagline,
     titleSize: Math.min(150, Math.floor(1056 / (project.name.length * 0.52))),

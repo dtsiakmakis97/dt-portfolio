@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { waitForMotion } from "./helpers/motion";
-import { hero, facts } from "../lib/content";
+import { hero } from "../lib/content";
 
 test.describe("hero", () => {
   test("the headline is real text, named by its content, with the accent in blue", async ({ page }) => {
@@ -13,22 +13,9 @@ test.describe("hero", () => {
     await expect(h1.locator(".text-blue")).toHaveCSS("color", "rgb(59, 157, 255)");
   });
 
-  test("the fact strip shows the facts", async ({ page }) => {
+  test("the hero carries no fact strip", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByRole("list", { name: "At a glance" }).getByRole("listitem")).toHaveText([...facts]);
-  });
-
-  test("each fact sits on one line on a 1440 wide display", async ({ page }) => {
-    await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/");
-    const lineCounts = await page.getByRole("list", { name: "At a glance" }).evaluate((ul) =>
-      [...ul.querySelectorAll("li")].map((li) => {
-        const range = document.createRange();
-        range.selectNodeContents(li);
-        return new Set([...range.getClientRects()].map((r) => Math.round(r.top))).size;
-      }),
-    );
-    expect(lineCounts).toEqual(facts.map(() => 1));
+    await expect(page.locator("#top").getByRole("list")).toHaveCount(0);
   });
 
   test("the badge takes you to the work section", async ({ page }) => {

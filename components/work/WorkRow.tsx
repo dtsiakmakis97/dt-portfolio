@@ -6,7 +6,7 @@ import { titleFit } from "@/lib/work/fit";
 
 /** One project as a giant, width-fitted title link. The title carries the
  *  shared view-transition name that morphs into the case-study h1 (Phase 4). */
-export function WorkRow({ project, index }: { project: Project; index: number }) {
+export function WorkRow({ project }: { project: Project }) {
   return (
     <li className="border-t border-line last:border-b">
       <TransitionLink
@@ -15,10 +15,7 @@ export function WorkRow({ project, index }: { project: Project; index: number })
         data-slug={project.slug}
         className="group block py-6 md:py-9"
       >
-        <span className="flex justify-between font-mono text-label uppercase text-ink-3">
-          <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-          <span>{project.period}</span>
-        </span>
+        <span className="block font-mono text-label uppercase text-ink-3">{project.period}</span>
         <span className="fit mt-3 block">
           <ViewTransition name={vtTitle(project.slug)} share={SHARE_ON_NAV} enter="none" exit="none" default="none">
             <span

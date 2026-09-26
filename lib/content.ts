@@ -263,13 +263,9 @@ export const experience: readonly ExperienceItem[] = [
   },
 ];
 
-// Credibility strip under the hero. Derived from verified content; no invented metrics.
-export const facts: readonly string[] = [
-  "Retail frontends: Dehner, NORMA, Jungheinrich, EP:",
-  "LLM products & agent workflows, built solo",
-  "WCAG audits · ARIA remediation",
-];
-
+// Every entry traces to a project's dependencies (portfolio, PawGuard, Lead
+// Finder, Aegeon, Ego Distillers, Kryora, Career Ops, T.E., Tsogias) or to the
+// KPS AG client work. No Anthropic API entry: no project uses the SDK.
 export const skills: readonly SkillGroup[] = [
   {
     label: "Languages",
@@ -277,23 +273,31 @@ export const skills: readonly SkillGroup[] = [
   },
   {
     label: "Frontend",
-    items: ["React", "React Native (Expo)", "Next.js (App Router, RSC, Server Actions)", "Tailwind CSS", "next-intl", "Storybook"],
+    items: ["React", "Next.js (App Router, RSC, Server Actions)", "Tailwind CSS v4", "next-intl", "Base UI / shadcn", "React Hook Form", "Storybook"],
+  },
+  {
+    label: "Motion",
+    items: ["GSAP (ScrollTrigger, SplitText)", "Lenis", "View Transitions", "CSS scroll-driven animation"],
+  },
+  {
+    label: "Mobile",
+    items: ["React Native (Expo, Expo Router)", "NativeWind", "TanStack Query", "Zustand"],
   },
   {
     label: "AI / LLM",
-    items: ["Anthropic Claude API", "Google Gemini API", "Multi-agent workflows (constitution-as-code, audit gates)", "Model Context Protocol (MCP)", "Prompt engineering"],
+    items: ["Claude Code (subagents, skills, hooks)", "Google Gemini API", "Multi-agent workflows (constitution-as-code, audit gates)", "Model Context Protocol (MCP)", "Prompt engineering"],
   },
   {
     label: "Backend & data",
-    items: ["Supabase (Postgres, Auth, Storage, RLS, Edge Functions)", "PostgREST", "SQL schema & migrations"],
+    items: ["Supabase (Postgres, Auth, Storage, RLS, Edge Functions)", "Payload CMS 3", "PostgREST", "SQL schema & migrations", "Stripe", "Resend + React Email", "Zod", "iCal sync", "Google Places & PageSpeed APIs"],
   },
   {
     label: "Tooling & infra",
-    items: ["Vercel", "GitHub Actions", "Docker", "Turbopack / Vite", "pnpm", "Git"],
+    items: ["Vercel (Cron, Analytics)", "Infisical", "GitHub Actions", "Docker", "Turbopack / Vite", "pnpm", "Git"],
   },
   {
     label: "Practice",
-    items: ["WCAG accessibility audits + ARIA", "Multilingual i18n (DE/EN/EL)", "Performance budgets", "Vitest & Playwright", "SAP Commerce · Spryker · Magnolia"],
+    items: ["WCAG 2.2 AA audits + ARIA", "Playwright + axe-core", "Vitest", "Multilingual i18n (DE/EN/EL/SV)", "Performance budgets", "SAP Commerce · Spryker · Magnolia"],
   },
 ];
 
@@ -305,12 +309,13 @@ export const stackMarquee: readonly string[] = [
   "Next.js",
   "React Native",
   "Supabase",
-  "Claude API",
+  "Payload",
+  "Claude Code",
   "Gemini API",
   "MCP",
   "Tailwind",
+  "GSAP",
   "Playwright",
-  "Vitest",
 ];
 
 export const contact = {
