@@ -28,6 +28,8 @@ test.describe("share cards, sitemap and 404", () => {
     const xml = await (await request.get("/sitemap.xml")).text();
     for (const project of projects) expect(xml.includes(`/work/${project.slug}</loc>`), project.slug).toBe(!project.noindex);
     expect(xml).toMatch(/<loc>[^<]*\/<\/loc>/);
+    // A build-time lastmod on every URL teaches crawlers to ignore it.
+    expect(xml).not.toContain("<lastmod>");
   });
 
   test("the 404 names itself, lists the work and links home", async ({ page }) => {
@@ -35,6 +37,9 @@ test.describe("share cards, sitemap and 404", () => {
     expect(response?.status()).toBe(404);
     await expect(page.getByRole("heading", { level: 1 })).toHaveAccessibleName(/not found/i);
     await expect(page).toHaveTitle(/^Not found · /);
+    // It must not claim to be the home page.
+    await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
+    await expect(page.locator('meta[property="og:url"]')).toHaveCount(0);
     await expect(page.getByRole("main").getByRole("link", { name: "PawGuard" })).toHaveAttribute("href", "/work/pawguard");
     await expect(page.getByRole("link", { name: "Back to the home page" })).toHaveAttribute("href", "/");
   });

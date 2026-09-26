@@ -7,7 +7,7 @@ import { TopBar } from "@/components/chrome/TopBar";
 import { SiteFooter } from "@/components/chrome/SiteFooter";
 import { meta, profile } from "@/lib/content";
 import { siteUrl } from "@/lib/site";
-import { baseOpenGraph } from "@/lib/metadata";
+import { siteOpenGraph } from "@/lib/metadata";
 
 // Display + body face: Cabinet Grotesk variable (Fontshare, ITF Free Font
 // License in ./fonts/CabinetGrotesk-LICENSE.txt). One file covers 100-900.
@@ -44,13 +44,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   authors: [{ name: profile.name, url: profile.github }],
   creator: profile.name,
-  openGraph: {
-    title: meta.title,
-    description: meta.description,
-    type: "website",
-    url: "/",
-    ...baseOpenGraph,
-  },
+  openGraph: siteOpenGraph,
   twitter: {
     card: "summary_large_image",
     title: meta.title,

@@ -5,10 +5,16 @@ import { projects } from "@/lib/content";
 import { pill } from "@/components/ui/pill";
 import { TransitionLink } from "@/components/motion/TransitionLink";
 import { CURTAIN_ENTER, CURTAIN_EXIT, NAV_FORWARD } from "@/lib/vt";
+import { siteOpenGraph } from "@/lib/metadata";
 
 // Collected by Next's metadata resolver for not-found (undocumented for the
-// non-global file); noindex is added automatically.
-export const metadata: Metadata = { title: "Not found" };
+// non-global file); noindex is added automatically. Merging is shallow, so
+// drop the home canonical and og:url the root layout would otherwise lend it.
+export const metadata: Metadata = {
+  title: "Not found",
+  alternates: { canonical: null },
+  openGraph: { ...siteOpenGraph, url: null },
+};
 
 export default function NotFound() {
   return (
