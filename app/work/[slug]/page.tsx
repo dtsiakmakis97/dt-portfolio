@@ -44,7 +44,8 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
   return (
     // The page's own transition boundary: the curtain (lib/vt.ts CURTAIN_*).
     <ViewTransition enter={CURTAIN_ENTER} exit={CURTAIN_EXIT} default="none">
-      <article>
+      {/* Opaque, so the incoming snapshot reveals a dark page over the curtain's blue. */}
+      <article className="bg-canvas">
         <CaseHero project={project} number={caseNumber(project.slug)} lead={study.lead} hero={study.hero ?? project.cover} />
         <div className="mt-16 px-gutter">
           <MetaStrip project={project} />

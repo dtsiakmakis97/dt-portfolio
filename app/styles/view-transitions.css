@@ -17,6 +17,16 @@
   animation: none;
 }
 
+/* Groups stack in the old page's paint order, and a name only the new page has
+   (the incoming page's own boundary) is appended on top. The pages are opaque,
+   so lift the shared elements and the header above both curtains. */
+::view-transition-group(.morph) {
+  z-index: 1;
+}
+::view-transition-group(site-header) {
+  z-index: 2;
+}
+
 /* Shared elements (title, media) morph on the house glide. */
 ::view-transition-group(.morph) {
   animation-duration: 1.1s;

@@ -40,6 +40,26 @@ async function recordTransition(page: Page, action: () => Promise<unknown>, ms =
   return recording;
 }
 
+/** Average color of a small screenshot region, decoded in a blank page (no image library). */
+async function sampleColor(page: Page, clip: { x: number; y: number; width: number; height: number }): Promise<number[]> {
+  const png = (await page.screenshot({ clip })).toString("base64");
+  const decoder = await page.context().newPage();
+  const rgb = await decoder.evaluate(async (b64) => {
+    const img = new Image();
+    img.src = `data:image/png;base64,${b64}`;
+    await img.decode();
+    const canvas = new OffscreenCanvas(img.width, img.height);
+    const ctx = canvas.getContext("2d")!;
+    ctx.drawImage(img, 0, 0);
+    const { data } = ctx.getImageData(0, 0, img.width, img.height);
+    const sum = [0, 0, 0];
+    for (let i = 0; i < data.length; i += 4) for (let c = 0; c < 3; c++) sum[c] += data[i + c];
+    return sum.map((v) => Math.round(v / (data.length / 4)));
+  }, png);
+  await decoder.close();
+  return rgb;
+}
+
 function trackDuplicateNames(page: Page): string[] {
   const duplicates: string[] = [];
   page.on("console", (message) => {
@@ -67,6 +87,34 @@ test.describe("page transitions", () => {
     expect(duplicates).toEqual([]);
   });
 
+  test("the incoming page reveals on its own canvas, under the header and the morphing title", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/");
+    await waitForMotion(page);
+    const row = page.locator('#work a[data-slug="pawguard"]');
+    await row.scrollIntoViewIfNeeded();
+    await row.click();
+    // Freeze every transition animation near the end of the reveal (0.3s delay + 0.8s).
+    await page.waitForFunction(() => {
+      const all = document.getAnimations().filter((a) => ((a.effect as KeyframeEffect | null)?.pseudoElement ?? "").startsWith("::view-transition"));
+      if (!all.some((a) => (a as CSSAnimation).animationName === "vt-curtain-reveal")) return false;
+      for (const a of all) {
+        a.pause();
+        a.currentTime = 1050;
+      }
+      return true;
+    });
+    // The right-hand gutter of the case page: nothing but its background.
+    const [r, g, b] = await sampleColor(page, { x: 1400, y: 560, width: 20, height: 20 });
+    expect(b, `rgb(${r}, ${g}, ${b})`).toBeLessThan(40);
+    // The opaque page must not cover the named groups: the h1 band shows ink, the header its wordmark.
+    const [titleInk] = await sampleColor(page, { x: 56, y: 200, width: 1328, height: 120 });
+    expect(titleInk, "h1 band brightness").toBeGreaterThan(60);
+    const logo = (await page.locator("header a").first().boundingBox())!;
+    const [headerInk] = await sampleColor(page, { x: logo.x, y: logo.y, width: logo.width, height: logo.height });
+    expect(headerInk, "wordmark brightness").toBeGreaterThan(60);
+  });
+
   test("Next runs the curtain without morphing any title", async ({ page }) => {
     await page.goto("/work/pawguard");
     await waitForMotion(page);
@@ -74,6 +122,24 @@ test.describe("page transitions", () => {
     await expect(page).toHaveURL("/work/lead-finder");
     expect(seen.map((s) => s.name)).toContain("vt-curtain-lift");
     expect(seen.some((s) => s.pseudo.startsWith("::view-transition-group(project-"))).toBe(false);
+  });
+
+  test("the curtain on Next is visibly blue while the old page lifts", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/work/pawguard");
+    await waitForMotion(page);
+    await page.getByRole("link", { name: "Next Lead Finder" }).click();
+    await page.waitForFunction(() => {
+      const all = document.getAnimations().filter((a) => ((a.effect as KeyframeEffect | null)?.pseudoElement ?? "").startsWith("::view-transition"));
+      if (!all.some((a) => (a as CSSAnimation).animationName === "vt-curtain-lift")) return false;
+      for (const a of all) {
+        a.pause();
+        a.currentTime = 250;
+      }
+      return true;
+    });
+    const [r, g, b] = await sampleColor(page, { x: 700, y: 600, width: 40, height: 40 });
+    expect([r, g, b], "curtain blue").toEqual([59, 157, 255]);
   });
 
   test("Back returns home instantly, leaves nothing running, and Lenis follows", async ({ page }) => {

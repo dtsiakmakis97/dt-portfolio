@@ -14,7 +14,8 @@ export default function NotFound() {
   return (
     // Its own curtain boundary, like every page, so leaving for a case study lifts it.
     <ViewTransition enter={CURTAIN_ENTER} exit={CURTAIN_EXIT} default="none">
-      <section className="px-gutter pb-section pt-32">
+      {/* Opaque, so the incoming snapshot reveals a dark page over the curtain's blue. */}
+      <section className="bg-canvas px-gutter pb-section pt-32">
         <h1 className="font-display text-mega font-extrabold text-ink">
           <span aria-hidden="true">404</span>
           <span className="sr-only">Page not found</span>

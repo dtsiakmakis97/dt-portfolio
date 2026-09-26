@@ -11,7 +11,8 @@ export default function Home() {
   return (
     // The page's own transition boundary: the curtain (lib/vt.ts CURTAIN_*).
     <ViewTransition enter={CURTAIN_ENTER} exit={CURTAIN_EXIT} default="none">
-      <div>
+      {/* Opaque, so the incoming snapshot reveals a dark page over the curtain's blue. */}
+      <div className="bg-canvas">
         <Hero />
         <About />
         <WorkIndex />
