@@ -29,6 +29,35 @@ declare global {
 test.describe("performance budget @mobile", () => {
   test.skip(!process.env.E2E_PROD, "budgets need a production build: E2E_PROD=1");
 
+  // SPEC rule "LCP text never waits on JS": the headline's first counted paint
+  // must land with the first paint. A word parked below its mask is not painted,
+  // so a staggered rise pushes LCP past hydration, and Lighthouse's simulated
+  // 4x CPU then bills the whole bundle to LCP (measured 2.64s vs a 2.5s budget).
+  test("the largest paint lands with the first paint", async ({ page }) => {
+    await page.addInitScript(() => {
+      const w = window as unknown as { __lcp: number; __lcpInH1: boolean };
+      w.__lcp = 0;
+      w.__lcpInH1 = false;
+      new PerformanceObserver((list) => {
+        for (const entry of list.getEntries() as (PerformanceEntry & { element: Element | null })[]) {
+          w.__lcp = entry.startTime;
+          w.__lcpInH1 = !!entry.element?.closest("h1");
+        }
+      }).observe({ type: "largest-contentful-paint", buffered: true });
+    });
+    await page.goto("/", { waitUntil: "networkidle" });
+    await page.waitForTimeout(2500); // past every hero delay and glide
+    const { lcp, lcpInH1, fcp } = await page.evaluate(() => ({
+      lcp: (window as unknown as { __lcp: number }).__lcp,
+      lcpInH1: (window as unknown as { __lcpInH1: boolean }).__lcpInH1,
+      fcp: performance.getEntriesByName("first-contentful-paint")[0]?.startTime ?? 0,
+    }));
+    // A hidden headline doesn't delay LCP, it just hands it to smaller text; so pin the element too.
+    expect(lcpInH1, "the largest paint is the headline").toBe(true);
+    test.info().annotations.push({ type: "lcp-fcp", description: `${Math.round(lcp)} - ${Math.round(fcp)}` });
+    expect(lcp - fcp, `LCP ${Math.round(lcp)}ms vs FCP ${Math.round(fcp)}ms`).toBeLessThanOrEqual(100);
+  });
+
   test("home JS weight and layout shift", async ({ page }) => {
     await page.addInitScript(() => {
       window.__cls = 0;

@@ -70,6 +70,21 @@ test.describe("work index", () => {
   });
 });
 
+test.describe("work index preview (WCAG 1.4.13)", () => {
+  test("Escape dismisses the preview without moving the pointer; the next row brings it back", async ({ page }) => {
+    await page.goto("/");
+    const rows = page.locator("#work").getByRole("link");
+    await rows.first().scrollIntoViewIfNeeded();
+    await rows.first().hover();
+    const active = page.locator("[data-preview] img[data-active]");
+    await expect(active).toHaveCount(1);
+    await page.keyboard.press("Escape");
+    await expect(active).toHaveCount(0);
+    await rows.nth(1).hover();
+    await expect(active).toHaveAttribute("src", projects[1].cover!.src);
+  });
+});
+
 test.describe("work index without JavaScript", () => {
   test.use({ javaScriptEnabled: false });
 

@@ -13,6 +13,31 @@ test.describe("experience", () => {
   });
 });
 
+test.describe("experience after a resize", () => {
+  // SplitReveal re-splits on resize (autoSplit); the played guard must stop a
+  // replay, and the heading must keep its name, its words and a flat mask tree.
+  test("the statement survives a re-split from 1440 to 390 wide", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/");
+    const h2 = page.locator("#experience h2");
+    await h2.scrollIntoViewIfNeeded();
+    const lines = h2.locator(".split-line");
+    await expect(lines).toHaveCount(1); // one line at 1440
+    // Let the reveal finish, so any later offset can only come from a replay.
+    await expect.poll(() => lines.first().evaluate((l) => getComputedStyle(l).transform)).toMatch(/^(none|matrix\(1, 0, 0, 1, 0, 0\))$/);
+    await page.setViewportSize({ width: 390, height: 844 });
+    await expect(lines).toHaveCount(2); // re-split at 390
+    // Read at once: the new lines must already sit in their masks, not replay.
+    const offsets = await lines.evaluateAll((els) => els.map((l) => new DOMMatrix(getComputedStyle(l).transform).m42));
+    for (const y of offsets) expect(Math.abs(y)).toBeLessThan(0.5);
+    await expect(h2).toHaveAccessibleName(experienceStatement);
+    await expect
+      .poll(() => h2.evaluate((el) => (el.textContent ?? "").replace(/\s+/g, " ").trim()))
+      .toBe(experienceStatement);
+    await expect(h2.locator(".split-line-mask .split-line-mask")).toHaveCount(0);
+  });
+});
+
 test.describe("experience under reduced motion", () => {
   test.use({ contextOptions: { reducedMotion: "reduce" } });
 

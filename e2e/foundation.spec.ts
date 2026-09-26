@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { readFileSync } from "node:fs";
 
 test.describe("design foundation", () => {
   test("canvas, ink, body font and tokens resolve to the new system", async ({ page }) => {
@@ -27,6 +28,11 @@ test.describe("design foundation", () => {
     await page.keyboard.press("Tab"); // logo, which carries transition-colors
     const ring = await page.evaluate(() => getComputedStyle(document.activeElement!).outlineColor);
     expect(ring).toBe("rgb(59, 157, 255)");
+  });
+
+  test("fonts are self-hosted, so a build never waits on Google Fonts", () => {
+    // A build once failed fetching IBM Plex Mono from fonts.googleapis.com.
+    expect(readFileSync("app/layout.tsx", "utf8")).not.toMatch(/next\/font\/google/);
   });
 
   test("the js class lands on <html> so load reveals can opt in", async ({ page }) => {

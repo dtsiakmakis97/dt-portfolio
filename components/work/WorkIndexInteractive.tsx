@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, ViewTransition, type PointerEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, ViewTransition, type PointerEvent, type ReactNode } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
 import { vtMedia } from "@/lib/vt";
@@ -21,6 +21,20 @@ export function WorkIndexInteractive({ previews, children }: { previews: readonl
   const box = useRef<HTMLDivElement>(null);
   const follow = useRef<{ x: gsap.QuickToFunc; y: gsap.QuickToFunc } | null>(null);
   const [active, setActive] = useState<string | null>(null);
+  // WCAG 1.4.13: hover content must be dismissable without moving the pointer.
+  // Escape hides the current preview; a different row, or leaving the list,
+  // brings it back.
+  const [dismissed, setDismissed] = useState<string | null>(null);
+  const shown = active !== dismissed ? active : null;
+
+  useEffect(() => {
+    if (!enabled) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setDismissed(active);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [enabled, active]);
 
   useGSAP(
     () => {
@@ -43,7 +57,13 @@ export function WorkIndexInteractive({ previews, children }: { previews: readonl
   };
 
   return (
-    <div onPointerMove={onPointerMove} onPointerLeave={() => setActive(null)}>
+    <div
+      onPointerMove={onPointerMove}
+      onPointerLeave={() => {
+        setActive(null);
+        setDismissed(null);
+      }}
+    >
       {children}
       {enabled && (
         <div
@@ -52,10 +72,10 @@ export function WorkIndexInteractive({ previews, children }: { previews: readonl
           aria-hidden="true"
           className="pointer-events-none fixed left-0 top-0 z-40 w-[min(34vw,460px)]"
         >
-          <ViewTransition name={active ? vtMedia(active) : undefined} share="morph" enter="none" exit="none" default="none">
+          <ViewTransition name={shown ? vtMedia(shown) : undefined} share="morph" enter="none" exit="none" default="none">
             <div
               className={`relative aspect-[16/10] overflow-hidden transition-[opacity,scale] duration-500 ease-glide ${
-                active ? "scale-100 opacity-100" : "scale-90 opacity-0"
+                shown ? "scale-100 opacity-100" : "scale-90 opacity-0"
               }`}
             >
               {previews.map((p) => (
@@ -63,9 +83,9 @@ export function WorkIndexInteractive({ previews, children }: { previews: readonl
                   key={p.slug}
                   src={p.src}
                   alt=""
-                  data-active={p.slug === active ? "" : undefined}
+                  data-active={p.slug === shown ? "" : undefined}
                   className={`absolute inset-0 size-full object-cover transition-opacity duration-300 ${
-                    p.slug === active ? "opacity-100" : "opacity-0"
+                    p.slug === shown ? "opacity-100" : "opacity-0"
                   }`}
                 />
               ))}

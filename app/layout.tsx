@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { IBM_Plex_Mono } from "next/font/google";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
@@ -22,13 +21,19 @@ const cabinet = localFont({
   fallback: ["Helvetica Neue", "Arial", "sans-serif"],
 });
 
-// Small caps metadata labels only.
-const plexMono = IBM_Plex_Mono({
-  weight: ["400"],
-  subsets: ["latin"],
+// Small caps metadata labels only. Self-hosted (SIL OFL, ./fonts/IBMPlexMono-
+// LICENSE.txt) so a build never depends on fonts.googleapis.com: Google's own
+// latin subset (U+0000-00FF, U+2000-206F), 10KB. Monospace fallbacks share
+// Plex's 0.6em advance, so the swap never re-wraps a label.
+const plexMono = localFont({
+  src: "./fonts/IBMPlexMono-Regular-latin.woff2",
+  weight: "400",
+  style: "normal",
+  variable: "--font-plex-mono",
   display: "swap",
   preload: false,
-  variable: "--font-plex-mono",
+  adjustFontFallback: false,
+  fallback: ["ui-monospace", "SF Mono", "Menlo", "monospace"],
 });
 
 export const metadata: Metadata = {

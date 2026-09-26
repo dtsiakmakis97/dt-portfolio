@@ -21,5 +21,30 @@
       "cls": 0,
       "tbtMs": 38
     }
+  },
+  "phase3": {
+    "measuredAt": "2026-09-26",
+    "commit": "03a45ac + review fix pass",
+    "url": "http://localhost:3000 (next start, production build; Lighthouse 12, median of 3 runs)",
+    "mobile": {
+      "performance": 97,
+      "accessibility": 100,
+      "seo": 100,
+      "lcpMs": 2640,
+      "cls": 0,
+      "tbtMs": 28,
+      "observedLcpMs": 148,
+      "observedFcpMs": 148,
+      "jsBytes": 210590
+    },
+    "desktop": {
+      "performance": 100,
+      "accessibility": 100,
+      "seo": 100,
+      "lcpMs": 552,
+      "cls": 0,
+      "tbtMs": 0
+    },
+    "note": "Simulated mobile LCP exceeds the 2.5s budget while observed LCP equals FCP (the h1 paints first). Lantern counts the 209KB of JS requested before LCP; the pre-redesign site measured 2382ms the same way with 153KB."
   }
 }

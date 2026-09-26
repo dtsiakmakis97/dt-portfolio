@@ -155,12 +155,12 @@ export const projects: readonly Project[] = [
   {
     slug: "ego-distillers",
     name: "Ego Distillers",
-    tagline: "A bilingual site for Gothenburg's first distillery.",
+    tagline: "A bilingual site for Gothenburg’s first distillery.",
     summary:
       "A Swedish/English site for a Gothenburg distillery, bar and restaurant: typed i18n, on-page table booking and a Resend form on a verified domain.",
     role: "Solo: design, build, integrations",
     period: "2026",
-    status: "Live in production",
+    status: "Live",
     stack: ["Next.js 16", "React 19", "Tailwind v4", "Resend", "Vercel"],
     cover: {
       src: "/work/ego-distillers.webp",
@@ -221,8 +221,8 @@ export const projects: readonly Project[] = [
 ];
 
 export const about: readonly string[] = [
-  "I'm a frontend engineer from Greece, based in Berlin. For three years at KPS AG I shipped production e-commerce frontends for German retail brands (Dehner, NORMA, Jungheinrich and EP:) across SAP Commerce Cloud, Spryker, Magnolia and Storybook, with accessibility and performance as a constant discipline.",
-  "These days I build AI systems on top of that frontend foundation, not instead of it. PawGuard is a civic-tech app I'm building with four custom Claude Code subagents and merge-blocking audit gates; Lead Finder is an LLM analyzer pipeline; Aegeon, Ego Distillers and the T.E. Learning Center are live sites I shipped solo.",
+  "I’m a frontend engineer from Greece, based in Berlin. For three years at KPS AG I shipped production e-commerce frontends for German retail brands (Dehner, NORMA, Jungheinrich and EP:) across SAP Commerce Cloud, Spryker, Magnolia and Storybook, with accessibility and performance as a constant discipline.",
+  "These days I build AI systems on top of that frontend foundation, not instead of it. PawGuard is a civic-tech app I’m building with four custom Claude Code subagents and merge-blocking audit gates; Lead Finder is an LLM analyzer pipeline; Aegeon, Ego Distillers and the T.E. Learning Center are live sites I shipped solo.",
 ];
 
 /** The About statement, rendered monumental; plain words, loud form. The
@@ -231,7 +231,7 @@ export const manifesto = "Accessible by default. Fast under real budgets. Honest
 /** Closing run of `manifesto` that fills to blue instead of ink. */
 export const manifestoAccent = "Honest about what it does.";
 
-/** Section statement. KPS AG, Dec 2022 to Oct 2025, matches the hero subhead's "Three years". */
+/** Section statement. KPS AG, Dec 2022 to Oct 2025, matches "Three years" in the hero subhead. */
 export const experienceStatement = "Three years at KPS AG.";
 
 export const experience: readonly ExperienceItem[] = [
