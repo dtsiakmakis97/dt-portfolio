@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { useMotion } from "@/lib/motion/useMotion";
 
 /** Oversized word band that travels with the scroll and leans with scroll
  *  velocity. It never moves on its own (WCAG 2.2.2). Decorative only: hidden
@@ -10,8 +10,8 @@ export function VelocityMarquee({ items }: { items: readonly string[] }) {
   const root = useRef<HTMLDivElement>(null);
   const track = useRef<HTMLDivElement>(null);
 
-  useGSAP(
-    () => {
+  useMotion(
+    ({ gsap }) => {
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         const lean = gsap.quickTo(track.current, "skewX", { duration: 0.5, ease: "power3" });

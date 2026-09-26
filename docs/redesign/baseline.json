@@ -46,5 +46,22 @@
       "tbtMs": 0
     },
     "note": "Simulated mobile LCP exceeds the 2.5s budget while observed LCP equals FCP (the h1 paints first). Lantern counts the 209KB of JS requested before LCP; the pre-redesign site measured 2382ms the same way with 153KB."
+  },
+  "phase4Task14": {
+    "measuredAt": "2026-09-26",
+    "commit": "Task 14 (motion after load)",
+    "url": "http://localhost:3000 (next start, production build; Lighthouse 12, median of 3 runs)",
+    "mobile": {
+      "performance": 98,
+      "accessibility": 100,
+      "seo": 100,
+      "lcpMs": 2491,
+      "cls": 0,
+      "tbtMs": 40,
+      "observedLcpMs": 100,
+      "jsBytesBeforePaint": 158868,
+      "jsBytes": 211031
+    },
+    "note": "GSAP now loads after the load event: 46KB left the pre-paint critical path and simulated LCP dropped from 2640ms to 2491ms (budget 2500ms). Headroom is 9ms: nothing may add pre-paint JS to /."
   }
 }

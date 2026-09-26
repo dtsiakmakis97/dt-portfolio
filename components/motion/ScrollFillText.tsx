@@ -1,7 +1,7 @@
 "use client";
 
 import { createElement, useRef } from "react";
-import { gsap, SplitText, useGSAP } from "@/lib/gsap";
+import { useMotion } from "@/lib/motion/useMotion";
 import { cssVar } from "@/lib/tokens";
 
 interface ScrollFillTextProps {
@@ -24,8 +24,8 @@ export function ScrollFillText({ text, accent, as = "h2", className }: ScrollFil
   }
   const lead = accent ? text.slice(0, text.length - accent.length) : text;
 
-  useGSAP(
-    () => {
+  useMotion(
+    ({ gsap, SplitText }) => {
       const el = root.current;
       if (!el) return;
       const mm = gsap.matchMedia();
@@ -42,7 +42,7 @@ export function ScrollFillText({ text, accent, as = "h2", className }: ScrollFil
       });
       return () => mm.revert();
     },
-    { scope: root, dependencies: [text, accent], revertOnUpdate: true },
+    { scope: root, dependencies: [text, accent] },
   );
 
   return createElement(

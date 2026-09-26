@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { waitForMotion } from "./helpers/motion";
 import { manifesto, manifestoAccent } from "../lib/content";
 
 const INK = "rgb(242, 240, 234)";
@@ -7,12 +8,14 @@ const BLUE = "rgb(59, 157, 255)";
 test.describe("manifesto", () => {
   test("the statement keeps its accessible name after splitting", async ({ page }) => {
     await page.goto("/");
+    await waitForMotion(page);
     await page.locator("#about").scrollIntoViewIfNeeded();
     await expect(page.locator("#about h2")).toHaveAccessibleName(manifesto);
   });
 
   test("words fill to ink, and the closing clause to blue, once scrolled through", async ({ page }) => {
     await page.goto("/");
+    await waitForMotion(page);
     await page.locator("#work").scrollIntoViewIfNeeded();
     const color = (locator: ReturnType<typeof page.locator>) =>
       locator.evaluate((el) => getComputedStyle(el).color);
@@ -23,6 +26,7 @@ test.describe("manifesto", () => {
   test("resizing after the split neither duplicates nor drops words", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/");
+    await waitForMotion(page);
     await page.locator("#about").scrollIntoViewIfNeeded();
     await page.setViewportSize({ width: 390, height: 844 });
     const h2 = page.locator("#about h2");

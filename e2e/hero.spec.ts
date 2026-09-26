@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { waitForMotion } from "./helpers/motion";
 import { hero, facts } from "../lib/content";
 
 test.describe("hero", () => {
@@ -107,6 +108,7 @@ test.describe("hero after Checkpoint A", () => {
 
   test("the badge turns through the hero's own scroll", async ({ page }) => {
     await page.goto("/");
+    await waitForMotion(page);
     const half = await page.evaluate(() => document.getElementById("top")!.offsetHeight / 2);
     await page.evaluate((y) => window.scrollTo(0, y), half);
     await expect

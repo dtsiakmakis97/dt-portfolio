@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { waitForMotion } from "./helpers/motion";
 import { experience, experienceStatement } from "../lib/content";
 
 const clients = experience.flatMap((job) => job.highlights.map((h) => h.client));
@@ -19,6 +20,7 @@ test.describe("experience after a resize", () => {
   test("the statement survives a re-split from 1440 to 390 wide", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/");
+    await waitForMotion(page);
     const h2 = page.locator("#experience h2");
     await h2.scrollIntoViewIfNeeded();
     const lines = h2.locator(".split-line");
@@ -35,6 +37,27 @@ test.describe("experience after a resize", () => {
       .poll(() => h2.evaluate((el) => (el.textContent ?? "").replace(/\s+/g, " ").trim()))
       .toBe(experienceStatement);
     await expect(h2.locator(".split-line-mask .split-line-mask")).toHaveCount(0);
+  });
+});
+
+test.describe("experience when motion arrives late", () => {
+  // Motion loads after the page's load event. If the reader has already
+  // scrolled a reveal into view, it must stay put, not vanish and replay.
+  test("a statement the reader already reached is left as it is", async ({ page }) => {
+    let afterLoad = false;
+    page.on("load", () => (afterLoad = true));
+    // Hold every script requested after load (the motion chunk) for 1.5s.
+    await page.route("**/_next/static/chunks/**", async (route) => {
+      if (afterLoad) await new Promise((resolve) => setTimeout(resolve, 1500));
+      await route.continue();
+    });
+    await page.goto("/");
+    const h2 = page.locator("#experience h2");
+    await h2.scrollIntoViewIfNeeded();
+    await waitForMotion(page);
+    await page.waitForTimeout(400);
+    await expect(h2.locator(".split-line")).toHaveCount(0);
+    await expect(h2).toHaveText(experienceStatement);
   });
 });
 

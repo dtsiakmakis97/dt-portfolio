@@ -58,6 +58,21 @@ test.describe("performance budget @mobile", () => {
     expect(lcp - fcp, `LCP ${Math.round(lcp)}ms vs FCP ${Math.round(fcp)}ms`).toBeLessThanOrEqual(100);
   });
 
+  test("the motion library stays off the first paint's critical path", async ({ page }) => {
+    await page.goto("/", { waitUntil: "load" });
+    const bytesBeforePaint = await page.evaluate(() => {
+      const fcp = performance.getEntriesByName("first-contentful-paint")[0]?.startTime ?? Number.POSITIVE_INFINITY;
+      return (performance.getEntriesByType("resource") as PerformanceResourceTiming[])
+        .filter((entry) => entry.initiatorType === "script" && entry.startTime < fcp)
+        .reduce((sum, entry) => sum + entry.transferSize, 0);
+    });
+    const baseline = JSON.parse(readFileSync(BASELINE_FILE, "utf8")) as Baseline;
+    test.info().annotations.push({ type: "jsBeforePaint", description: String(bytesBeforePaint) });
+    expect(bytesBeforePaint, `JS requested before first paint (baseline ${baseline.jsBytes})`).toBeLessThanOrEqual(
+      baseline.jsBytes + 20 * 1024,
+    );
+  });
+
   test("home JS weight and layout shift", async ({ page }) => {
     await page.addInitScript(() => {
       window.__cls = 0;

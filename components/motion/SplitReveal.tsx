@@ -1,7 +1,7 @@
 "use client";
 
 import { createElement, useRef } from "react";
-import { gsap, SplitText, useGSAP } from "@/lib/gsap";
+import { useMotion } from "@/lib/motion/useMotion";
 
 interface SplitRevealProps {
   text: string;
@@ -21,12 +21,16 @@ export function SplitReveal({ text, as = "p", className, trigger = "scroll", del
   const visual = useRef<HTMLSpanElement>(null);
   const isHeading = as !== "p";
 
-  useGSAP(
-    () => {
+  useMotion(
+    ({ gsap, SplitText }) => {
       const target = isHeading ? root.current : visual.current;
-      if (!target) return;
+      const el = root.current;
+      if (!target || !el) return;
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: no-preference)", () => {
+        // Scroll reveals the reader has already reached stay put; load reveals always play
+        // (they are CSS-hidden until they do, with a 2.5s failsafe).
+        if (trigger === "scroll" && el.getBoundingClientRect().top < window.innerHeight * 0.85) return;
         let played = false;
         SplitText.create(target, {
           type: "lines",
@@ -43,17 +47,16 @@ export function SplitReveal({ text, as = "p", className, trigger = "scroll", del
               delay,
               onStart: () => {
                 played = true;
-                if (root.current) root.current.style.visibility = "visible";
+                el.style.visibility = "visible";
               },
-              scrollTrigger:
-                trigger === "scroll" ? { trigger: root.current, start: "top 85%", once: true } : undefined,
+              scrollTrigger: trigger === "scroll" ? { trigger: el, start: "top 85%", once: true } : undefined,
             });
           },
         });
       });
       return () => mm.revert();
     },
-    { scope: root, dependencies: [text], revertOnUpdate: true },
+    { scope: root, dependencies: [text] },
   );
 
   const content = isHeading ? (

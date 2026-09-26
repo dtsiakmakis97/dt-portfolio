@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, ViewTransition, type PointerEvent, type ReactNode } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { useMotion } from "@/lib/motion/useMotion";
 import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
 import { vtMedia } from "@/lib/vt";
 
@@ -36,13 +36,16 @@ export function WorkIndexInteractive({ previews, children }: { previews: readonl
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [enabled, active]);
 
-  useGSAP(
-    () => {
+  useMotion(
+    ({ gsap }) => {
       if (!enabled || !box.current) return;
       gsap.set(box.current, { xPercent: -50, yPercent: -50 });
       follow.current = {
         x: gsap.quickTo(box.current, "x", { duration: 0.7, ease: "expo.out" }),
         y: gsap.quickTo(box.current, "y", { duration: 0.7, ease: "expo.out" }),
+      };
+      return () => {
+        follow.current = null;
       };
     },
     { dependencies: [enabled] },
@@ -83,6 +86,8 @@ export function WorkIndexInteractive({ previews, children }: { previews: readonl
                   key={p.slug}
                   src={p.src}
                   alt=""
+                  decoding="async"
+                  fetchPriority="low"
                   data-active={p.slug === shown ? "" : undefined}
                   className={`absolute inset-0 size-full object-cover transition-opacity duration-300 ${
                     p.slug === shown ? "opacity-100" : "opacity-0"

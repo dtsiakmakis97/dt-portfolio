@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { useMotion } from "@/lib/motion/useMotion";
 import { SectionLink } from "./SectionLink";
 import { ArrowDownRight } from "@/components/ui/icons";
 
@@ -13,7 +13,7 @@ const RING = `M60,60 m-${R},0 a${R},${R} 0 1,1 ${2 * R},0 a${R},${R} 0 1,1 -${2 
 export function RotatingBadge({ label, href }: { label: string; href: `/#${string}` }) {
   const ring = useRef<SVGSVGElement>(null);
 
-  useGSAP(() => {
+  useMotion(({ gsap }) => {
     const mm = gsap.matchMedia();
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       // One full turn across the scroll of the section the badge sits in, so

@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { readFileSync } from "node:fs";
+import { execSync } from "node:child_process";
 
 test.describe("design foundation", () => {
   test("canvas, ink, body font and tokens resolve to the new system", async ({ page }) => {
@@ -33,6 +34,18 @@ test.describe("design foundation", () => {
   test("fonts are self-hosted, so a build never waits on Google Fonts", () => {
     // A build once failed fetching IBM Plex Mono from fonts.googleapis.com.
     expect(readFileSync("app/layout.tsx", "utf8")).not.toMatch(/next\/font\/google/);
+  });
+
+  test("no component imports the motion library statically", () => {
+    // GSAP loads through lib/motion/load.ts after the page's load event, so it
+    // never shares the critical path with the largest paint.
+    const offenders = execSync(
+      `grep -rlE "from \\"(gsap|gsap/[A-Za-z]+|@gsap/react|@/lib/gsap)\\"" app components lib --include=*.ts --include=*.tsx || true`,
+    )
+      .toString()
+      .split("\n")
+      .filter((file) => file && file !== "lib/gsap.ts");
+    expect(offenders).toEqual([]);
   });
 
   test("the js class lands on <html> so load reveals can opt in", async ({ page }) => {
