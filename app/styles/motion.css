@@ -37,7 +37,9 @@
 }
 @keyframes word-rise {
   from {
-    transform: translateY(105%);
+    /* A full word height plus more than the clip's 0.1em bottom padding, so
+       no sliver of a waiting word shows in its mask. */
+    transform: translateY(calc(100% + 0.25em));
   }
 }
 .hero-fade {

@@ -16,10 +16,12 @@ export function RotatingBadge({ label, href }: { label: string; href: `/#${strin
   useGSAP(() => {
     const mm = gsap.matchMedia();
     mm.add("(prefers-reduced-motion: no-preference)", () => {
+      // One full turn across the scroll of the section the badge sits in, so
+      // the turn is visible while the badge is (a page-long scrub barely moves it).
       gsap.to(ring.current, {
         rotation: 360,
         ease: "none",
-        scrollTrigger: { start: 0, end: "max", scrub: 0.6 },
+        scrollTrigger: { trigger: ring.current?.closest("section"), start: "top top", end: "bottom top", scrub: 0.6 },
       });
     });
     return () => mm.revert();
@@ -36,7 +38,7 @@ export function RotatingBadge({ label, href }: { label: string; href: `/#${strin
         <defs>
           <path id="badge-ring" d={RING} />
         </defs>
-        <text className="fill-current font-mono text-[9px] uppercase tracking-[0.18em]">
+        <text className="fill-current font-mono text-[10px] uppercase tracking-[0.16em]">
           <textPath href="#badge-ring" textLength={Math.floor(2 * Math.PI * R)} lengthAdjust="spacing">
             {`${label} · ${label} · `}
           </textPath>

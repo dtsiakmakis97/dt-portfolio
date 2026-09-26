@@ -12,9 +12,22 @@ test.describe("hero", () => {
     await expect(h1.locator(".text-blue")).toHaveCSS("color", "rgb(59, 157, 255)");
   });
 
-  test("the fact strip shows the four facts", async ({ page }) => {
+  test("the fact strip shows the facts", async ({ page }) => {
     await page.goto("/");
     await expect(page.getByRole("list", { name: "At a glance" }).getByRole("listitem")).toHaveText([...facts]);
+  });
+
+  test("each fact sits on one line on a 1440 wide display", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/");
+    const lineCounts = await page.getByRole("list", { name: "At a glance" }).evaluate((ul) =>
+      [...ul.querySelectorAll("li")].map((li) => {
+        const range = document.createRange();
+        range.selectNodeContents(li);
+        return new Set([...range.getClientRects()].map((r) => Math.round(r.top))).size;
+      }),
+    );
+    expect(lineCounts).toEqual(facts.map(() => 1));
   });
 
   test("the badge takes you to the work section", async ({ page }) => {
@@ -41,5 +54,64 @@ test.describe("hero under reduced motion", () => {
     await page.goto("/");
     await page.mouse.wheel(0, 1200);
     await expect(page.locator("[data-badge] svg:has(textPath)")).toHaveCSS("transform", "none");
+  });
+});
+
+test.describe("hero after Checkpoint A", () => {
+  test("the kicker names me and says I take roles and projects", async ({ page }) => {
+    await page.goto("/");
+    const kicker = page.locator("#top").getByText(hero.available);
+    await expect(kicker).toBeVisible();
+    await expect(kicker).toContainText("Dimitrios Tsiakmakis");
+    await expect(kicker).toContainText(/freelance projects/i);
+  });
+
+  test("no headline word shows before its rise", async ({ page }) => {
+    await page.goto("/");
+    const leaked = await page.evaluate(() => {
+      for (const a of document.getAnimations()) {
+        a.pause();
+        a.currentTime = 0;
+      }
+      return [...document.querySelectorAll(".word-rise")].map((word) => {
+        const clip = word.parentElement!.getBoundingClientRect();
+        return Math.max(0, clip.bottom - word.getBoundingClientRect().top);
+      });
+    });
+    expect(Math.max(...leaked)).toBe(0);
+  });
+
+  test("the call to action sits above the fold on a 1280x720 laptop", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 720 });
+    await page.goto("/");
+    await page.evaluate(() => Promise.all(document.getAnimations().map((a) => a.finished)));
+    const box = await page.getByRole("link", { name: "Get in touch" }).boundingBox();
+    expect(box).not.toBeNull();
+    expect(box!.y + box!.height).toBeLessThanOrEqual(720);
+  });
+
+  test("the badge turns through the hero's own scroll", async ({ page }) => {
+    await page.goto("/");
+    const half = await page.evaluate(() => document.getElementById("top")!.offsetHeight / 2);
+    await page.evaluate((y) => window.scrollTo(0, y), half);
+    await expect
+      .poll(() =>
+        page.locator("[data-badge] svg:has(textPath)").evaluate((el) => {
+          const m = new DOMMatrix(getComputedStyle(el).transform);
+          return Math.round((Math.atan2(m.b, m.a) * 180) / Math.PI + 360) % 360;
+        }),
+      )
+      .toBeGreaterThan(120);
+  });
+});
+
+test.describe("hero on a phone @mobile", () => {
+  test("the blue accent never splits across lines", async ({ page }) => {
+    await page.goto("/");
+    const lines = await page.locator("h1 .text-blue").evaluate((el) => {
+      const tops = new Set([...el.querySelectorAll(".word-clip")].map((w) => Math.round(w.getBoundingClientRect().top)));
+      return tops.size;
+    });
+    expect(lines).toBe(1);
   });
 });

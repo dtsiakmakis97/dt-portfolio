@@ -9,7 +9,7 @@ import { ArrowUpRight } from "@/components/ui/icons";
 
 export function Hero() {
   return (
-    <section id="top" className="relative flex min-h-svh flex-col justify-end px-gutter pb-10 pt-32">
+    <section id="top" className="relative flex min-h-svh flex-col justify-end px-gutter pb-8 pt-28">
       <Label className="hero-fade block">{hero.available}</Label>
 
       <div className="mt-8">
@@ -35,9 +35,9 @@ export function Hero() {
         </div>
       </div>
 
-      <ul aria-label="At a glance" className="mt-14 grid grid-cols-2 border-t border-line md:grid-cols-4">
+      <ul aria-label="At a glance" className="mt-12 grid border-t border-line md:grid-cols-[repeat(3,auto)]">
         {facts.map((fact) => (
-          <li key={fact} className="border-b border-line py-4 pr-4 font-mono text-label uppercase text-ink-3 md:border-b-0">
+          <li key={fact} className="border-b border-line py-4 pr-6 font-mono text-label uppercase text-ink-3 md:border-b-0">
             {fact}
           </li>
         ))}

@@ -9,7 +9,8 @@ import { pill } from "@/components/ui/pill";
 import { VT_HEADER } from "@/lib/vt";
 import { MobileMenu } from "./MobileMenu";
 
-const SECTION_IDS = nav.map((item) => item.href.slice(2)); // "/#about" -> "about"
+// "top" is tracked too, so while the hero is in view no nav item is current.
+const SECTION_IDS = ["top", ...nav.map((item) => item.href.slice(2))]; // "/#about" -> "about"
 const NO_SECTIONS: readonly string[] = [];
 
 /** Fixed header: transparent over the hero, solid on scroll. Active-section
@@ -35,7 +36,7 @@ export function TopBar() {
     <header
       style={{ viewTransitionName: VT_HEADER }}
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ease-glide ${
-        scrolled ? "bg-canvas/85 backdrop-blur-md" : "bg-transparent"
+        scrolled ? "bg-canvas" : "bg-transparent"
       }`}
     >
       <div className="flex items-center justify-between gap-6 px-gutter py-4">
@@ -64,8 +65,8 @@ export function TopBar() {
                     {item.label}
                     <span
                       aria-hidden="true"
-                      className={`absolute -bottom-1.5 left-0 h-px bg-blue transition-[width] duration-500 ease-glide ${
-                        current ? "w-full" : "w-0 group-hover:w-full"
+                      className={`absolute -bottom-1.5 left-0 h-px w-full origin-left bg-blue transition-transform duration-500 ease-glide ${
+                        current ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
                       }`}
                     />
                   </SectionLink>
@@ -75,9 +76,12 @@ export function TopBar() {
           </ul>
         </nav>
 
-        <a href={`mailto:${profile.email}`} className={`hidden md:inline-flex ${pill("ghost")}`}>
-          Email
-        </a>
+        {/* The wrapper owns display: pill() sets inline-flex, which would beat `hidden`. */}
+        <div className="hidden md:block">
+          <a href={`mailto:${profile.email}`} className={pill("ghost")}>
+            Email
+          </a>
+        </div>
         <MobileMenu />
       </div>
     </header>

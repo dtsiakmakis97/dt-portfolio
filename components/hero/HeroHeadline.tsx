@@ -48,13 +48,13 @@ export function HeroHeadline() {
   const s3 = s2 + accent.length;
 
   return (
-    <h1 className="font-display text-statement text-ink">
-      <span className="block font-light">
+    <h1 className="font-display text-hero text-ink">
+      <span className="block font-light [text-wrap:balance]">
         <WordRun list={whisper} start={0} />
       </span>{" "}
-      <span className="block font-extrabold">
+      <span className="block font-extrabold [text-wrap:balance]">
         <WordRun list={before} start={s1} />{" "}
-        <span className="text-blue">
+        <span className="whitespace-nowrap text-blue">
           <WordRun list={accent} start={s2} />
         </span>{" "}
         <WordRun list={after} start={s3} />

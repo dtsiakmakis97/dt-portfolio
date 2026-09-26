@@ -35,7 +35,7 @@
   --text-mega: clamp(4.5rem, 20vw, 22rem);
   --text-mega--line-height: 0.8;
   --text-mega--letter-spacing: -0.05em;
-  --text-statement: clamp(3rem, 10vw, 12rem);
+  --text-statement: clamp(2.75rem, 8vw, 9.5rem); /* one step under the hero (text-hero) */
   --text-statement--line-height: 0.82;
   --text-statement--letter-spacing: -0.045em;
   --text-h2: clamp(2.25rem, 5vw, 5rem);
@@ -75,6 +75,14 @@
   /* Layout */
   --spacing-gutter: clamp(1.25rem, 4vw, 3.5rem);
   --spacing-section: clamp(6rem, 4rem + 8vw, 12rem);
+}
+
+/* The hero statement also caps by viewport height, so the call to action stays
+   above the fold on short laptop screens (1280x720, a 13" at ~790px tall). */
+@utility text-hero {
+  font-size: clamp(3rem, min(10vw, 15.5svh), 12rem);
+  line-height: 0.82;
+  letter-spacing: -0.045em;
 }
 
 /* Fonts are runtime CSS vars set by next/font on <html>; inline so Tailwind

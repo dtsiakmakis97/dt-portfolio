@@ -70,7 +70,7 @@ export const profile = {
   resume: "/resume.pdf",
   /** EU citizen; CV: open to DE / GR / CH, remote-friendly. profile.yml: Berlin preferred, EU remote OK. */
   availability:
-    "EU citizen, open to roles in Germany, Greece & Switzerland (remote-friendly).",
+    "EU citizen, open to roles in Germany, Greece & Switzerland (remote-friendly) and to freelance projects.",
   languages: "English (fluent) · Greek (native) · German (basic)",
 } as const;
 
@@ -83,7 +83,8 @@ export const nav: readonly NavLink[] = [
 ];
 
 export const hero = {
-  available: "Open to new roles · EU / remote-friendly",
+  /** Hero kicker: names me above the fold, and speaks to both audiences. */
+  available: "Dimitrios Tsiakmakis · Berlin · Open to roles & freelance projects",
   headline: "I build web products end to end, and the AI systems inside them.",
   /** The opening run of `headline`, set at weight 300; the rest is set at 800. */
   whisper: "I build web products end to end,",
@@ -216,11 +217,14 @@ export const projects: readonly Project[] = [
 
 export const about: readonly string[] = [
   "I'm a frontend engineer from Greece, based in Berlin. For three years at KPS AG I shipped production e-commerce frontends for German retail brands (Dehner, NORMA, Jungheinrich and EP:) across SAP Commerce Cloud, Spryker, Magnolia and Storybook, with accessibility and performance as a constant discipline.",
-  "These days I build AI systems on top of that frontend foundation, not instead of it. PawGuard is a civic-tech app I'm building with four custom Claude Code subagents and merge-blocking audit gates; Lead Finder is an LLM analyzer pipeline; Aegeon, Ego Distillers and the T.E. Learning Center are live sites I shipped solo. I care about systems that are accessible by default, fast under real budgets, and honest about what they do.",
+  "These days I build AI systems on top of that frontend foundation, not instead of it. PawGuard is a civic-tech app I'm building with four custom Claude Code subagents and merge-blocking audit gates; Lead Finder is an LLM analyzer pipeline; Aegeon, Ego Distillers and the T.E. Learning Center are live sites I shipped solo.",
 ];
 
-/** The About statement, rendered monumental; plain words, loud form. */
-export const manifesto = "I own both halves of the product: the frontend, and the AI behind it.";
+/** The About statement, rendered monumental; plain words, loud form. The
+ *  values from the old About copy, said once, where they land hardest. */
+export const manifesto = "Accessible by default. Fast under real budgets. Honest about what it does.";
+/** Closing run of `manifesto` that fills to blue instead of ink. */
+export const manifestoAccent = "Honest about what it does.";
 
 export const experience: readonly ExperienceItem[] = [
   {
@@ -241,8 +245,7 @@ export const experience: readonly ExperienceItem[] = [
 
 // Credibility strip under the hero. Derived from verified content; no invented metrics.
 export const facts: readonly string[] = [
-  "Based in Berlin",
-  "3 yrs enterprise frontend · KPS AG",
+  "Retail frontends: Dehner, NORMA, Jungheinrich, EP:",
   "LLM products & agent workflows, built solo",
   "WCAG audits · ARIA remediation",
 ];

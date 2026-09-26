@@ -49,3 +49,27 @@ test.describe("mobile menu @mobile", () => {
     await expect(page.locator("#contact")).toBeInViewport();
   });
 });
+
+test.describe("header state", () => {
+  test("no section is marked current at the top of the home page", async ({ page }) => {
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+    await expect(page.getByRole("navigation", { name: "Primary" }).locator('[aria-current="true"]')).toHaveCount(0);
+  });
+
+  test("the header turns solid, without blur, once scrolled", async ({ page }) => {
+    await page.goto("/");
+    await page.mouse.wheel(0, 600);
+    const header = page.locator("header").first();
+    await expect(header).toHaveCSS("background-color", "rgb(11, 11, 12)");
+    await expect(header).toHaveCSS("backdrop-filter", "none");
+  });
+});
+
+test.describe("header on a phone @mobile", () => {
+  test("shows only the logo and the menu button", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator("header").getByRole("link", { name: "Email" })).toBeHidden();
+    await expect(page.getByRole("button", { name: "Menu" })).toBeVisible();
+  });
+});

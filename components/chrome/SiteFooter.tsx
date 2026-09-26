@@ -42,7 +42,7 @@ export function SiteFooter() {
       <p aria-hidden="true" className="fit mt-24">
         <span
           className="fit-text font-extrabold text-ink"
-          style={{ "--chars": profile.name.length, "--fit-k": 0.52 } as CSSProperties}
+          style={{ "--chars": profile.name.length, "--fit-k": 0.43 } as CSSProperties}
         >
           {profile.name}
         </span>
