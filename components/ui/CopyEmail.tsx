@@ -22,12 +22,12 @@ export function CopyEmail({ email }: { email: string }) {
       type="button"
       onClick={onCopy}
       aria-label={copied ? "Email address copied" : `Copy email address ${email}`}
-      className="group inline-flex items-center gap-2.5 font-mono text-sm text-fg-secondary transition-colors duration-150 hover:text-fg"
+      className="group inline-flex items-center gap-2.5 font-mono text-body text-ink-2 transition-colors duration-300 hover:text-ink"
     >
       <span>{email}</span>
       <span
         aria-hidden
-        className="text-fg-muted transition-colors duration-150 group-hover:text-accent"
+        className="text-ink-3 transition-colors duration-300 group-hover:text-blue"
       >
         {copied ? <Check size={15} /> : <Copy size={15} />}
       </span>

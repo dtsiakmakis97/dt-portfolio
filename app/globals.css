@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import "./styles/motion.css";
-@import "./styles/legacy.css"; /* shrinks task by task; deleted in Task 12 */
 
 /* ── Design tokens ──────────────────────────────────────────────
    Bold typographic system: docs/redesign/SPEC.md. Dark canvas, one loud
@@ -19,17 +18,6 @@
   --color-ink-dim: #6b6964; /* 3.6:1, text 24px and up only */
   --color-blue: #3b9dff; /* 7.0:1 as text on canvas; never text on paper */
   --color-danger: #f87171;
-
-  /* Legacy color aliases for not-yet-rewritten components. Removed in Task 12. */
-  --color-panel: #141415;
-  --color-surface: #1a1a1b;
-  --color-elevated: #1f1f20;
-  --color-fg: #f2f0ea;
-  --color-fg-secondary: #a19e96;
-  --color-fg-muted: #8c8a84;
-  --color-fg-faint: #52504c;
-  --color-accent: #3b9dff;
-  --color-accent-hi: #66b4ff;
 
   /* Monumental type (Cabinet Grotesk variable) */
   --text-mega: clamp(4.5rem, 20vw, 22rem);
@@ -50,24 +38,8 @@
   --text-label--line-height: 1.3;
   --text-label--letter-spacing: 0.14em;
 
-  /* Legacy type aliases. Removed in Task 12. */
-  --text-display: clamp(2.75rem, 1rem + 8vw, 6.5rem);
-  --text-display--line-height: 0.95;
-  --text-display--letter-spacing: -0.04em;
-  --text-title: clamp(1.625rem, 1rem + 2.2vw, 2.5rem);
-  --text-title--line-height: 1.1;
-  --text-title--letter-spacing: -0.02em;
-  --text-subtitle: clamp(1.25rem, 1.1rem + 0.65vw, 1.5rem);
-  --text-subtitle--line-height: 1.2;
-  --text-subtitle--letter-spacing: -0.01em;
-  --text-eyebrow: 0.72rem;
-  --text-eyebrow--line-height: 1;
-  --text-eyebrow--letter-spacing: 0.25em;
-
   /* Motion: monopo's patient glide (identical to GSAP expo.out) */
   --ease-glide: cubic-bezier(0.19, 1, 0.22, 1);
-  --ease-expo: cubic-bezier(0.19, 1, 0.22, 1); /* legacy alias, removed in Task 12 */
-  --ease-deliberate: cubic-bezier(0.44, 0, 0.56, 1);
 
   /* Pill-or-zero: the only radius in the system */
   --radius-pill: 9999px;

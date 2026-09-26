@@ -313,9 +313,9 @@ export const stackMarquee: readonly string[] = [
 
 export const contact = {
   eyebrow: "CONTACT",
-  headline: "Let's talk.",
+  headline: "Let’s talk.",
   body:
-    "Looking for an engineer who can ship the frontend and the AI behind it? I'm open to new roles and happy to walk through any of the work above.",
+    "Looking for an engineer who can ship the frontend and the AI behind it? I’m open to new roles and freelance projects, and happy to walk through any of the work above.",
 } as const;
 
 export const meta = {

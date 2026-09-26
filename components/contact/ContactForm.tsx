@@ -4,17 +4,17 @@ import { useActionState, useEffect, useState } from "react";
 import { submitContact, type ContactState } from "@/app/actions/contact";
 import { AlertTriangle, ArrowRight, Check } from "@/components/ui/icons";
 import { useMagnetic } from "@/lib/hooks/useMagnetic";
+import { pill } from "@/components/ui/pill";
 
 const INITIAL: ContactState = { status: "idle" };
 
 function fieldClass(error?: string) {
-  return `w-full border bg-transparent px-4 py-3 font-mono text-base text-fg placeholder:text-fg-faint transition-colors focus:border-accent focus:outline-none ${
-    error ? "border-danger/70" : "border-line-strong"
+  return `w-full border bg-raised px-4 py-3 text-body text-ink placeholder:text-ink-3 transition-colors duration-300 focus:border-blue ${
+    error ? "border-danger" : "border-line-strong"
   }`;
 }
 
-const labelClass =
-  "mb-2 block font-mono text-xs uppercase tracking-widest text-fg-muted";
+const labelClass = "mb-2 block font-mono text-label uppercase text-ink-3";
 
 export function ContactForm() {
   const [state, formAction, pending] = useActionState(submitContact, INITIAL);
@@ -28,20 +28,20 @@ export function ContactForm() {
 
   if (state.status === "success" && !dismissed) {
     return (
-      <div className="flex h-full flex-col items-start justify-center border border-line bg-panel p-10">
-        <span className="flex size-12 items-center justify-center border border-accent text-accent">
+      <div className="flex h-full flex-col items-start justify-center border border-line bg-raised p-10">
+        <span className="flex size-12 items-center justify-center border border-blue text-blue">
           <Check size={22} />
         </span>
-        <h3 className="mt-6 font-display text-subtitle font-medium text-fg">
+        <h3 className="mt-6 font-display text-lead font-extrabold text-ink">
           Message received.
         </h3>
-        <p className="mt-3 max-w-md leading-relaxed text-fg-secondary">
+        <p className="mt-3 max-w-md leading-relaxed text-ink-2">
           Thanks for reaching out. I read everything myself and will reply soon.
         </p>
         <button
           type="button"
           onClick={() => setDismissed(true)}
-          className="mt-8 border border-line-strong px-5 py-2.5 font-mono text-xs uppercase tracking-widest text-fg-secondary transition-colors duration-150 hover:border-accent hover:text-accent"
+          className={`mt-8 ${pill("ghost")}`}
         >
           Send another
         </button>
@@ -56,7 +56,7 @@ export function ContactForm() {
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div>
           <label htmlFor="name" className={labelClass}>
-            Name <span className="text-accent">*</span>
+            Name <span className="text-blue">*</span>
           </label>
           <input
             id="name"
@@ -71,7 +71,7 @@ export function ContactForm() {
           {errors.name && (
             <p
               id="name-error"
-              className="mt-2 flex items-center gap-1.5 font-mono text-xs text-danger"
+              className="mt-2 flex items-center gap-1.5 font-mono text-label text-danger"
             >
               <AlertTriangle size={13} className="shrink-0" />
               {errors.name}
@@ -80,7 +80,7 @@ export function ContactForm() {
         </div>
         <div>
           <label htmlFor="email" className={labelClass}>
-            Email <span className="text-accent">*</span>
+            Email <span className="text-blue">*</span>
           </label>
           <input
             id="email"
@@ -95,7 +95,7 @@ export function ContactForm() {
           {errors.email && (
             <p
               id="email-error"
-              className="mt-2 flex items-center gap-1.5 font-mono text-xs text-danger"
+              className="mt-2 flex items-center gap-1.5 font-mono text-label text-danger"
             >
               <AlertTriangle size={13} className="shrink-0" />
               {errors.email}
@@ -106,7 +106,7 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="company" className={labelClass}>
-          Company <span className="text-fg-faint">(optional)</span>
+          Company <span className="text-ink-3">(optional)</span>
         </label>
         <input
           id="company"
@@ -120,7 +120,7 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="message" className={labelClass}>
-          Message <span className="text-accent">*</span>
+          Message <span className="text-blue">*</span>
         </label>
         <textarea
           id="message"
@@ -134,7 +134,7 @@ export function ContactForm() {
         {errors.message && (
           <p
             id="message-error"
-            className="mt-2 flex items-center gap-1.5 font-mono text-xs text-danger"
+            className="mt-2 flex items-center gap-1.5 font-mono text-label text-danger"
           >
             <AlertTriangle size={13} className="shrink-0" />
             {errors.message}
@@ -154,7 +154,7 @@ export function ContactForm() {
       {state.status === "error" && state.message && (
         <p
           role="alert"
-          className="flex items-center gap-1.5 font-mono text-xs text-danger"
+          className="flex items-center gap-1.5 font-mono text-label text-danger"
         >
           <AlertTriangle size={13} className="shrink-0" />
           {state.message}
@@ -165,7 +165,7 @@ export function ContactForm() {
         ref={submitRef}
         type="submit"
         disabled={pending}
-        className="group inline-flex items-center gap-3 bg-fg px-7 py-3.5 text-sm font-medium uppercase tracking-widest text-canvas transition-colors duration-150 will-change-transform hover:bg-accent disabled:cursor-not-allowed disabled:opacity-60"
+        className={`group ${pill("blue")} will-change-transform disabled:cursor-not-allowed disabled:opacity-60`}
       >
         {pending ? "Sending…" : "Send message"}
         {!pending && (
