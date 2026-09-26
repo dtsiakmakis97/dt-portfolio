@@ -1,36 +1,5 @@
 /* ── Motion + signature utilities ─────────────────────────────── */
 
-/* Hero headline: word-by-word clip reveal */
-.word-mask {
-  display: inline-block;
-  overflow: hidden;
-  padding-bottom: 0.14em;
-  margin-bottom: -0.14em;
-  vertical-align: bottom;
-}
-.word-inner {
-  display: inline-block;
-  transform: translateY(110%);
-  animation: word-up 0.72s var(--ease-expo) both;
-}
-@keyframes word-up {
-  to {
-    transform: translateY(0);
-  }
-}
-
-/* Self-drawing accent underline */
-.underline-draw {
-  transform: scaleX(0);
-  transform-origin: left;
-  animation: underline-grow 0.55s var(--ease-expo) both;
-}
-@keyframes underline-grow {
-  to {
-    transform: scaleX(1);
-  }
-}
-
 /* Scroll-reveal — toggled by the Reveal client island */
 .reveal {
   opacity: 0;
@@ -69,11 +38,6 @@
 /* Legacy reduced-motion rules for the blocks above. Each block leaves with
    the component that uses it; the file is deleted in Task 12. */
 @media (prefers-reduced-motion: reduce) {
-  .word-inner,
-  .underline-draw {
-    transform: none;
-    animation: none;
-  }
   .reveal {
     opacity: 1 !important;
     transform: none !important;

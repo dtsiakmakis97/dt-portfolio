@@ -22,9 +22,41 @@
   margin-block: -0.1em;
 }
 
+/* Hero headline: word-by-word rise, pure CSS so the largest paint never waits
+   for JavaScript. Delays are computed on the server per word. */
+.word-clip {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-block: 0.1em;
+  margin-block: -0.1em;
+}
+.word-rise {
+  display: inline-block;
+  animation: word-rise 1.1s var(--ease-glide) both;
+}
+@keyframes word-rise {
+  from {
+    transform: translateY(105%);
+  }
+}
+.hero-fade {
+  animation: fade-rise 1s var(--ease-glide) both;
+}
+@keyframes fade-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .js [data-reveal="load"] {
     visibility: visible;
+    animation: none;
+  }
+  .word-rise,
+  .hero-fade {
     animation: none;
   }
   *,
