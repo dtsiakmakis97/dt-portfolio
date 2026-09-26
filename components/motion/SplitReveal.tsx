@@ -28,9 +28,10 @@ export function SplitReveal({ text, as = "p", className, trigger = "scroll", del
       if (!target || !el) return;
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        // Scroll reveals the reader has already reached stay put; load reveals always play
-        // (they are CSS-hidden until they do, with a 2.5s failsafe).
+        // Scroll reveals the reader has already reached stay put. Load reveals are
+        // CSS-hidden until they play; once the 2.5s failsafe has shown one, it stays put too.
         if (trigger === "scroll" && el.getBoundingClientRect().top < window.innerHeight * 0.85) return;
+        if (trigger === "load" && getComputedStyle(el).visibility === "visible") return;
         let played = false;
         SplitText.create(target, {
           type: "lines",

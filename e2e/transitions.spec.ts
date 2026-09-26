@@ -1,6 +1,13 @@
 import { test, expect, type Page } from "@playwright/test";
 import { waitForMotion } from "./helpers/motion";
 
+// These tests time view-transition animations. Under full-suite parallel load
+// Chromium can skip a transition (its designed instant swap), which reads as a
+// missing animation, so the file runs in order in one worker, URL waits allow
+// for a busy machine, and a miss gets one retry (reported as flaky, not hidden).
+test.describe.configure({ mode: "default", retries: 1 });
+const NAV = { timeout: 15_000 };
+
 interface Seen {
   pseudo: string;
   name: string;
@@ -19,18 +26,32 @@ async function recordTransition(page: Page, action: () => Promise<unknown>, ms =
         const startUrl = location.href;
         const hardStop = performance.now() + 15000;
         let landedAt: number | null = null;
+        const note = (animation: Animation) => {
+          const pseudo = (animation.effect as KeyframeEffect | null)?.pseudoElement ?? "";
+          if (!pseudo.startsWith("::view-transition")) return;
+          const name = (animation as CSSAnimation).animationName ?? "";
+          const duration = Number(animation.effect?.getComputedTiming().duration ?? 0);
+          seen.set(`${pseudo}|${name}`, { pseudo, name, duration });
+        };
+        // animationstart is queued even when a busy main thread drops rAF polls,
+        // so a short animation can't slip between two polls unseen.
+        const onStart = (event: AnimationEvent) => {
+          const live = document
+            .getAnimations()
+            .find((a) => (a.effect as KeyframeEffect | null)?.pseudoElement === event.pseudoElement && (a as CSSAnimation).animationName === event.animationName);
+          if (live) note(live);
+          else if (event.pseudoElement.startsWith("::view-transition") && !seen.has(`${event.pseudoElement}|${event.animationName}`))
+            seen.set(`${event.pseudoElement}|${event.animationName}`, { pseudo: event.pseudoElement, name: event.animationName, duration: Number.NaN });
+        };
+        document.documentElement.addEventListener("animationstart", onStart);
         const tick = () => {
-          for (const animation of document.getAnimations()) {
-            const pseudo = (animation.effect as KeyframeEffect | null)?.pseudoElement ?? "";
-            if (!pseudo.startsWith("::view-transition")) continue;
-            const name = (animation as CSSAnimation).animationName ?? "";
-            const duration = Number(animation.effect?.getComputedTiming().duration ?? 0);
-            seen.set(`${pseudo}|${name}`, { pseudo, name, duration });
-          }
+          for (const animation of document.getAnimations()) note(animation);
           if (landedAt === null && (seen.size > 0 || location.href !== startUrl)) landedAt = performance.now();
           const done = landedAt !== null ? performance.now() > landedAt + windowMs : performance.now() > hardStop;
-          if (done) resolve([...seen.values()]);
-          else requestAnimationFrame(tick);
+          if (done) {
+            document.documentElement.removeEventListener("animationstart", onStart);
+            resolve([...seen.values()]);
+          } else requestAnimationFrame(tick);
         };
         requestAnimationFrame(tick);
       }),
@@ -78,7 +99,7 @@ test.describe("page transitions", () => {
     await row.scrollIntoViewIfNeeded();
     await row.hover();
     const seen = await recordTransition(page, () => row.click());
-    await expect(page).toHaveURL("/work/pawguard");
+    await expect(page).toHaveURL("/work/pawguard", NAV);
     // The curtain rides the pages' own boundaries: the old page lifts, the new one reveals.
     expect(seen.some((s) => s.pseudo.startsWith("::view-transition-old(") && s.name === "vt-curtain-lift")).toBe(true);
     expect(seen.some((s) => s.pseudo.startsWith("::view-transition-new(") && s.name === "vt-curtain-reveal")).toBe(true);
@@ -119,7 +140,7 @@ test.describe("page transitions", () => {
     await page.goto("/work/pawguard");
     await waitForMotion(page);
     const seen = await recordTransition(page, () => page.getByRole("link", { name: "Next Lead Finder" }).click());
-    await expect(page).toHaveURL("/work/lead-finder");
+    await expect(page).toHaveURL("/work/lead-finder", NAV);
     expect(seen.map((s) => s.name)).toContain("vt-curtain-lift");
     expect(seen.some((s) => s.pseudo.startsWith("::view-transition-group(project-"))).toBe(false);
   });
@@ -142,15 +163,21 @@ test.describe("page transitions", () => {
     expect([r, g, b], "curtain blue").toEqual([59, 157, 255]);
   });
 
-  test("Back returns home instantly, leaves nothing running, and Lenis follows", async ({ page }) => {
+  test("Back and Forward land where the browser restores, leave nothing running, and Lenis follows", async ({ page }) => {
     await page.goto("/");
     await waitForMotion(page);
     const row = page.locator('#work a[data-slug="pawguard"]');
     await row.scrollIntoViewIfNeeded();
+    const home = await page.evaluate(() => window.scrollY);
     await row.click();
-    await expect(page).toHaveURL("/work/pawguard");
+    await expect(page).toHaveURL("/work/pawguard", NAV);
+    // Scroll the case study, then press Back while Lenis is still gliding toward the wheel's target.
+    await page.waitForTimeout(1500);
+    await page.mouse.wheel(0, 900);
+    await page.waitForTimeout(250);
+    const caseLeft = await page.evaluate(() => window.scrollY);
     const seen = await recordTransition(page, () => page.goBack(), 1500);
-    await expect(page).toHaveURL("/");
+    await expect(page).toHaveURL("/", NAV);
     // Untyped: no curtain and no morph (SHARE_ON_NAV defaults to "none").
     expect(seen.filter((s) => s.duration > 0)).toEqual([]);
     const running = await page.evaluate(
@@ -160,17 +187,24 @@ test.describe("page transitions", () => {
           .filter((a) => ((a.effect as KeyframeEffect | null)?.pseudoElement ?? "").startsWith("::view-transition")).length,
     );
     expect(running).toBe(0);
-    // The browser restores the scroll position it left; Lenis must follow, not snap to the top.
+    // The browser restores the position home was left at; the old glide must not carry on over it.
     const restored = await page.evaluate(() => window.scrollY);
-    expect(restored).toBeGreaterThan(0);
+    expect(Math.abs(restored - home), `restored ${restored}, left at ${home}`).toBeLessThanOrEqual(2);
+    // Lenis follows the restored position: the next wheel moves on from there.
     await page.mouse.wheel(0, 600);
     await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(restored + 200);
+    // Forward while that wheel still glides: the case study comes back near where it was left, and stays.
+    await page.goForward();
+    await expect(page).toHaveURL("/work/pawguard", NAV);
+    await page.waitForTimeout(1500);
+    const forward = await page.evaluate(() => window.scrollY);
+    expect(Math.abs(forward - caseLeft), `forward ${forward}, left at ${caseLeft}`).toBeLessThan(300);
   });
 
   test("a header section link from a case study lands on the home section below the header", async ({ page }) => {
     await page.goto("/work/pawguard");
     await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: "Contact" }).click();
-    await expect(page).toHaveURL("/#contact");
+    await expect(page).toHaveURL("/#contact", NAV);
     const contact = page.locator("#contact");
     await expect(contact).toBeInViewport();
     expect(await contact.evaluate((el) => el.getBoundingClientRect().top)).toBeGreaterThanOrEqual(56);
@@ -185,7 +219,7 @@ test.describe("page transitions @mobile", () => {
     const row = page.locator('#work a[data-slug="aegeon"]');
     await row.scrollIntoViewIfNeeded();
     const seen = await recordTransition(page, () => row.tap());
-    await expect(page).toHaveURL("/work/aegeon");
+    await expect(page).toHaveURL("/work/aegeon", NAV);
     expect(seen.some((s) => s.pseudo === "::view-transition-group(project-title-aegeon)")).toBe(true);
     expect(seen.some((s) => s.pseudo.includes("project-media-"))).toBe(false);
     expect(duplicates).toEqual([]);
@@ -201,7 +235,7 @@ test.describe("page transitions under reduced motion", () => {
     const row = page.locator('#work a[data-slug="aegeon"]');
     await row.scrollIntoViewIfNeeded();
     const seen = await recordTransition(page, () => row.click(), 1000);
-    await expect(page).toHaveURL("/work/aegeon");
+    await expect(page).toHaveURL("/work/aegeon", NAV);
     expect(seen.filter((s) => s.duration > 0)).toEqual([]);
   });
 });

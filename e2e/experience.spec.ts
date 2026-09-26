@@ -40,15 +40,17 @@ test.describe("experience after a resize", () => {
   });
 });
 
-test.describe("experience when motion arrives late", () => {
-  // Motion loads after the page's load event. If the reader has already
-  // scrolled a reveal into view, it must stay put, not vanish and replay.
-  test("a statement the reader already reached is left as it is", async ({ page }) => {
+test.describe("reveals when motion arrives late", () => {
+  // Motion loads after the page's load event. Text the reader can already see
+  // must stay put, not vanish and replay: a scroll reveal already scrolled into
+  // view, or a load reveal the 2.5s CSS failsafe has already shown.
+  test("text the reader can already see is left as it is", async ({ page }) => {
     let afterLoad = false;
+    let hold = 1500;
     page.on("load", () => (afterLoad = true));
-    // Hold every script requested after load (the motion chunk) for 1.5s.
+    // Hold every script requested after load (the motion chunk).
     await page.route("**/_next/static/chunks/**", async (route) => {
-      if (afterLoad) await new Promise((resolve) => setTimeout(resolve, 1500));
+      if (afterLoad) await new Promise((resolve) => setTimeout(resolve, hold));
       await route.continue();
     });
     await page.goto("/");
@@ -58,6 +60,17 @@ test.describe("experience when motion arrives late", () => {
     await page.waitForTimeout(400);
     await expect(h2.locator(".split-line")).toHaveCount(0);
     await expect(h2).toHaveText(experienceStatement);
+
+    // The case-study lead is a load reveal. Motion held past the failsafe: the lead is shown, then left alone.
+    afterLoad = false;
+    hold = 3500;
+    await page.goto("/work/pawguard");
+    const lead = page.locator('p[data-reveal="load"]');
+    await lead.scrollIntoViewIfNeeded();
+    await expect(lead).toBeVisible();
+    await waitForMotion(page);
+    await page.waitForTimeout(400);
+    await expect(lead.locator(".split-line")).toHaveCount(0);
   });
 });
 

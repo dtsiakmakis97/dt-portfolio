@@ -25,6 +25,10 @@ export function SmoothScroll() {
       ref.current?.lenis?.raf(time);
       frame = requestAnimationFrame(loop);
     });
+    // Back and Forward bypass TransitionLink, so stop any glide here: mid-glide,
+    // Lenis ignores the browser's restored position and eases on to its old target.
+    const onPopState = () => ref.current?.lenis?.scrollTo(window.scrollY, { immediate: true, force: true });
+    window.addEventListener("popstate", onPopState);
     let cancelled = false;
     let detach: (() => void) | undefined;
     loadMotion().then(({ gsap, ScrollTrigger }) => {
@@ -42,6 +46,7 @@ export function SmoothScroll() {
     return () => {
       cancelled = true;
       cancelAnimationFrame(frame);
+      window.removeEventListener("popstate", onPopState);
       detach?.();
     };
   }, [reduced]);

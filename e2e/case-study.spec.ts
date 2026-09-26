@@ -50,7 +50,7 @@ test.describe("case-study frame", () => {
 });
 
 test.describe("case-study frame from the keyboard", () => {
-  test("Enter on the first work row opens its case study, focus lands in the page", async ({ page }) => {
+  test("Enter on the first work row opens its case study", async ({ page }) => {
     await page.goto("/");
     await page.locator("#work").getByRole("link").first().focus();
     await page.keyboard.press("Enter");
