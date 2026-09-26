@@ -2,9 +2,9 @@ import { test, expect, type Page } from "@playwright/test";
 
 /** Review captures for design checkpoints, not assertions:
  *    SHOTS=1 pnpm exec playwright test e2e/shots.spec.ts --project=chromium
- *  Output: test-results/shots (gitignored). Phase 4 adds "/work/pawguard". */
+ *  Output: test-results/shots (gitignored): stills plus video/*.webm. */
 const WIDTHS = [390, 768, 1440] as const;
-const PAGES = ["/"] as const;
+const PAGES = ["/", "/work/pawguard", "/work/career-ops"] as const;
 const DIR = "test-results/shots";
 
 const slug = (path: string) => (path === "/" ? "home" : path.slice(1).replaceAll("/", "-"));
@@ -70,6 +70,28 @@ test.describe("review captures", () => {
       await page.mouse.wheel(0, 450);
       await page.waitForTimeout(350);
     }
+    await context.close();
+  });
+
+  test("transition recordings", async ({ browser }) => {
+    const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, recordVideo: { dir: `${DIR}/video`, size: { width: 1440, height: 900 } } });
+    const page = await context.newPage();
+    await page.goto("http://localhost:3000/");
+    await page.waitForFunction(() => document.documentElement.dataset.motion === "ready");
+    const row = page.locator('#work a[data-slug="pawguard"]');
+    await row.scrollIntoViewIfNeeded();
+    await row.hover();
+    await page.waitForTimeout(600);
+    await row.click(); // home → detail (curtain, title and media morph)
+    await page.waitForTimeout(2500);
+    await page.mouse.wheel(0, 20000);
+    await page.waitForTimeout(1500);
+    await page.getByRole("link", { name: "Next Lead Finder" }).click(); // detail → next (curtain only)
+    await page.waitForTimeout(2500);
+    await page.getByRole("main").getByRole("link", { name: "All work" }).first().click(); // detail → home (nav-back)
+    await page.waitForTimeout(2500);
+    await page.goBack(); // browser Back (instant)
+    await page.waitForTimeout(1500);
     await context.close();
   });
 });

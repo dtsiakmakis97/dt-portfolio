@@ -63,5 +63,31 @@
       "jsBytes": 211031
     },
     "note": "GSAP now loads after the load event: 46KB left the pre-paint critical path and simulated LCP dropped from 2640ms to 2491ms (budget 2500ms). Headroom is 9ms: nothing may add pre-paint JS to /."
+  },
+  "phase4Checkpoint": {
+    "measuredAt": "2026-09-26",
+    "commit": "Task 21 (Checkpoint B, after 0589fa9)",
+    "url": "http://localhost:3000 (next start, production build; Lighthouse 12 mobile, median of 3 runs)",
+    "home": {
+      "performance": 98,
+      "accessibility": 100,
+      "seo": 100,
+      "lcpMs": 2495,
+      "cls": 0,
+      "tbtMs": 18,
+      "observedLcpMs": 97
+    },
+    "pawguard": {
+      "path": "/work/pawguard",
+      "performance": 97,
+      "accessibility": 100,
+      "seo": 100,
+      "lcpMs": 2646,
+      "cls": 0,
+      "tbtMs": 23,
+      "observedLcpMs": 113,
+      "lcpElement": "hero image"
+    },
+    "note": "Home holds the 2500ms budget with 5ms to spare. The case page's simulated LCP is 146ms over: the hero image paints with the first paint (observed 113ms), and Lantern bills the pre-paint JS, one 6.6KB chunk more than home (next/image's client component and the reveal wrappers). getImageProps did not remove that chunk. Budget decision taken to the user at Checkpoint B."
   }
 }
