@@ -7,6 +7,7 @@ import { caseNumber, findProject, getCaseStudy, getNextProject } from "@/lib/wor
 import { CURTAIN_ENTER, CURTAIN_EXIT } from "@/lib/vt";
 import { CaseHero } from "@/components/case-study/CaseHero";
 import { MetaStrip } from "@/components/case-study/MetaStrip";
+import { CaseSections } from "@/components/case-study/CaseSections";
 import { NextProject } from "@/components/case-study/NextProject";
 
 // Unknown slugs 404 in production; dev renders anyway, hence notFound() below.
@@ -48,6 +49,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
         <div className="mt-16 px-gutter">
           <MetaStrip project={project} />
         </div>
+        <CaseSections blocks={study.blocks} />
         <NextProject next={getNextProject(project.slug)} />
       </article>
     </ViewTransition>
