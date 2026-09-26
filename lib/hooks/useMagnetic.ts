@@ -3,7 +3,8 @@
 import { useEffect, useRef } from "react";
 
 /** Fine pointer + motion-OK only. No-op otherwise (touch has no cursor to pull
- *  toward; reduced-motion opts out of the effect). Mirrors useParallax's gate. */
+ *  toward; reduced-motion opts out of the effect). Same gate as the work
+ *  index cursor preview. */
 const eligible = () =>
   typeof window !== "undefined" &&
   window.matchMedia("(pointer: fine)").matches &&

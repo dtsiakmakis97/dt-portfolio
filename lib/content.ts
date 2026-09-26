@@ -143,8 +143,8 @@ export const projects: readonly Project[] = [
     cover: {
       src: "/work/aegeon.webp",
       width: 1280,
-      height: 800,
-      alt: "Aegeon booking site: gallery-luxury hero over a sea view on the Chalkidiki coast",
+      height: 960,
+      alt: "Aegeon: English home page hero, the headline A place for stillness over a terrace sea view in Chalkidiki, with a Request booking button",
     },
   },
   {
@@ -189,8 +189,8 @@ export const projects: readonly Project[] = [
     cover: {
       src: "/work/te-learning-center.webp",
       width: 1280,
-      height: 800,
-      alt: "T.E. Learning Center: Greek-first marketing site hero for a private English-language school",
+      height: 960,
+      alt: "T.E. Learning Center: Greek levels overview, a path from first contact to advanced English, with cards for levels A1, A2 and B1",
     },
     links: [{ label: "Live", href: "https://oikonomou.vercel.app" }],
   },
