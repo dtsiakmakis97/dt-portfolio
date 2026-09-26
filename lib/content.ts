@@ -295,6 +295,22 @@ export const skills: readonly SkillGroup[] = [
   },
 ];
 
+/** Decorative marquee words for the Stack band. Every entry appears in
+ *  `skills`; the static list below the marquee carries the real content. */
+export const stackMarquee: readonly string[] = [
+  "TypeScript",
+  "React",
+  "Next.js",
+  "React Native",
+  "Supabase",
+  "Claude API",
+  "Gemini API",
+  "MCP",
+  "Tailwind",
+  "Playwright",
+  "Vitest",
+];
+
 export const contact = {
   eyebrow: "CONTACT",
   headline: "Let's talk.",

@@ -1,49 +1,28 @@
-import { skills } from "@/lib/content";
-import { Reveal } from "@/components/ui/Reveal";
-import { Eyebrow } from "@/components/ui/Eyebrow";
+import { skills, stackMarquee } from "@/lib/content";
+import { VelocityMarquee } from "@/components/motion/VelocityMarquee";
 
+/** Blue band: canvas-colored text only (ink on blue fails contrast). */
 export function Skills() {
   return (
-    <section id="stack" className="border-b border-line">
-      <div className="mx-auto max-w-[1400px] px-6 py-24 md:px-12 md:py-32 lg:px-24 lg:py-40">
-        <Reveal>
-          <div className="mb-12 flex flex-col justify-between gap-6 md:mb-16 md:flex-row md:items-end">
-            <div>
-              <Eyebrow>Stack</Eyebrow>
-              <h2 className="mt-6 font-display text-h2 font-bold text-fg">
-                The tools, plainly.
-              </h2>
+    <section id="stack" className="band-blue py-section">
+      <p className="px-gutter font-mono text-label uppercase">Stack</p>
+      <div className="mt-8">
+        <VelocityMarquee items={stackMarquee} />
+      </div>
+      <div className="px-gutter">
+        <h2 className="mt-16 font-display text-h2 font-extrabold">The tools, plainly.</h2>
+        <div className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          {skills.map((group) => (
+            <div key={group.label} className="border-t border-canvas pt-5">
+              <h3 className="font-mono text-label uppercase">{group.label}</h3>
+              <ul className="mt-4 space-y-1.5 text-body">
+                {group.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
             </div>
-            <p className="max-w-sm text-base leading-relaxed text-fg-muted">
-              No proficiency bars. What I reach for, grouped by where it lives.
-            </p>
-          </div>
-        </Reveal>
-
-        <Reveal>
-          <div className="grid grid-cols-1 gap-px border border-line bg-line sm:grid-cols-2">
-            {skills.map((group) => (
-              <div key={group.label} className="h-full bg-canvas p-6 md:p-8">
-                <h3 className="font-mono text-xs uppercase tracking-widest text-accent">
-                  {group.label}
-                </h3>
-                <ul className="mt-5 flex flex-wrap gap-x-3 gap-y-3">
-                  {group.items.map((item) => (
-                    <li
-                      key={item}
-                      className="font-mono text-sm leading-relaxed text-fg-secondary"
-                    >
-                      {item}
-                      <span aria-hidden className="ml-3 text-fg-faint">
-                        /
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
