@@ -1,0 +1,37 @@
+/* Motion primitives for server-rendered markup. GSAP-driven motion lives in
+   components/motion; everything here must work with JavaScript off. */
+
+/* Load reveals opt in with [data-reveal="load"]. They are hidden only when JS
+   is present (.js is set by an inline <head> script), and a failsafe keyframe
+   shows them after 2.5s even if the bundle never runs. Scroll reveals are
+   never hidden in CSS: gsap.from sets their start state on hydration. */
+.js [data-reveal="load"] {
+  visibility: hidden;
+  animation: reveal-failsafe 0s linear 2.5s forwards;
+}
+@keyframes reveal-failsafe {
+  to {
+    visibility: visible;
+  }
+}
+
+/* SplitText line masks: at line-height 0.8 a tight mask clips ascenders and
+   descenders, so pad the mask and pull the margin back. */
+.split-line-mask {
+  padding-block: 0.1em;
+  margin-block: -0.1em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal="load"] {
+    visibility: visible;
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

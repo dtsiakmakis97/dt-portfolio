@@ -1,94 +1,113 @@
 @import "tailwindcss";
+@import "./styles/motion.css";
+@import "./styles/legacy.css"; /* shrinks task by task; deleted in Task 12 */
 
 /* ── Design tokens ──────────────────────────────────────────────
-   Neo-brutalist Swiss / high-contrast typographic.
-   True-neutral graphite, single electric-blue signal, sharp corners,
-   structure drawn in 1px hairlines — never shadows. */
-@theme {
-  /* Surfaces (stepped, true-neutral, no tint) */
-  --color-canvas: #0a0a0a;
-  --color-panel: #0d0d0d; /* raised panels: footer, fact-ledger, media, form */
-  --color-surface: #171717; /* subtle dividers, grid gaps, hover fills */
-  --color-elevated: #1f1f1f;
-  --color-line: #262626; /* primary hairline */
-  --color-line-strong: #404040; /* button / input borders at rest */
+   Bold typographic system: docs/redesign/SPEC.md. Dark canvas, one loud
+   electric-blue signal, sharp corners except full pills. Contrast notes are
+   against --color-canvas. `static` emits every variable so GSAP can read
+   resolved values through lib/tokens.ts. */
+@theme static {
+  --color-canvas: #0b0b0c;
+  --color-raised: #141415;
+  --color-line: #2a2a2b; /* decorative hairlines only */
+  --color-line-strong: #6b6964; /* control borders, 3.6:1 (WCAG 1.4.11) */
+  --color-ink: #f2f0ea; /* 17.3:1 */
+  --color-paper: #f2f0ea; /* paper band surface */
+  --color-ink-2: #a19e96; /* 7.3:1, secondary text */
+  --color-ink-3: #8c8a84; /* 5.7:1, mono labels */
+  --color-ink-dim: #6b6964; /* 3.6:1, text 24px and up only */
+  --color-blue: #3b9dff; /* 7.0:1 as text on canvas; never text on paper */
+  --color-danger: #f87171;
 
-  /* Foreground (all meaningful text clears WCAG AA on canvas) */
-  --color-fg: #f5f5f5; /* headings, wordmark */
-  --color-fg-secondary: #a3a3a3; /* body / supporting prose */
-  --color-fg-muted: #8a8a8a; /* small mono metadata — lifted from #737373 to clear 4.5:1 */
-  --color-fg-faint: #525252; /* decorative marks only (separators), never meaningful text */
-
-  /* Single accent — signal electric blue (~6.95:1 on canvas, clears AA) */
+  /* Legacy color aliases for not-yet-rewritten components. Removed in Task 12. */
+  --color-panel: #141415;
+  --color-surface: #1a1a1b;
+  --color-elevated: #1f1f20;
+  --color-fg: #f2f0ea;
+  --color-fg-secondary: #a19e96;
+  --color-fg-muted: #8c8a84;
+  --color-fg-faint: #52504c;
   --color-accent: #3b9dff;
   --color-accent-hi: #66b4ff;
 
-  /* Semantic danger — form-error state only. ~7:1 on canvas (clears AA);
-     always paired with an icon so the signal never rests on color alone. */
-  --color-danger: #f87171;
+  /* Monumental type (Cabinet Grotesk variable) */
+  --text-mega: clamp(4.5rem, 20vw, 22rem);
+  --text-mega--line-height: 0.8;
+  --text-mega--letter-spacing: -0.05em;
+  --text-statement: clamp(3rem, 10vw, 12rem);
+  --text-statement--line-height: 0.82;
+  --text-statement--letter-spacing: -0.045em;
+  --text-h2: clamp(2.25rem, 5vw, 5rem);
+  --text-h2--line-height: 0.9;
+  --text-h2--letter-spacing: -0.035em;
+  --text-lead: clamp(1.5rem, 1.1rem + 1.4vw, 2.25rem);
+  --text-lead--line-height: 1.2;
+  --text-lead--letter-spacing: -0.015em;
+  --text-body: clamp(1.125rem, 1rem + 0.3vw, 1.25rem);
+  --text-body--line-height: 1.55;
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.3;
+  --text-label--letter-spacing: 0.14em;
 
-  /* Editorial type scale (fluid, neo-brutalist tight) */
+  /* Legacy type aliases. Removed in Task 12. */
   --text-display: clamp(2.75rem, 1rem + 8vw, 6.5rem);
   --text-display--line-height: 0.95;
   --text-display--letter-spacing: -0.04em;
-  --text-h2: clamp(2rem, 1.2rem + 3vw, 3.75rem);
-  --text-h2--line-height: 1;
-  --text-h2--letter-spacing: -0.03em;
+  --text-title: clamp(1.625rem, 1rem + 2.2vw, 2.5rem);
+  --text-title--line-height: 1.1;
+  --text-title--letter-spacing: -0.02em;
+  --text-subtitle: clamp(1.25rem, 1.1rem + 0.65vw, 1.5rem);
+  --text-subtitle--line-height: 1.2;
+  --text-subtitle--letter-spacing: -0.01em;
   --text-eyebrow: 0.72rem;
   --text-eyebrow--line-height: 1;
   --text-eyebrow--letter-spacing: 0.25em;
 
-  /* Title — project names, footer close. Fluid, and held a clear step below
-     --text-h2 at every viewport so the two never collide on small screens. */
-  --text-title: clamp(1.625rem, 1rem + 2.2vw, 2.5rem);
-  --text-title--line-height: 1.1;
-  --text-title--letter-spacing: -0.02em;
-
-  /* Subtitle — secondary headings (job role, confirmation headline) */
-  --text-subtitle: clamp(1.25rem, 1.1rem + 0.65vw, 1.5rem);
-  --text-subtitle--line-height: 1.2;
-  --text-subtitle--letter-spacing: -0.01em;
-
-  /* Lead — intro paragraphs (hero subhead, about lead, contact pitch). Fixed,
-     per the brand-register rule that body-weight text stays fixed. */
-  --text-lead: 1.125rem;
-  --text-lead--line-height: 1.6;
-
-  /* Motion — minimal + snappy; reveals use the expo curve */
-  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Motion: monopo's patient glide (identical to GSAP expo.out) */
+  --ease-glide: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-expo: cubic-bezier(0.19, 1, 0.22, 1); /* legacy alias, removed in Task 12 */
   --ease-deliberate: cubic-bezier(0.44, 0, 0.56, 1);
 
-  /* Sharp corners everywhere */
-  --radius: 0px;
+  /* Pill-or-zero: the only radius in the system */
+  --radius-pill: 9999px;
+
+  /* Layout */
+  --spacing-gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --spacing-section: clamp(6rem, 4rem + 8vw, 12rem);
 }
 
-/* Fonts are runtime CSS vars set by next/font on <html>; inline so
-   Tailwind emits the var reference rather than resolving at build. */
+/* Fonts are runtime CSS vars set by next/font on <html>; inline so Tailwind
+   emits the var reference rather than resolving at build. */
 @theme inline {
+  --font-sans: var(--font-cabinet), "Helvetica Neue", Arial, sans-serif;
   --font-display: var(--font-cabinet), "Helvetica Neue", Arial, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", Menlo, monospace;
 }
 
 @layer base {
+  :root {
+    color-scheme: dark;
+    --focus: var(--color-blue);
+  }
   html {
-    scroll-behavior: smooth;
-    /* offset anchored scroll so the fixed nav never covers headings */
-    scroll-padding-top: 5rem;
+    /* No scroll-behavior: smooth. Lenis owns smooth scrolling, and native
+       smooth scroll would ignore reduced motion. This offsets hash jumps for
+       the fixed header; keep in sync with HEADER_OFFSET (lib/hooks/useSectionNav.ts). */
+    scroll-padding-top: 5.5rem;
   }
   body {
     background: var(--color-canvas);
-    color: var(--color-fg);
-    /* body + metadata are mono; only display headings use Cabinet Grotesk */
-    font-family: var(--font-mono);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    /* "zero" slashes the monospace 0 — a quiet engineer's-type signal that
-       also disambiguates 0/O in the metadata. No-op for Cabinet (display). */
-    font-feature-settings: "liga" 1, "calt" 1, "zero" 1;
   }
-  /* Even out heading line breaks; reduce orphans/ragged endings in prose.
-     h1 is excluded — the hero headline is hand-split into word-clip spans. */
+  .font-mono {
+    /* A slashed zero separates 0 from O in metadata; mono only. */
+    font-feature-settings: "zero" 1;
+  }
   h2,
   h3 {
     text-wrap: balance;
@@ -101,231 +120,87 @@
     text-decoration: none;
   }
   ::selection {
-    background: var(--color-accent);
-    color: #0a0a0a;
+    background: var(--color-blue);
+    color: var(--color-canvas);
   }
   :focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
     border-radius: 0;
   }
-}
-
-/* ── Motion + signature utilities ─────────────────────────────── */
-
-/* Drifting technical grid — fixed behind content, very low contrast */
-.bg-grid {
-  position: fixed;
-  inset: -2px;
-  z-index: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(to right, rgba(59, 157, 255, 0.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(229, 229, 229, 0.028) 1px, transparent 1px);
-  background-size: 72px 72px;
-  animation: grid-drift 38s linear infinite;
-  mask-image: radial-gradient(ellipse 100% 80% at 50% 0%, #000 30%, transparent 90%);
-  -webkit-mask-image: radial-gradient(ellipse 100% 80% at 50% 0%, #000 30%, transparent 90%);
-}
-@keyframes grid-drift {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: 72px 72px;
+  [tabindex="-1"]:focus {
+    outline: none;
   }
 }
 
-/* Scroll progress bar (scaleX driven by the ScrollProgress island) */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 2px;
-  width: 100%;
-  z-index: 60;
-  background: var(--color-accent);
-  transform-origin: left;
-  will-change: transform;
-}
+@layer components {
+  /* Bright bands carry canvas-colored text only: ink on blue and blue on
+     paper are both 2.5:1, below AA. */
+  .band-blue {
+    background: var(--color-blue);
+    color: var(--color-canvas);
+    --focus: var(--color-canvas);
+  }
+  .band-paper {
+    background: var(--color-paper);
+    color: var(--color-canvas);
+    --focus: var(--color-canvas);
+  }
+  .band-blue ::selection,
+  .band-paper ::selection {
+    background: var(--color-canvas);
+    color: var(--color-paper);
+  }
 
-/* Instrument layer — a cursor-following "focus-pool" driven by InstrumentLayer.
-   Sits between the grid (z 0) and content (z 10), so it reads as an underlay
-   the page is built on. Reveals on movement, recedes when the pointer stills.
-   --mx/--my (the lerped pointer position) are set on the layer and inherited. */
-.instrument-layer {
-  position: fixed;
-  inset: 0;
-  z-index: 5;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.45s var(--ease-expo);
-}
-.instrument-layer[data-active="true"] {
-  opacity: 1;
-}
-/* Soft electric-blue light pool — the "illumination" glow. */
-.instrument-glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle 230px at var(--mx, 50%) var(--my, 50%),
-    rgba(59, 157, 255, 0.07) 0%,
-    rgba(59, 157, 255, 0.022) 42%,
-    transparent 72%
-  );
-}
-/* A brighter copy of the grid, revealed only inside the pool. Shares the base
-   grid's size + drift + origin so its lines sit exactly on the base grid. */
-.instrument-pool {
-  position: absolute;
-  inset: -2px;
-  background-image:
-    linear-gradient(to right, rgba(59, 157, 255, 0.18) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(229, 229, 229, 0.07) 1px, transparent 1px);
-  background-size: 72px 72px;
-  animation: grid-drift 38s linear infinite;
-  -webkit-mask-image: radial-gradient(
-    circle 185px at var(--mx, 50%) var(--my, 50%),
-    #000 0%,
-    #000 20%,
-    transparent 66%
-  );
-  mask-image: radial-gradient(
-    circle 185px at var(--mx, 50%) var(--my, 50%),
-    #000 0%,
-    #000 20%,
-    transparent 66%
-  );
-}
+  /* Width-fitted display text (project titles, footer wordmark). The parent
+     is the size container; the child sets --chars (string length). --fit-k is
+     Cabinet's average glyph advance in em at weight 800, tuned at Checkpoint A. */
+  .fit {
+    container-type: inline-size;
+  }
+  .fit-text {
+    display: block;
+    font-size: min(var(--fit-max, 20rem), 100cqi / (var(--chars) * var(--fit-k, 0.56)));
+    line-height: 0.82;
+    letter-spacing: -0.045em;
+    white-space: nowrap;
+  }
+  @container (max-width: 40rem) {
+    .fit-text {
+      white-space: normal;
+      font-size: min(var(--fit-max, 20rem), 17cqi);
+    }
+  }
 
-/* Hero headline: word-by-word clip reveal */
-.word-mask {
-  display: inline-block;
-  overflow: hidden;
-  padding-bottom: 0.14em;
-  margin-bottom: -0.14em;
-  vertical-align: bottom;
-}
-.word-inner {
-  display: inline-block;
-  transform: translateY(110%);
-  animation: word-up 0.72s var(--ease-expo) both;
-}
-@keyframes word-up {
-  to {
-    transform: translateY(0);
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 100;
+    background: var(--color-blue);
+    color: var(--color-canvas);
+    padding: 12px 20px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .skip-link:focus {
+    left: 0;
   }
 }
 
-/* Self-drawing accent underline */
-.underline-draw {
-  transform: scaleX(0);
-  transform-origin: left;
-  animation: underline-grow 0.55s var(--ease-expo) both;
-}
-@keyframes underline-grow {
-  to {
-    transform: scaleX(1);
-  }
-}
-
-/* Scroll-reveal — toggled by the Reveal client island */
-.reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition:
-    opacity 0.6s var(--ease-expo),
-    transform 0.6s var(--ease-expo);
-  will-change: opacity, transform;
-}
-.reveal[data-visible="true"] {
-  opacity: 1;
-  transform: none;
-}
-
-/* Animated hairline underline for inline text links */
-.hairline-link {
-  position: relative;
-}
-.hairline-link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -2px;
-  height: 1px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s var(--ease-deliberate);
-}
-.hairline-link:hover::after,
-.hairline-link:focus-visible::after {
-  transform: scaleX(1);
-}
-
-/* Skip link */
-.skip-link {
-  position: absolute;
-  left: -9999px;
-  top: 0;
-  z-index: 100;
-  background: var(--color-accent);
-  color: #0a0a0a;
-  padding: 12px 20px;
-  font-family: var(--font-mono);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 0.75rem;
-}
-.skip-link:focus {
-  left: 0;
-}
-
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: var(--color-canvas);
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a2a2a;
-  border: 2px solid #0a0a0a;
+  background: #2a2a2b;
+  border: 2px solid var(--color-canvas);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3a3a3a;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  .bg-grid {
-    animation: none;
-  }
-  .instrument-layer {
-    display: none;
-  }
-  .word-inner,
-  .underline-draw {
-    transform: none;
-    animation: none;
-  }
-  .reveal {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
-  }
+  background: #3a3a3b;
 }

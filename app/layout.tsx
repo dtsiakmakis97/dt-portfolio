@@ -9,25 +9,25 @@ import { InstrumentLayer } from "@/components/chrome/InstrumentLayer";
 import { meta, profile } from "@/lib/content";
 import { siteUrl } from "@/lib/site";
 
-// Display face — self-hosted (Fontshare, free for commercial use).
+// Display + body face: Cabinet Grotesk variable (Fontshare, ITF Free Font
+// License in ./fonts/CabinetGrotesk-LICENSE.txt). One file covers 100-900.
 const cabinet = localFont({
+  src: "./fonts/CabinetGrotesk-Variable.woff2",
+  weight: "100 900",
+  style: "normal",
   variable: "--font-cabinet",
   display: "swap",
+  preload: true,
+  adjustFontFallback: "Arial",
   fallback: ["Helvetica Neue", "Arial", "sans-serif"],
-  // Cabinet is display-only (body is mono); weights used are 500/700/800.
-  // Regular (400) is loaded by nothing, so it is intentionally omitted.
-  src: [
-    { path: "./fonts/CabinetGrotesk-Medium.woff2", weight: "500", style: "normal" },
-    { path: "./fonts/CabinetGrotesk-Bold.woff2", weight: "700", style: "normal" },
-    { path: "./fonts/CabinetGrotesk-Extrabold.woff2", weight: "800", style: "normal" },
-  ],
 });
 
-// Body + metadata face — the "engineer" signal.
+// Small caps metadata labels only.
 const plexMono = IBM_Plex_Mono({
-  weight: ["400", "500", "600"],
+  weight: ["400"],
   subsets: ["latin"],
   display: "swap",
+  preload: false,
   variable: "--font-plex-mono",
 });
 
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a0a",
+  themeColor: "#0b0b0c",
 };
 
 export default function RootLayout({
@@ -64,7 +64,14 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${cabinet.variable} ${plexMono.variable} antialiased`}
+      suppressHydrationWarning
     >
+      <head>
+        {/* Before first paint: lets CSS opt load reveals into hiding (app/styles/motion.css). */}
+        <script
+          dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }}
+        />
+      </head>
       <body className="relative min-h-screen">
         <div className="bg-grid" aria-hidden="true" />
         <InstrumentLayer />
