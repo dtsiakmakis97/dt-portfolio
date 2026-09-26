@@ -81,11 +81,13 @@ components:
   pill-ghost-hover:
     textColor: "{colors.blue}"
   pill-ink:
-    backgroundColor: "{colors.blue}"
     textColor: "{colors.canvas}"
     rounded: "{rounded.pill}"
     padding: "12px 24px"
     typography: "{typography.label}"
+  pill-ink-hover:
+    backgroundColor: "{colors.canvas}"
+    textColor: "{colors.paper}"
   cta-round:
     backgroundColor: "{colors.blue}"
     textColor: "{colors.canvas}"
@@ -159,8 +161,8 @@ A near-black canvas, warm off-white ink stepped down for hierarchy, and one elec
 - **Hero** (300 against 800, clamp(3rem, min(10vw, 15.5svh), 12rem), 0.82): the home statement; capped by viewport height so the call to action stays above the fold.
 - **Statement** (800, clamp(2.75rem, 8vw, 9.5rem), 0.82): statement bands, the manifesto fill and section statements.
 - **Fitted title** (800, computed per title): project titles fill their row exactly; the index row and the case-study h1 share one fit rule, so the morph between them is nearly a pure translate.
-- **Headline** (800, clamp(2.25rem, 5vw, 5rem), 0.9): section headings and decision summaries.
-- **Title / lead** (300 or 400, clamp(1.5rem, 1.1rem + 1.4vw, 2.25rem), 1.2): taglines and lead paragraphs.
+- **Headline** (800, clamp(2.25rem, 5vw, 5rem), 0.9): section headings, the experience client rows and the mobile menu links.
+- **Title / lead** (300 or 400, clamp(1.5rem, 1.1rem + 1.4vw, 2.25rem), 1.2): taglines and lead paragraphs; decision summaries take the same size at 800.
 - **Body** (400, clamp(1.125rem, 1rem + 0.3vw, 1.25rem), 1.55): prose, capped at 62ch.
 - **Label** (Plex Mono 400, 0.75rem, 0.14em, uppercase): crumbs, section labels, meta terms, captions, pills.
 

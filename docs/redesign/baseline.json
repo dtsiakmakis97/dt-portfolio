@@ -108,5 +108,67 @@
         "jsBytesBefore": 222199
       }
     }
+  },
+  "phase6": {
+    "measuredAt": "2026-09-26",
+    "commit": "Task 29 (final verification, after 55103b2)",
+    "url": "http://localhost:3000 (next start, production build; Lighthouse 12, median of 3 runs)",
+    "home": {
+      "mobile": {
+        "performance": 98,
+        "accessibility": 100,
+        "seo": 100,
+        "lcpMs": 2498,
+        "cls": 0,
+        "tbtMs": 42
+      },
+      "desktop": {
+        "performance": 100,
+        "accessibility": 100,
+        "seo": 100,
+        "lcpMs": 548,
+        "cls": 0,
+        "tbtMs": 0
+      }
+    },
+    "pawguard": {
+      "path": "/work/pawguard",
+      "mobile": {
+        "performance": 97,
+        "accessibility": 100,
+        "seo": 100,
+        "lcpMs": 2643,
+        "cls": 0,
+        "tbtMs": 31
+      },
+      "desktop": {
+        "performance": 100,
+        "accessibility": 100,
+        "seo": 100,
+        "lcpMs": 590,
+        "cls": 0,
+        "tbtMs": 0
+      }
+    },
+    "careerOps": {
+      "path": "/work/career-ops",
+      "mobile": {
+        "performance": 98,
+        "accessibility": 100,
+        "seo": 100,
+        "lcpMs": 2489,
+        "cls": 0,
+        "tbtMs": 17
+      },
+      "desktop": {
+        "performance": 100,
+        "accessibility": 100,
+        "seo": 100,
+        "lcpMs": 550,
+        "cls": 0,
+        "tbtMs": 0
+      }
+    },
+    "note": "Every page scores Performance 97 or more, Accessibility 100 and SEO 100, with CLS 0 and TBT at most 42ms. Home mobile LCP is 2498ms against the 2500ms budget (2ms headroom). Career Ops, whose hero is text, is 2489ms. PawGuard, whose hero is an image, is 2643ms: this is the user-accepted exception for image-LCP case pages recorded under phase4Checkpoint, unchanged since that checkpoint (2640ms)."
   }
 }

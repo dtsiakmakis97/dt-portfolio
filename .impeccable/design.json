@@ -185,11 +185,11 @@
       },
       "headline": {
         "displayName": "Headline",
-        "purpose": "Section headings and decision summaries."
+        "purpose": "Section headings, the experience client rows and the mobile menu links."
       },
       "title": {
         "displayName": "Title / lead",
-        "purpose": "Taglines and lead paragraphs."
+        "purpose": "Taglines and lead paragraphs; decision summaries take the same size at 800."
       },
       "body": {
         "displayName": "Body",
