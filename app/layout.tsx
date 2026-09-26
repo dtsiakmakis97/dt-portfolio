@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { IBM_Plex_Mono } from "next/font/google";
+import "lenis/dist/lenis.css";
 import "./globals.css";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { TopBar } from "@/components/chrome/TopBar";
 import { SiteFooter } from "@/components/chrome/SiteFooter";
 import { ScrollProgress } from "@/components/chrome/ScrollProgress";
@@ -73,6 +75,7 @@ export default function RootLayout({
         />
       </head>
       <body className="relative min-h-screen">
+        <SmoothScroll />
         <div className="bg-grid" aria-hidden="true" />
         <InstrumentLayer />
         <ScrollProgress />
