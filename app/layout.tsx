@@ -7,6 +7,7 @@ import { TopBar } from "@/components/chrome/TopBar";
 import { SiteFooter } from "@/components/chrome/SiteFooter";
 import { meta, profile } from "@/lib/content";
 import { siteUrl } from "@/lib/site";
+import { baseOpenGraph } from "@/lib/metadata";
 
 // Display + body face: Cabinet Grotesk variable (Fontshare, ITF Free Font
 // License in ./fonts/CabinetGrotesk-LICENSE.txt). One file covers 100-900.
@@ -38,7 +39,7 @@ const plexMono = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: meta.title,
+  title: { default: meta.title, template: `%s · ${profile.name}` },
   description: meta.description,
   alternates: { canonical: "/" },
   authors: [{ name: profile.name, url: profile.github }],
@@ -48,8 +49,7 @@ export const metadata: Metadata = {
     description: meta.description,
     type: "website",
     url: "/",
-    siteName: profile.name,
-    locale: "en_US",
+    ...baseOpenGraph,
   },
   twitter: {
     card: "summary_large_image",

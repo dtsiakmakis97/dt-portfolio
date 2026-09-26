@@ -86,7 +86,10 @@ test.describe("performance budget @mobile", () => {
 
     const scriptSizes: Promise<number>[] = [];
     page.on("requestfinished", (request) => {
-      if (request.resourceType() === "script") {
+      // Route prefetches (next/link on the work index) are not JS the home page needs.
+      const headers = request.headers();
+      const prefetch = headers["next-router-prefetch"] || /prefetch/.test(headers["sec-purpose"] ?? headers["purpose"] ?? "");
+      if (request.resourceType() === "script" && !prefetch) {
         scriptSizes.push(request.sizes().then((s) => s.responseBodySize));
       }
     });

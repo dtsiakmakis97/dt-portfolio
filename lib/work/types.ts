@@ -22,3 +22,27 @@ export interface Figure {
   /** Required whenever the imagery is not the owner's (Kryora). */
   readonly credit?: string;
 }
+
+/** Prose section labels, in reading order (Approach is the decisions block). */
+export type CaseLabel = "Context" | "Problem" | "Challenges" | "Outcome";
+
+export interface Decision {
+  /** One line, set as the decision's h3. */
+  readonly summary: string;
+  readonly body: string;
+}
+
+export type CaseBlock =
+  | { readonly kind: "prose"; readonly label: CaseLabel; readonly paragraphs: readonly string[] }
+  | { readonly kind: "decisions"; readonly intro?: string; readonly items: readonly Decision[] }
+  /** A verified fact set huge on a full-bleed band; tones alternate blue, paper. */
+  | { readonly kind: "statement"; readonly text: string }
+  | { readonly kind: "figure"; readonly figure: Figure };
+
+export interface CaseStudy {
+  /** The lead paragraph under the hero. Empty only while the study is interim. */
+  readonly lead: string;
+  /** Overrides the project's cover as the hero media. */
+  readonly hero?: Figure;
+  readonly blocks: readonly CaseBlock[];
+}

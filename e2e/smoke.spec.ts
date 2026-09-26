@@ -12,13 +12,15 @@ test.describe("portfolio smoke", () => {
     await expect(h1).toBeVisible();
   });
 
-  test("primary navigation links are present", async ({ page }) => {
-    await page.goto("/");
-    const nav = page.getByRole("navigation", { name: "Primary" });
-    for (const href of NAV_HREFS) {
-      await expect(nav.locator(`a[href="${href}"]`)).toBeVisible();
-    }
-  });
+  for (const path of ["/", "/work/pawguard"]) {
+    test(`primary navigation links are present on ${path}`, async ({ page }) => {
+      await page.goto(path);
+      const nav = page.getByRole("navigation", { name: "Primary" });
+      for (const href of NAV_HREFS) {
+        await expect(nav.locator(`a[href="${href}"]`)).toBeVisible();
+      }
+    });
+  }
 
   test("contact form flags missing fields on empty submit", async ({ page }) => {
     await page.goto("/#contact");

@@ -1,11 +1,11 @@
 import { test, expect } from "@playwright/test";
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { projects } from "../lib/content";
 
 /** Copy gate: claims the research proved wrong or stale must never return.
- *  Source: docs/redesign/SPEC.md, "Content model and accuracy". Phase 4 adds
- *  lib/work/*.ts to FILES. */
-const FILES = ["lib/content.ts"];
+ *  Source: docs/redesign/SPEC.md, "Content model and accuracy". FILES covers
+ *  lib/work/*.ts. */
+const FILES = ["lib/content.ts", ...readdirSync("lib/work").filter((f) => f.endsWith(".ts")).map((f) => `lib/work/${f}`)];
 const FORBIDDEN: readonly (readonly [RegExp, string])[] = [
   [/four parallel/i, "Lead Finder: the placeholder check short-circuits; only visual + content call Gemini"],
   [/Stripe deposit/i, "Aegeon: request-based booking since 2026-07-09; Stripe switched off"],
@@ -46,8 +46,10 @@ test("content files contain no retracted claims", () => {
 
 test("copy sets typographic apostrophes", () => {
   for (const file of FILES) {
-    // Inside a word, an apostrophe is always a typographic ’ in copy.
-    const straight = readFileSync(file, "utf8").match(/[A-Za-z]'[A-Za-z]+/g) ?? [];
+    // Inside a word, an apostrophe is always a typographic ’ in copy. Copy lives
+    // in string literals; code comments may stay plain ASCII.
+    const strings = readFileSync(file, "utf8").match(/"(?:[^"\\\n]|\\.)*"|`(?:[^`\\]|\\.)*`/g) ?? [];
+    const straight = strings.flatMap((literal) => literal.match(/[A-Za-z]'[A-Za-z]+/g) ?? []);
     expect(straight, file).toEqual([]);
   }
 });
