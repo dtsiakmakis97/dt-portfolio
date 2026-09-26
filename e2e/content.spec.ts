@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { readFileSync } from "node:fs";
+import { projects } from "../lib/content";
 
 /** Copy gate: claims the research proved wrong or stale must never return.
  *  Source: docs/redesign/SPEC.md, "Content model and accuracy". Phase 4 adds
@@ -18,6 +19,12 @@ const FORBIDDEN: readonly (readonly [RegExp, string])[] = [
   [/Prosecutor/i, "PawGuard: no Prosecutor's Office integration claims (eventual)"],
   [/kryora\.de\//i, "Kryora: credit kryora.de, never link into it"],
   [/oikonomou\.vercel/i, "T.E.: the vercel.app URL is not the school's official domain"],
+  // Fact-sheet contradictions (redesign-case-study-facts.md), corrected in Task 15.
+  [/gate[sd]? every merge|merge-blocking/i, "PawGuard: one audit round, applied in-line; the rebuild was never merged"],
+  [/Gothenburg’s first/i, "Ego Distillers: the client's own claim, not ours to assert"],
+  [/English school/i, "T.E.: the signage says English & IT; say language school"],
+  [/bilingual SEO/i, "Kryora: SEO foundations only, and the preview is noindexed"],
+  [/now shipping/i, "PawGuard is pre-launch: say building"],
 ];
 
 /** Hits the SPEC gate resolved on purpose, removed before matching. */
@@ -43,4 +50,17 @@ test("copy sets typographic apostrophes", () => {
     const straight = readFileSync(file, "utf8").match(/[A-Za-z]'[A-Za-z]+/g) ?? [];
     expect(straight, file).toEqual([]);
   }
+});
+
+test("every summary fits a meta description (160 characters)", () => {
+  for (const project of projects) expect(project.summary.length, project.slug).toBeLessThanOrEqual(160);
+});
+
+test("Career Ops lists only the dashboard's own stack", () => {
+  const careerOps = projects.find((p) => p.slug === "career-ops")!;
+  expect(careerOps.stack.filter((item) => /playwright|node\.js|claude code/i.test(item))).toEqual([]);
+});
+
+test("Ego Distillers credits the client's design direction", () => {
+  expect(projects.find((p) => p.slug === "ego-distillers")!.role).toMatch(/client-set/i);
 });

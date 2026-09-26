@@ -105,7 +105,7 @@ export const projects: readonly Project[] = [
     name: "PawGuard",
     tagline: "A civic-tech app built with a multi-agent development system.",
     summary:
-      "An anonymous animal-cruelty reporting app for Greece, built with four custom Claude Code subagents and privacy and RLS audits that gate every merge.",
+      "An anonymous animal-cruelty reporting app for Greece, built on a zero-retention relay by a four-subagent Claude Code system.",
     role: "Solo: architecture, agents, full build",
     period: "2026",
     status: "In development · pilot pending",
@@ -155,10 +155,10 @@ export const projects: readonly Project[] = [
   {
     slug: "ego-distillers",
     name: "Ego Distillers",
-    tagline: "A bilingual site for Gothenburg’s first distillery.",
+    tagline: "A bilingual site for a Gothenburg distillery, bar and restaurant.",
     summary:
-      "A Swedish/English site for a Gothenburg distillery, bar and restaurant: typed i18n, on-page table booking and a Resend form on a verified domain.",
-    role: "Solo: design, build, integrations",
+      "A Swedish/English site for a Gothenburg distillery, bar and restaurant: typed i18n, embedded table booking and a Resend form on a verified domain.",
+    role: "Solo: build and integrations, in a client-set design direction",
     period: "2026",
     status: "Live",
     stack: ["Next.js 16", "React 19", "Tailwind v4", "Resend", "Vercel"],
@@ -179,14 +179,14 @@ export const projects: readonly Project[] = [
     role: "Solo: fork customization + dashboard build",
     period: "2026",
     status: "Personal tool, runs locally",
-    stack: ["Node.js", "Claude Code agents", "Next.js 16", "Tailwind v4", "Playwright"],
+    stack: ["Next.js 16", "React 19", "Tailwind v4", "Base UI", "Recharts"],
   },
   {
     slug: "te-learning-center",
     name: "T.E. Learning Center",
     tagline: "A Greek-first marketing site for a language school.",
     summary:
-      "A Greek-first site for a private English school in Chalkidiki: a custom CSS design system, Greek-subset typography and all copy in one module.",
+      "A Greek-first site for a private language school in Chalkidiki: a custom CSS design system, Greek-subset typography and all copy in one module.",
     role: "Solo: design, build, content architecture",
     period: "2026",
     status: "Live",
@@ -202,9 +202,9 @@ export const projects: readonly Project[] = [
   {
     slug: "kryora",
     name: "Kryora",
-    tagline: "A Greek-first B2B landing site for whole-body cryotherapy chambers.",
+    tagline: "A Greek-first B2B site for whole-body cryotherapy chambers.",
     summary:
-      "A Greek-market landing site for whole-body cryotherapy chambers: Greek-first type, CSS-only motion, a three-question model finder and bilingual SEO.",
+      "A Greek-market B2B site for whole-body cryotherapy chambers: Greek-first type, CSS-only motion and a three-question model finder.",
     role: "Solo: direction, design, build",
     period: "2026",
     status: "Preview · awaiting client sign-off",
@@ -222,7 +222,7 @@ export const projects: readonly Project[] = [
 
 export const about: readonly string[] = [
   "I’m a frontend engineer from Greece, based in Berlin. For three years at KPS AG I shipped production e-commerce frontends for German retail brands (Dehner, NORMA, Jungheinrich and EP:) across SAP Commerce Cloud, Spryker, Magnolia and Storybook, with accessibility and performance as a constant discipline.",
-  "These days I build AI systems on top of that frontend foundation, not instead of it. PawGuard is a civic-tech app I’m building with four custom Claude Code subagents and merge-blocking audit gates; Lead Finder is an LLM analyzer pipeline; Aegeon, Ego Distillers and the T.E. Learning Center are live sites I shipped solo.",
+  "These days I build AI systems on top of that frontend foundation, not instead of it. PawGuard is a civic-tech app I’m building with four custom Claude Code subagents, each bound by a written constitution; Lead Finder is an LLM analyzer pipeline; Aegeon, Ego Distillers and the T.E. Learning Center are live sites I shipped solo.",
 ];
 
 /** The About statement, rendered monumental; plain words, loud form. The
@@ -321,5 +321,5 @@ export const contact = {
 export const meta = {
   title: "Dimitrios Tsiakmakis · Full-stack & AI engineer",
   description:
-    "Full-stack engineer in Berlin building production web products and the AI systems inside them. Three years of enterprise frontend at KPS AG; now shipping multi-agent AI systems and LLM products solo.",
+    "Full-stack engineer in Berlin building production web products and the AI systems inside them. Three years of enterprise frontend at KPS AG; now building multi-agent AI systems and LLM products solo.",
 } as const;
