@@ -1,4 +1,4 @@
-import { test, type Page } from "@playwright/test";
+import { test, expect, type Page } from "@playwright/test";
 
 /** Review captures for design checkpoints, not assertions:
  *    SHOTS=1 pnpm exec playwright test e2e/shots.spec.ts --project=chromium
@@ -48,6 +48,10 @@ test.describe("review captures", () => {
         const context = await browser.newContext({ viewport: { width, height: 900 }, javaScriptEnabled: false });
         const page = await context.newPage();
         await page.goto(`http://localhost:3000${path}`);
+        // The hero's CSS entrance still plays with JS off; capture the settled frame.
+        await expect
+          .poll(() => page.evaluate(() => document.getAnimations().every((a) => a.playState === "finished")))
+          .toBe(true);
         await page.screenshot({ path: `${DIR}/${name}-nojs.png`, fullPage: true });
         await context.close();
       });

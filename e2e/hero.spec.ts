@@ -45,6 +45,21 @@ test.describe("hero without JavaScript", () => {
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     await expect(page.getByRole("link", { name: "Get in touch" })).toBeVisible();
   });
+
+  // toBeVisible passes at opacity 0 or with a word parked below its clip, so
+  // check the settled state: the CSS entrance must finish without any JS.
+  test("the CSS entrance settles with every word and action in view", async ({ page }) => {
+    await page.goto("/");
+    // page.evaluate works with JS off; waitForFunction's rAF polling does not.
+    const settled = () =>
+      page.evaluate(() => ({
+        wordsBelowClip: [...document.querySelectorAll("h1 .word-rise")].filter(
+          (w) => w.getBoundingClientRect().top >= w.parentElement!.getBoundingClientRect().bottom - 1,
+        ).length,
+        fadedOut: [...document.querySelectorAll(".hero-fade")].filter((e) => getComputedStyle(e).opacity !== "1").length,
+      }));
+    await expect.poll(settled, { timeout: 5000 }).toEqual({ wordsBelowClip: 0, fadedOut: 0 });
+  });
 });
 
 test.describe("hero under reduced motion", () => {

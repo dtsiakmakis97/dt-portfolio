@@ -103,6 +103,14 @@
     background: var(--color-blue);
     color: var(--color-canvas);
   }
+  /* The ring color is parked on every element, so focusing only flips
+     outline-style (discrete). Otherwise transition-colors, which includes
+     outline-color, fades the ring in from currentColor. */
+  *,
+  ::before,
+  ::after {
+    outline-color: var(--focus);
+  }
   :focus-visible {
     outline: 2px solid var(--focus);
     outline-offset: 3px;

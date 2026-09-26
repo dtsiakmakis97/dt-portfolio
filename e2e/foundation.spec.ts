@@ -21,6 +21,14 @@ test.describe("design foundation", () => {
     expect(styles.blue).toBe("#3b9dff");
   });
 
+  test("the focus ring shows in its final color the moment focus lands", async ({ page }) => {
+    await page.goto("/");
+    await page.keyboard.press("Tab"); // skip link
+    await page.keyboard.press("Tab"); // logo, which carries transition-colors
+    const ring = await page.evaluate(() => getComputedStyle(document.activeElement!).outlineColor);
+    expect(ring).toBe("rgb(59, 157, 255)");
+  });
+
   test("the js class lands on <html> so load reveals can opt in", async ({ page }) => {
     await page.goto("/");
     await expect(page.locator("html")).toHaveClass(/(^|\s)js(\s|$)/);
