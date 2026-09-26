@@ -45,13 +45,18 @@ export interface Project {
   readonly noindex?: boolean;
 }
 
+export interface ExperienceHighlight {
+  readonly client: string;
+  readonly detail: string;
+}
+
 export interface ExperienceItem {
   readonly company: string;
   readonly role: string;
   readonly period: string;
   readonly location: string;
   readonly summary: string;
-  readonly highlights: readonly string[];
+  readonly highlights: readonly ExperienceHighlight[];
 }
 
 export interface SkillGroup {
@@ -226,6 +231,9 @@ export const manifesto = "Accessible by default. Fast under real budgets. Honest
 /** Closing run of `manifesto` that fills to blue instead of ink. */
 export const manifestoAccent = "Honest about what it does.";
 
+/** Section statement. KPS AG, Dec 2022 to Oct 2025, matches the hero subhead's "Three years". */
+export const experienceStatement = "Three years at KPS AG.";
+
 export const experience: readonly ExperienceItem[] = [
   {
     company: "KPS AG",
@@ -235,10 +243,20 @@ export const experience: readonly ExperienceItem[] = [
     summary:
       "Delivered modern, accessible, maintainable e-commerce frontends for major German retail clients across four stacks: performance, design-system consistency and clean integration in agile teams.",
     highlights: [
-      "EP: SAP Commerce Cloud (CCV2) frontend; full WCAG audits and ARIA remediation across German, Swiss-French and Swiss-Italian markets.",
-      "Jungheinrich: expanded a Storybook.js component library, building reusable components from design specs.",
-      "NORMA: extended a Spryker webshop with custom, responsive, reusable components.",
-      "Dehner: Spryker webshop integrated with Magnolia CMS; code reviews and CI/CD via GitHub Actions.",
+      {
+        client: "EP:",
+        detail:
+          "SAP Commerce Cloud (CCV2) frontend; full WCAG audits and ARIA remediation across German, Swiss-French and Swiss-Italian markets.",
+      },
+      {
+        client: "Jungheinrich",
+        detail: "Expanded a Storybook.js component library, building reusable components from design specs.",
+      },
+      { client: "NORMA", detail: "Extended a Spryker webshop with custom, responsive, reusable components." },
+      {
+        client: "Dehner",
+        detail: "Spryker webshop integrated with Magnolia CMS; code reviews and CI/CD via GitHub Actions.",
+      },
     ],
   },
 ];
