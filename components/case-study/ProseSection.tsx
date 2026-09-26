@@ -7,7 +7,7 @@ export function ProseSection({ label, paragraphs }: { label: CaseLabel; paragrap
   const id = `case-${label.toLowerCase()}`;
   return (
     <section aria-labelledby={id} className="grid gap-6 px-gutter py-[clamp(3rem,2rem+4vw,7rem)] lg:grid-cols-12">
-      <h2 id={id} className="font-mono text-label uppercase text-ink-3 lg:col-span-3">
+      <h2 id={id} className="font-mono text-label uppercase text-ink-3 lg:col-span-3 lg:sticky lg:top-[5.5rem] lg:self-start">
         {label}
       </h2>
       <div className="space-y-6 lg:col-span-7 lg:col-start-4">

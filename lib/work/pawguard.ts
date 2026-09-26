@@ -1,4 +1,7 @@
+import { projects } from "@/lib/content";
 import type { CaseStudy } from "./types";
+
+const cover = projects.find((project) => project.slug === "pawguard")!.cover!;
 
 /*
  * PawGuard case study. Fact sheet: ~/.claude/plans/redesign-case-study-facts.md §1.
@@ -28,6 +31,8 @@ import type { CaseStudy } from "./types";
  */
 export const pawguard: CaseStudy = {
   lead: "PawGuard lets anyone in Greece report animal cruelty without giving their name. It is in development: the pilot waits on a GDPR sign-off. I built it alone with four Claude Code subagents; the AI is in how it was built, not in the app.",
+  // The same capture at 2x; the 1x cover stays the index preview, so the media morph matches.
+  hero: { ...cover, src: "/work/pawguard-2x.webp", width: 2560, height: 1600, caption: "The public one-pager. The app has not launched." },
   blocks: [
     {
       kind: "prose",
@@ -45,12 +50,12 @@ export const pawguard: CaseStudy = {
         "The harder constraint was the other one: the reporter must never become a privacy liability. Photos carry GPS in their metadata, descriptions carry names, and a database of reports is a list of witnesses. Whatever I built had to be unable to leak any of that, not just unlikely to.",
       ],
     },
-    { kind: "statement", text: "Nothing the witness sends is stored." },
+    { kind: "statement", text: "Nothing that identifies the witness is stored." },
     {
       kind: "decisions",
       items: [
         {
-          summary: "A relay that keeps nothing: seven columns, none of them personal",
+          summary: "A relay that keeps nothing personal: seven columns",
           body: "Photos, GPS, the description and anything that could identify the reporter are processed in memory inside a Supabase Edge Function, emailed to the recipients and discarded. The database stores exactly seven columns: an id, a one-way reference hash, a coarsened grid cell, the cruelty type, the month, a count and a timestamp. No column could hold personal data even if a writer wanted it to.",
         },
         {

@@ -5,7 +5,7 @@ import { Reveal } from "@/components/motion/Reveal";
 export function Decisions({ intro, items }: { intro?: string; items: readonly Decision[] }) {
   return (
     <section aria-labelledby="case-approach" className="grid gap-6 px-gutter py-[clamp(3rem,2rem+4vw,7rem)] lg:grid-cols-12">
-      <h2 id="case-approach" className="font-mono text-label uppercase text-ink-3 lg:col-span-3">
+      <h2 id="case-approach" className="font-mono text-label uppercase text-ink-3 lg:col-span-3 lg:sticky lg:top-[5.5rem] lg:self-start">
         Approach
       </h2>
       <div className="lg:col-span-8 lg:col-start-4">

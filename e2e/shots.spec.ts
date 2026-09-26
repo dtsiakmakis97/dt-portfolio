@@ -17,6 +17,8 @@ async function settle(page: Page) {
     await page.mouse.wheel(0, 600);
     await page.waitForTimeout(120);
   }
+  // Let Lenis finish its glide first, or it carries the page back down after the jump to the top.
+  await page.waitForTimeout(1500);
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.waitForTimeout(400);
 }

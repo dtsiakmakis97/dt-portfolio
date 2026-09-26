@@ -4,18 +4,26 @@ import { pill } from "@/components/ui/pill";
 import { SectionLink } from "@/components/motion/SectionLink";
 import { TransitionLink } from "@/components/motion/TransitionLink";
 import { NAV_FORWARD } from "@/lib/vt";
+import { titleFit } from "@/lib/work/fit";
 
-/** The giant "Next" link (curtain only; no shared name, so no title morph)
- *  and the way back to the index. */
+/** The giant "Next" link (curtain only; no shared name, so no title morph),
+ *  fitted to the width like the index title, its tagline beneath, and the way
+ *  back to the index. */
 export function NextProject({ next }: { next: Project }) {
   return (
     <nav aria-label="More work" className="px-gutter py-section">
       <TransitionLink href={`/work/${next.slug}`} transitionTypes={[NAV_FORWARD]} className="group block">
         <Label>Next</Label>{" "}
-        <span className="mt-4 block font-display text-statement font-extrabold text-ink transition-colors duration-500 ease-glide group-hover:text-blue group-focus-visible:text-blue">
-          {next.name}
+        <span className="fit mt-4 block">
+          <span
+            className="fit-text font-display font-extrabold text-ink transition-colors duration-500 ease-glide group-hover:text-blue group-focus-visible:text-blue"
+            style={titleFit(next.slug, next.name)}
+          >
+            {next.name}
+          </span>
         </span>
       </TransitionLink>
+      <p className="mt-6 max-w-[40ch] font-display text-lead font-light text-ink-2">{next.tagline}</p>
       <SectionLink href="/#work" className={`mt-12 ${pill("ghost")}`}>
         All work
       </SectionLink>

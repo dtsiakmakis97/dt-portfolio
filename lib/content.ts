@@ -114,7 +114,7 @@ export const projects: readonly Project[] = [
       src: "/work/pawguard.webp",
       width: 1280,
       height: 800,
-      alt: "PawGuard one-pager: mission and how-it-works overview for the Greece animal-welfare reporting app",
+      alt: "PawGuard one-pager: the headline Animal welfare, on the record. Anonymous by design., beside a phone mockup of the app’s first screen",
     },
     links: [{ label: "Overview", href: "https://pawguard-one-page.vercel.app/" }],
   },
