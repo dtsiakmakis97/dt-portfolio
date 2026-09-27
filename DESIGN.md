@@ -110,13 +110,14 @@ components:
 
 Two voices share every screen. The monument is type set so large it becomes the image: the hero statement, the width-fitted project titles, the full-bleed statement bands, the footer wordmark. The footnote is small, exact and mono: the crumb, the section labels, the meta strip, the captions. The monument makes the page bold; the footnote keeps it honest. Neither borrows the other's job, which is how the site stays loud in form and plain in its words.
 
-The canvas is near-black, the one color is an electric blue used loudly (full-bleed bands, the page-transition curtain, a single accent run in the hero), and the only second surface is warm paper, used as a band. Motion is slow and gliding on one curve (the glide, identical to GSAP's expo.out), tied to scroll rather than running on its own, and it arrives after the page is already readable. Typography is the visual: there is no illustration, no decorative imagery and no chrome that competes with the words.
+The canvas is near-black, the one color is an electric blue used loudly (full-bleed bands, the page-transition curtain, a single accent run in the hero, the lens field behind it), and the only second surface is warm paper, used as a band. Motion is slow and gliding on one curve (the glide, identical to GSAP's expo.out), tied to scroll rather than running on its own, and it arrives after the page is already readable. The one exception is the hero's lens field, which drifts and leans toward the pointer, and carries a Pause motion control. Typography is the visual: beyond that field there is no illustration, no decorative imagery and no chrome that competes with the words, and the field never brightens behind a word past what keeps it at 4.5:1.
 
 The system rejects the **generic developer-portfolio template** (hero plus animated skill bars plus a uniform grid of identical project cards plus a decorative gradient blob) and the **corporate SaaS landing page** (cream or pastel backgrounds, soft rounded cards, gentle gradients, the big-number hero-metric template). Both look like everyone else and perform confidence instead of earning it.
 
 **Key Characteristics:**
 - Monumental Cabinet Grotesk, weight 300 against 800, at line-heights near 0.8.
-- One loud blue, carried by bands and one accent run, never by decoration.
+- One loud blue, carried by bands, one accent run and the hero's lens field.
+- Dark, grainy blue liquid behind the hero, seen partly through a drifting glass sphere, dimmed behind every word.
 - Mono labels in wide uppercase for every fact that supports the type.
 - Pills or square corners, nothing in between.
 - Slow, scroll-linked motion that loads after the page and respects reduced motion completely.
@@ -198,6 +199,13 @@ Components are few and quiet at rest; the type does the performing. States answe
 - **TopBar:** fixed; transparent over the hero, solid canvas once scrolled. The wordmark "DT." with a blue period on the left, mono uppercase section links in the middle with a blue hairline that draws in on hover and marks the current section, a ghost pill on the right. On case studies the section links lead back to the home sections under the reverse curtain.
 - **MobileMenu:** a native dialog with focus kept inside, closed by Escape, with scrolling paused behind it.
 
+### Hero lens field
+- **What:** full-bleed liquid bands of the blue on the canvas behind the hero, seen partly through a large glass sphere, under film grain. Raw WebGL in two passes (components/hero/field.ts, no library): domain-warped noise renders at half resolution into a texture, then the sphere refracts it (magnified at the centre, turned over toward the rim, a slight channel split and a thin line of light at the edge) and grain goes on at full resolution. The bands drift; the liquid parts around the pointer and the sphere leans a little toward it. Touch gets the drift only.
+- **One hue, dark-dominant:** canvas, a deep ink-blue, the blue and a pale tint of it on the crests. The light gathers to the right, a dusk runs along the top edge under the header, and the hero meets the next section on the bare canvas. This is the one sanctioned gradient on the site, and the guardrails are what keep it from reading as the template blob: never pastel, never a second hue, always under grain, never brighter behind a word than its cap.
+- **The shelter:** every element marked `data-shelter` (each headline word, the kicker, the subhead, the actions, the badge, the pause control, and the header's wordmark, links and pill over the hero) caps the field's luminance behind it, hue kept, in a pill around it that fades out over 120px. The cap comes from the dimmest color that element's text can take at rest or in any state (its Tailwind text utilities), so every word keeps 4.8:1 by construction, above the 4.5:1 AA bar. A big ink headline word lets a mid blue through; small mono text sits near the canvas.
+- **Pause motion:** a mono control at the hero's top right stops the drift and is remembered across visits (WCAG 2.2.2). Reduced motion shows one still frame and no control; without WebGL or JavaScript the hero is plain canvas, as before.
+- **Cost:** loads after the page's load event and stops drawing whenever the hero is off screen or the tab is hidden. The noise runs on a quarter of the pixels; a frame governor drops to 1x and then to a still frame on a renderer that can't keep up.
+
 ### Hero
 - **HeroHeadline:** the statement in hero type, 300 against 800, with "AI systems" in blue; words rise through masks on CSS alone, with a failsafe so nothing stays hidden.
 - **RotatingBadge:** a circular mono text ring that turns only with scroll and links to the work.
@@ -225,9 +233,9 @@ A blue curtain between pages: the old page lifts off a blue ground and the new o
 ### Named Rules
 **The Pill-or-Zero Rule.** Full pills (the round call to action, the badge, the pills) or zero radius. Nothing in between.
 
-**The Scroll-Linked-Never-Autonomous Rule.** The marquee and the badge move only with scroll, never on their own (WCAG 2.2.2).
+**The Scroll-Linked-Never-Autonomous Rule.** The marquee and the badge move only with scroll, never on their own (WCAG 2.2.2). The hero's lens field is the one exception: it drifts on its own, so it carries a Pause motion control.
 
-**The Motion-After-Load Rule.** GSAP loads after the page's load event (lib/motion/load.ts), so no motion code is on the first paint's critical path; reveals the reader has already reached stay put.
+**The Motion-After-Load Rule.** GSAP and the hero field load after the page's load event (`afterLoad` in lib/motion/load.ts), so no motion code is on the first paint's critical path; reveals the reader has already reached stay put.
 
 ## 6. Do's and Don'ts
 
@@ -245,7 +253,8 @@ A blue curtain between pages: the old page lifts off a blue ground and the new o
 - **Don't** drift toward the **corporate SaaS landing page**: cream or pastel backgrounds, soft rounded cards, gentle gradients, the big-number hero-metric template.
 - **Don't** set ink on blue or blue on paper; both are 2.5:1.
 - **Don't** use any radius other than a full pill or zero.
-- **Don't** let anything move on its own: no autoplaying marquee, no spinning badge without scroll.
+- **Don't** let anything move on its own: no autoplaying marquee, no spinning badge without scroll. The hero field is the one exception, and it keeps its pause control.
+- **Don't** add hero text without `data-shelter`: the field only dims behind what is marked.
 - **Don't** make the first paint wait on JavaScript, or load the motion library before the page's load event.
-- **Don't** use box shadows, glassmorphism, gradient text or a second accent color.
+- **Don't** use box shadows, glassmorphism (frosted panels), gradient text or a second accent color. The hero's glass sphere is part of the field, holds no content and is the only optical element on the site.
 - **Don't** put an adjective or an invented number where a fact should be; the form is loud so the words don't have to be.

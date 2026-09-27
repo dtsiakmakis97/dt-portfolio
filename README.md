@@ -22,6 +22,10 @@ or UI change.
   transitions: a blue curtain on the viewport-sized root snapshot, and the title
   and media morphing between the work index and a case study (names in
   `lib/vt.ts`)
+- **Raw WebGL** (two passes, no library) for the hero's blue lens field in
+  `components/hero/field.ts`: liquid bands, a glass sphere and film grain,
+  loaded after the page's load event, capped behind every word
+  (`data-shelter`) so text keeps 4.5:1, and paused by its own control
 - **Resend** + **Zod** for the contact form (a Server Action, no API routes)
 - Self-hosted **Cabinet Grotesk** variable (display and body) + **IBM Plex Mono**
   (labels only)

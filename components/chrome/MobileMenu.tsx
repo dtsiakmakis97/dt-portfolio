@@ -33,6 +33,7 @@ export function MobileMenu() {
     <>
       <button
         type="button"
+        data-shelter=""
         onClick={open}
         aria-haspopup="dialog"
         aria-controls="mobile-menu"

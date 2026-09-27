@@ -5,8 +5,12 @@ import { defineConfig, devices } from "@playwright/test";
  *  E2E_PROD=1 serves a production build; required for perf budgets, and
  *  refuses to reuse a running dev server. The dev server starts from a clean
  *  .next/dev: Turbopack's persistent dev cache has served a stale Tailwind
- *  theme layer after globals.css changed, which makes CSS assertions lie. */
+ *  theme layer after globals.css changed, which makes CSS assertions lie.
+ *  On macOS, Chromium draws WebGL on the real GPU (Metal) rather than its
+ *  software renderer, which is too slow for the hero field: its frame governor
+ *  would settle it before the field tests run. The governor has its own test. */
 const PROD = !!process.env.E2E_PROD;
+const GPU_ARGS = process.platform === "darwin" ? ["--use-angle=metal"] : [];
 
 export default defineConfig({
   testDir: "./e2e",
@@ -17,6 +21,7 @@ export default defineConfig({
   use: {
     baseURL: "http://localhost:3000",
     trace: "on-first-retry",
+    launchOptions: { args: GPU_ARGS },
   },
   projects: [
     { name: "chromium", use: { ...devices["Desktop Chrome"] }, grepInvert: /@mobile/ },

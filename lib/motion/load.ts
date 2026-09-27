@@ -15,7 +15,9 @@ export function loadMotion(): Promise<Motion> {
   return pending;
 }
 
-function afterLoad(): Promise<void> {
+/** Resolves after the load event and an idle moment. Anything that must stay
+ *  off the first paint's critical path (GSAP, the hero field) waits on it. */
+export function afterLoad(): Promise<void> {
   return new Promise((resolve) => {
     // Safari has no requestIdleCallback; a short timeout stands in.
     const idle = () =>

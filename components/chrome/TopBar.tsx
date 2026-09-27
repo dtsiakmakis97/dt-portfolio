@@ -40,8 +40,10 @@ export function TopBar() {
       }`}
     >
       <div className="flex items-center justify-between gap-6 px-gutter py-4">
+        {/* data-shelter: over the hero, the lens field stays dark enough behind these for 4.5:1. */}
         <SectionLink
           href="/#top"
+          data-shelter=""
           className="font-display text-xl font-extrabold tracking-tight text-ink transition-colors duration-300 hover:text-blue"
         >
           DT<span className="text-blue">.</span>
@@ -49,7 +51,7 @@ export function TopBar() {
 
         {/* Section links only: the mobile dialog lives outside this landmark so
             the page never has nested navs or duplicate section links in it. */}
-        <nav aria-label="Primary" className="hidden md:block">
+        <nav aria-label="Primary" data-shelter="" className="hidden md:block">
           <ul className="flex items-center gap-8">
             {nav.map((item) => {
               const current = isCurrent(item.href.slice(2));
@@ -77,7 +79,7 @@ export function TopBar() {
         </nav>
 
         {/* The wrapper owns display: pill() sets inline-flex, which would beat `hidden`. */}
-        <div className="hidden md:block">
+        <div data-shelter="" className="hidden md:block">
           <a href={`mailto:${profile.email}`} className={pill("ghost")}>
             Email
           </a>

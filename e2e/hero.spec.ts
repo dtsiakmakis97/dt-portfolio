@@ -1,5 +1,6 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, type Page } from "@playwright/test";
 import { waitForMotion } from "./helpers/motion";
+import { peakLuminance, sampleColor, type Clip } from "./helpers/pixels";
 import { hero } from "../lib/content";
 
 test.describe("hero", () => {
@@ -57,6 +58,13 @@ test.describe("hero under reduced motion", () => {
     await page.goto("/");
     await page.mouse.wheel(0, 1200);
     await expect(page.locator("[data-badge] svg:has(textPath)")).toHaveCSS("transform", "none");
+  });
+
+  test("the lens field holds one still frame, ignores the pointer and offers no pause control", async ({ page }) => {
+    await page.goto("/");
+    await expect(field(page)).toHaveCSS("opacity", "1", FIELD);
+    await expect(frameChanges(page, { sweep: true })).resolves.toBe(false);
+    await expect(page.getByRole("button", { name: /motion/i })).toHaveCount(0);
   });
 });
 
@@ -117,5 +125,178 @@ test.describe("hero on a phone @mobile", () => {
       return tops.size;
     });
     expect(lines).toBe(1);
+  });
+
+  test("the lens field drifts on touch too, with its pause control", async ({ page }) => {
+    await page.goto("/");
+    await expect(field(page)).toHaveCSS("opacity", "1", FIELD);
+    await expect(page.getByRole("button", { name: "Pause motion" })).toBeVisible();
+  });
+});
+
+const FIELD = { timeout: 10_000 };
+const field = (page: Page) => page.locator("canvas[data-hero-field]");
+
+/** Whether the field's pixels change over 400ms, with everything else hidden.
+ *  With `sweep`, the pointer also crosses the hero in that window. */
+async function frameChanges(page: Page, { sweep = false } = {}): Promise<boolean> {
+  await page.evaluate(() => Promise.all(document.getAnimations().map((a) => a.finished)));
+  await hideAllButField(page);
+  const before = await field(page).screenshot();
+  if (sweep) {
+    const box = (await page.locator("#top").boundingBox())!;
+    await page.mouse.move(box.x + box.width * 0.2, box.y + box.height * 0.3);
+    await page.mouse.move(box.x + box.width * 0.8, box.y + box.height * 0.6, { steps: 12 });
+  }
+  await page.waitForTimeout(400);
+  return !before.equals(await field(page).screenshot());
+}
+
+interface TextOnField {
+  readonly text: string;
+  readonly clip: Clip;
+  /** Luminance of the dimmest color the text takes: at rest, or hovered. */
+  readonly luminance: number;
+}
+
+/** WCAG relative luminance of a computed "rgb(r, g, b)". */
+function luminanceOf(css: string): number {
+  const lin = (v: number) => {
+    const s = v / 255;
+    return s <= 0.04045 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
+  };
+  const [r, g, b] = css.match(/[\d.]+/g)!.map(Number);
+  return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+}
+
+/** Every piece of text in the hero and the header over it that sits straight
+ *  on the field (no opaque background of its own), as it stands at scroll 0,
+ *  with the dimmest color it takes: each link and button is really hovered,
+ *  with transitions off so the hover color is the final one. */
+async function textOnField(page: Page): Promise<TextOnField[]> {
+  await page.addStyleTag({ content: "*, *::before, *::after { transition: none !important; }" });
+  const found = await page.evaluate(() => {
+    const opaque = (el: Element) => !/^(transparent|rgba\(.*,\s*0\))$/.test(getComputedStyle(el).backgroundColor);
+    const roots = [document.getElementById("top")!, document.querySelector("header")!];
+    let probe = 0;
+    return roots.flatMap((root) =>
+      [...root.querySelectorAll("*")].flatMap((el) => {
+        const text = [...el.childNodes]
+          .filter((n) => n.nodeType === Node.TEXT_NODE)
+          .map((n) => n.textContent!.trim())
+          .join(" ")
+          .trim();
+        const r = el.getBoundingClientRect();
+        const style = getComputedStyle(el);
+        if (!text || r.width < 2 || r.height < 2 || style.visibility === "hidden" || r.top >= innerHeight || r.bottom <= 0) return [];
+        for (let at: Element | null = el; at && at !== root.parentElement; at = at.parentElement) if (opaque(at)) return [];
+        el.setAttribute("data-probe", String(probe++));
+        const top = Math.max(0, r.top);
+        const left = Math.max(0, r.left);
+        return [
+          {
+            text,
+            clip: { x: left, y: top, width: Math.min(r.right, innerWidth) - left, height: Math.min(r.bottom, innerHeight) - top },
+            colors: [el instanceof SVGElement ? style.fill : style.color],
+          },
+        ];
+      }),
+    );
+  });
+  // Keyed by the probe index: document order puts the header first.
+  const colorsNow = () =>
+    page.locator("[data-probe]").evaluateAll((els) =>
+      els.map((el) => [Number(el.getAttribute("data-probe")), getComputedStyle(el)[el instanceof SVGElement ? "fill" : "color"]] as const),
+    );
+  for (const control of await page.locator("#top :is(a, button), header :is(a, button)").all()) {
+    if (!(await control.isVisible())) continue;
+    await control.hover();
+    for (const [i, color] of await colorsNow()) found[i].colors.push(color);
+  }
+  return found.map(({ text, clip, colors }) => ({ text, clip, luminance: Math.min(...colors.map(luminanceOf)) }));
+}
+
+/** Hides everything over the field (hero content, header, the dev indicator)
+ *  without moving it, so the shelter stays where it was measured. */
+async function hideAllButField(page: Page): Promise<void> {
+  await page.addStyleTag({
+    // visibility, not display: the field may re-measure its shelter at any time,
+    // and a header with no box would drop out of it.
+    content: "nextjs-portal { display: none !important; } header, header *, #top > :not(canvas), #top [data-shelter] { visibility: hidden !important; }",
+  });
+}
+
+test.describe("hero lens field", () => {
+  test("fades in after load, hidden from assistive tech, blue, and drifting", async ({ page }) => {
+    await page.goto("/");
+    await expect(field(page)).toHaveCSS("opacity", "1", FIELD);
+    await expect(field(page)).toHaveAttribute("aria-hidden", "true");
+    await expect(frameChanges(page)).resolves.toBe(true);
+    // Its light gathers to the right: on average that half reads blue.
+    const box = (await page.locator("#top").boundingBox())!;
+    const [r, g, b] = await sampleColor(page, { x: box.width / 2, y: 0, width: box.width / 2, height: box.height * 0.7 });
+    expect(b).toBeGreaterThan(g);
+    expect(b - r).toBeGreaterThan(20);
+  });
+
+  test("Pause motion freezes the field, and the choice survives a reload", async ({ page }) => {
+    await page.goto("/");
+    await expect(field(page)).toHaveCSS("opacity", "1", FIELD);
+    await page.getByRole("button", { name: "Pause motion" }).focus();
+    await page.keyboard.press("Enter");
+    await expect(page.getByRole("button", { name: "Play motion" })).toBeFocused();
+    await expect(frameChanges(page, { sweep: true })).resolves.toBe(false);
+    await page.reload();
+    await expect(field(page)).toHaveCSS("opacity", "1", FIELD);
+    await expect(page.getByRole("button", { name: "Play motion" })).toBeVisible();
+    await expect(frameChanges(page, { sweep: true })).resolves.toBe(false);
+  });
+
+  test("every word over the field keeps 4.5:1 against the brightest pixel behind it", async ({ page }) => {
+    await page.goto("/");
+    await expect(field(page)).toHaveCSS("opacity", "1", FIELD);
+    await page.getByRole("button", { name: "Pause motion" }).click();
+    await page.evaluate(() => Promise.all(document.getAnimations().map((a) => a.finished)));
+    const texts = await textOnField(page);
+    // The kicker, each headline word, the subhead, the ghost pill, the badge ring,
+    // the pause control and the header's links.
+    expect(texts.length).toBeGreaterThanOrEqual(10);
+    await hideAllButField(page);
+    for (const { text, clip, luminance } of texts) {
+      const behind = await peakLuminance(page, clip);
+      expect((luminance + 0.05) / (behind + 0.05), `${text} ${JSON.stringify(clip)}`).toBeGreaterThanOrEqual(4.5);
+    }
+  });
+
+  test("on a renderer too slow to keep up, the field settles and drops its control", async ({ page }) => {
+    // Every frame costs 60ms: the field's frame governor should give up on motion.
+    await page.addInitScript(() => {
+      const raf = window.requestAnimationFrame.bind(window);
+      window.requestAnimationFrame = (callback) =>
+        raf((time) => {
+          const until = performance.now() + 60;
+          while (performance.now() < until);
+          callback(time);
+        });
+    });
+    await page.goto("/");
+    await expect(field(page)).toHaveCSS("opacity", "1", FIELD);
+    await expect(page.getByRole("button", { name: /motion/i })).toHaveCount(0, { timeout: 15_000 });
+    await expect(frameChanges(page, { sweep: true })).resolves.toBe(false);
+  });
+
+  test("without WebGL the hero is exactly as before", async ({ page }) => {
+    await page.addInitScript(() => {
+      const original = HTMLCanvasElement.prototype.getContext;
+      HTMLCanvasElement.prototype.getContext = function (this: HTMLCanvasElement, type: string, ...rest: unknown[]) {
+        return /webgl/.test(type) ? null : (original as (...args: unknown[]) => unknown).call(this, type, ...rest);
+      } as typeof original;
+    });
+    await page.goto("/");
+    await waitForMotion(page);
+    await page.waitForTimeout(500);
+    await expect(field(page)).toHaveCount(0);
+    await expect(page.getByRole("button", { name: /motion/i })).toHaveCount(0);
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   });
 });

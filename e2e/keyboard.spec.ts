@@ -44,12 +44,14 @@ test.describe("keyboard walkthrough", () => {
   test("every stop shows the 2px blue ring, in reading order", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/");
+    // The hero field's pause control arrives after the load event; walk once it's there.
+    await expect(page.locator("canvas[data-hero-field]")).toHaveCSS("opacity", "1", { timeout: 10_000 });
     const stops = await tabStops(page);
 
     for (const stop of stops) expect(stop.ring, stop.name).toBe("solid 2px rgb(59, 157, 255)");
 
     const names = stops.map((s) => s.name);
-    expect(names.slice(0, 11)).toEqual([
+    expect(names.slice(0, 12)).toEqual([
       "Skip to content",
       "DT.",
       "About",
@@ -58,6 +60,7 @@ test.describe("keyboard walkthrough", () => {
       "Stack",
       "Contact",
       "Email",
+      "Pause motion",
       "Get in touch",
       "Résumé (PDF)",
       "Selected work",

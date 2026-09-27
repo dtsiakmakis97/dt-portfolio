@@ -1,5 +1,6 @@
 import { test, expect, type Page } from "@playwright/test";
 import { waitForMotion } from "./helpers/motion";
+import { brightestPixel, sampleColor } from "./helpers/pixels";
 
 // These tests time view-transition animations. Under full-suite parallel load
 // Chromium can skip a transition (its designed instant swap), which reads as a
@@ -59,48 +60,6 @@ async function recordTransition(page: Page, action: () => Promise<unknown>, ms =
   );
   await action();
   return recording;
-}
-
-/** Average color of a small screenshot region, decoded in a blank page (no image library). */
-async function sampleColor(page: Page, clip: { x: number; y: number; width: number; height: number }): Promise<number[]> {
-  const png = (await page.screenshot({ clip })).toString("base64");
-  const decoder = await page.context().newPage();
-  const rgb = await decoder.evaluate(async (b64) => {
-    const img = new Image();
-    img.src = `data:image/png;base64,${b64}`;
-    await img.decode();
-    const canvas = new OffscreenCanvas(img.width, img.height);
-    const ctx = canvas.getContext("2d")!;
-    ctx.drawImage(img, 0, 0);
-    const { data } = ctx.getImageData(0, 0, img.width, img.height);
-    const sum = [0, 0, 0];
-    for (let i = 0; i < data.length; i += 4) for (let c = 0; c < 3; c++) sum[c] += data[i + c];
-    return sum.map((v) => Math.round(v / (data.length / 4)));
-  }, png);
-  await decoder.close();
-  return rgb;
-}
-
-/** The brightest pixel of a screenshot region, decoded like sampleColor. */
-async function brightestPixel(page: Page, clip: { x: number; y: number; width: number; height: number }): Promise<number[]> {
-  const png = (await page.screenshot({ clip })).toString("base64");
-  const decoder = await page.context().newPage();
-  const rgb = await decoder.evaluate(async (b64) => {
-    const img = new Image();
-    img.src = `data:image/png;base64,${b64}`;
-    await img.decode();
-    const canvas = new OffscreenCanvas(img.width, img.height);
-    const ctx = canvas.getContext("2d")!;
-    ctx.drawImage(img, 0, 0);
-    const { data } = ctx.getImageData(0, 0, img.width, img.height);
-    let best = [0, 0, 0];
-    for (let i = 0; i < data.length; i += 4) {
-      if (data[i] + data[i + 1] + data[i + 2] > best[0] + best[1] + best[2]) best = [data[i], data[i + 1], data[i + 2]];
-    }
-    return best;
-  }, png);
-  await decoder.close();
-  return rgb;
 }
 
 /** Pins every running ::view-transition animation at `ms`, once `once` is running. */

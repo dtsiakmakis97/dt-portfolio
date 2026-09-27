@@ -9,7 +9,9 @@ import { execSync } from "node:child_process";
  *  RECORD_BASELINE=1 before any redesign code lands. Re-recording rewrites
  *  the file, so re-run the Lighthouse merge after it. */
 const BASELINE_FILE = "docs/redesign/baseline.json";
-const JS_BUDGET_OVER_BASELINE = 60 * 1024;
+// 60KB for the redesign, plus 4KB for the hero's lens field (its renderer
+// is a lazy chunk fetched after the load event, still counted at network idle).
+const JS_BUDGET_OVER_BASELINE = 64 * 1024;
 const CLS_BUDGET = 0.05;
 
 interface Baseline {

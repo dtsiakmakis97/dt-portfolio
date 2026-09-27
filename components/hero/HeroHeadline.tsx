@@ -16,7 +16,7 @@ function WordRun({ list, start }: { list: string[]; start: number }) {
       {list.map((word, i) => (
         <Fragment key={start + i}>
           {i > 0 && " "}
-          <span className="word-clip">
+          <span className="word-clip" data-shelter="">
             <span className="word-rise" style={{ animationDelay: `${LEAD_MS + (start + i) * STAGGER_MS}ms` }}>
               {word}
             </span>
