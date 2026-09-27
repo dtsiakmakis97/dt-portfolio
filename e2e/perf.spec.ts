@@ -35,7 +35,12 @@ test.describe("performance budget @mobile", () => {
   // must land with the first paint. A word parked below its mask is not painted,
   // so a staggered rise pushes LCP past hydration, and Lighthouse's simulated
   // 4x CPU then bills the whole bundle to LCP (measured 2.64s vs a 2.5s budget).
-  test("the largest paint lands with the first paint", async ({ page }) => {
+  for (const visit of ["returning", "first"] as const) {
+  test(`the largest paint lands with the first paint (${visit} visit)`, async ({ page }) => {
+    // A first visit plays the wordmark intro (skipped for automated browsers unless opted in).
+    if (visit === "first") {
+      await page.addInitScript(() => Object.defineProperty(Navigator.prototype, "webdriver", { get: () => false }));
+    }
     await page.addInitScript(() => {
       const w = window as unknown as { __lcp: number; __lcpInH1: boolean };
       w.__lcp = 0;
@@ -59,6 +64,7 @@ test.describe("performance budget @mobile", () => {
     test.info().annotations.push({ type: "lcp-fcp", description: `${Math.round(lcp)} - ${Math.round(fcp)}` });
     expect(lcp - fcp, `LCP ${Math.round(lcp)}ms vs FCP ${Math.round(fcp)}ms`).toBeLessThanOrEqual(100);
   });
+  }
 
   test("the motion library stays off the first paint's critical path", async ({ page }) => {
     await page.goto("/", { waitUntil: "load" });

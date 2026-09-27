@@ -5,7 +5,9 @@ import "./globals.css";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { TopBar } from "@/components/chrome/TopBar";
 import { SiteFooter } from "@/components/chrome/SiteFooter";
+import { Intro } from "@/components/chrome/Intro";
 import { meta, profile } from "@/lib/content";
+import { menuRows } from "@/lib/menu";
 import { siteUrl } from "@/lib/site";
 import { siteOpenGraph } from "@/lib/metadata";
 
@@ -52,6 +54,15 @@ export const metadata: Metadata = {
   },
 };
 
+// The intro ends on its last frame or at once on any click, key or wheel. The
+// listeners live here, not in React, so a skip works before hydration.
+const HEAD_SCRIPT = `var h=document.documentElement;h.classList.add('js');
+try{if(!navigator.webdriver&&!sessionStorage.getItem('intro-seen')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+h.classList.add('intro');sessionStorage.setItem('intro-seen','1');
+var ev=['pointerdown','keydown','wheel','touchstart'],end=function(){h.classList.remove('intro');ev.forEach(function(t){removeEventListener(t,end)})};
+ev.forEach(function(t){addEventListener(t,end,{passive:true})});
+addEventListener('animationend',function(e){if(e.animationName==='intro-layer-out')end()})}}catch(e){}`;
+
 export const viewport: Viewport = {
   themeColor: "#0b0b0c",
 };
@@ -71,17 +82,18 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* Before first paint: lets CSS opt load reveals into hiding (app/styles/motion.css). */}
-        <script
-          dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }}
-        />
+        {/* Before first paint: lets CSS opt load reveals into hiding (app/styles/motion.css),
+            and starts the wordmark intro on the first view of a session (app/styles/intro.css).
+            Automated browsers skip it, so tests and crawlers see the page as a returning visitor. */}
+        <script dangerouslySetInnerHTML={{ __html: HEAD_SCRIPT }} />
       </head>
       <body className="min-h-screen">
+        <Intro />
         <SmoothScroll />
         <a href="#main" className="skip-link">
           Skip to content
         </a>
-        <TopBar />
+        <TopBar menu={menuRows} />
         <main id="main" tabIndex={-1}>
           {children}
         </main>

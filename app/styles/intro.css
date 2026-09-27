@@ -1,0 +1,143 @@
+/* The first-visit intro (components/chrome/Intro.tsx). html.intro is set by the
+   <head> script before first paint, so all of this runs in CSS from the first
+   frame over a page that is already painted underneath; JavaScript only ends
+   it early. It lasts ~1.3s:
+     0-550ms     "DT" rises and the blue period pops in, on the canvas ground
+     500-1200ms  the mark flies into the header logo; the ground lifts away
+     1200ms      the header logo takes over, and the layer is gone
+   Without the class (JS off, reduced motion, a repeat view) it never shows. */
+
+.intro-layer {
+  display: none;
+}
+
+html.intro {
+  /* The hero's words wait for the reveal instead of rising under the ground. */
+  --intro-delay: 700ms;
+}
+
+html.intro .intro-layer {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 60; /* above the header (z-50) */
+  /* The mark is drawn at --s times the logo and scaled down onto it, so it is
+     crisp while it is big. */
+  --s: 10;
+  animation: intro-layer-out 1ms linear 1320ms forwards;
+}
+@media (min-width: 640px) {
+  html.intro .intro-layer {
+    --s: 16;
+  }
+}
+@media (min-width: 1024px) {
+  html.intro .intro-layer {
+    --s: 24;
+  }
+}
+@media (min-width: 1440px) {
+  html.intro .intro-layer {
+    --s: 30;
+  }
+}
+
+.intro-ground {
+  position: absolute;
+  inset: 0;
+  background: var(--color-canvas);
+  animation: intro-lift 750ms var(--ease-glide) 500ms both;
+}
+
+/* The header logo's box: text-xl, 1.277em of advance, a 1.4em line. */
+.intro-slot {
+  position: relative;
+  display: block;
+  font-size: 1.25rem;
+  width: 1.277em;
+  height: 1.4em;
+}
+
+.intro-mark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(var(--s) * 100%);
+  height: calc(var(--s) * 100%);
+  overflow: visible;
+  transform-origin: 0 0;
+  animation:
+    intro-fly 700ms var(--ease-glide) 500ms both,
+    intro-mark-out 120ms linear 1200ms both;
+}
+.intro-dt {
+  fill: var(--color-ink);
+  transform-box: fill-box;
+  animation: intro-rise 550ms var(--ease-glide) both;
+}
+.intro-dot {
+  fill: var(--color-blue);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: intro-pop 400ms var(--ease-glide) 200ms both;
+}
+
+html.intro [data-wordmark] {
+  animation: intro-logo-in 120ms linear 1200ms both;
+}
+
+@keyframes intro-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18%);
+  }
+}
+@keyframes intro-pop {
+  from {
+    transform: scale(0);
+  }
+}
+@keyframes intro-fly {
+  /* Centred in the viewport at full size (half the logo box is 0.798rem wide
+     and 0.875rem tall; its top sits 1.425rem down the header row). */
+  from {
+    transform: translate(
+        calc(50vw - var(--spacing-gutter) - var(--s) * 0.798rem),
+        calc(50svh - 1.425rem - var(--s) * 0.875rem)
+      )
+      scale(1);
+  }
+  to {
+    transform: translate(0, 0) scale(calc(1 / var(--s)));
+  }
+}
+@keyframes intro-mark-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes intro-lift {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+@keyframes intro-logo-in {
+  from {
+    opacity: 0;
+  }
+}
+/* The layer stops catching the pointer even if JavaScript never ends it. */
+@keyframes intro-layer-out {
+  to {
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.intro .intro-layer {
+    display: none;
+  }
+}

@@ -26,6 +26,12 @@ or UI change.
   `components/hero/field.ts`: liquid bands, a glass sphere and film grain,
   loaded after the page's load event, capped behind every word
   (`data-shelter`) so text keeps 4.5:1, and paused by its own control
+- A first-visit **wordmark intro** in CSS (`components/chrome/Intro.tsx`,
+  `app/styles/intro.css`): "DT." as SVG outlines flies into the header logo
+  over the already-painted page; once per session, skippable, never under
+  reduced motion
+- A collapsing header and a full-screen **site menu** (`SiteMenu.tsx`): rows
+  that flood blue with the section's facts on hover or focus
 - **Resend** + **Zod** for the contact form (a Server Action, no API routes)
 - Self-hosted **Cabinet Grotesk** variable (display and body) + **IBM Plex Mono**
   (labels only)

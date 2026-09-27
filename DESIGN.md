@@ -196,8 +196,14 @@ Components are few and quiet at rest; the type does the performing. States answe
 - **Error:** the border turns alert red; the message below carries an icon, and the field is marked invalid for assistive tech. The honeypot never shows.
 
 ### Navigation
-- **TopBar:** fixed; transparent over the hero, solid canvas once scrolled. The wordmark "DT." with a blue period on the left, mono uppercase section links in the middle with a blue hairline that draws in on hover and marks the current section, a ghost pill on the right. On case studies the section links lead back to the home sections under the reverse curtain.
-- **MobileMenu:** a native dialog with focus kept inside, closed by Escape, with scrolling paused behind it.
+- **TopBar:** fixed; transparent over the hero, solid canvas once scrolled. At the top of a page: the wordmark "DT." with a blue period on the left, mono uppercase section links in the middle with a blue hairline that draws in on hover and marks the current section, a ghost pill on the right. Past the hero (0.85 of a viewport) it collapses: the links fold up out of their masks and go inert, the section in view is named in a mono label where they were, and a Menu pill takes the Email pill's place. On case studies the section links lead back to the home sections under the reverse curtain.
+- **SiteMenu:** a full-screen native dialog (focus kept inside, closed by Escape, scrolling paused behind it), opened by the Menu pill: on a phone always, wider once the header has collapsed. It drops in like the page curtain; the five sections are monumental rows between hairlines, rising through masks. Hovering or focusing a row floods it with a blue band, text in the canvas color, where that section's facts run past: project names between pill-cropped covers for Work, the square period between the others. The facts are drawn from the page's own content (lib/menu.ts), the run moves only while its row is hovered or focused, and under reduced motion the band is still. After K72's menu.
+
+### Intro
+- **What:** the first view of a session opens on a giant "DT." on the canvas; the blue square period pops in, then the mark flies into the header logo while the ground lifts away like the page curtain. About 1.3s on the glide curve, and the hero's words rise as they are revealed (`--intro-delay`).
+- **Honest by construction:** nothing is loading, so there is no counter or bar. The page renders underneath from the first frame: the mark is SVG outlines of Cabinet 800 (never the LCP), and the headline stays the largest paint with the first paint on a first visit too (e2e/perf.spec.ts).
+- **Gated before first paint** by the `<head>` script: once per session (sessionStorage), never under reduced motion, never without JavaScript, skipped by automated browsers. Any click, key or wheel ends it at once, before hydration too. It is `aria-hidden` and holds nothing focusable.
+- **The exception:** docs/redesign/SPEC.md rejects preloaders and intro screens. This is the one sanctioned exception, on those terms: short, once, skippable, over a page that is already there.
 
 ### Hero lens field
 - **What:** full-bleed liquid bands of the blue on the canvas behind the hero, seen partly through a large glass sphere, under film grain. Raw WebGL in two passes (components/hero/field.ts, no library): domain-warped noise renders at half resolution into a texture, then the sphere refracts it (magnified at the centre, turned over toward the rim, a slight channel split and a thin line of light at the edge) and grain goes on at full resolution. The bands drift; the liquid parts around the pointer and the sphere leans a little toward it. Touch gets the drift only.
@@ -235,7 +241,7 @@ A blue curtain between pages: the old page lifts off a blue ground and the new o
 
 **The Scroll-Linked-Never-Autonomous Rule.** The marquee and the badge move only with scroll, never on their own (WCAG 2.2.2). The hero's lens field is the one exception: it drifts on its own, so it carries a Pause motion control.
 
-**The Motion-After-Load Rule.** GSAP and the hero field load after the page's load event (`afterLoad` in lib/motion/load.ts), so no motion code is on the first paint's critical path; reveals the reader has already reached stay put.
+**The Motion-After-Load Rule.** GSAP and the hero field load after the page's load event (`afterLoad` in lib/motion/load.ts), so no motion code is on the first paint's critical path; reveals the reader has already reached stay put. The intro is CSS on server-rendered markup, gated by a few lines of inline script, and never delays the page under it.
 
 ## 6. Do's and Don'ts
 

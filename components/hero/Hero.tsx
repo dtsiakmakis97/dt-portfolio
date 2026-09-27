@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { hero, profile } from "@/lib/content";
 import { HeroHeadline } from "./HeroHeadline";
 import { HeroField } from "./HeroField";
@@ -23,10 +24,10 @@ export function Hero() {
       </div>
 
       <div className="mt-10 grid gap-8 lg:grid-cols-12 lg:items-end">
-        <p data-shelter="" className="hero-fade max-w-[46ch] text-body text-ink-2 lg:col-span-5" style={{ animationDelay: "700ms" }}>
+        <p data-shelter="" className="hero-fade max-w-[46ch] text-body text-ink-2 lg:col-span-5" style={{ "--d": "700ms" } as CSSProperties}>
           {hero.subhead}
         </p>
-        <div data-shelter="" className="hero-fade flex flex-wrap gap-3 lg:col-span-4 lg:col-start-7" style={{ animationDelay: "800ms" }}>
+        <div data-shelter="" className="hero-fade flex flex-wrap gap-3 lg:col-span-4 lg:col-start-7" style={{ "--d": "800ms" } as CSSProperties}>
           <Magnetic>
             <SectionLink href="/#contact" className={pill("blue")}>
               Get in touch

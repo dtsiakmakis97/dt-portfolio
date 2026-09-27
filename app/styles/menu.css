@@ -1,0 +1,61 @@
+/* The full-screen menu (components/chrome/SiteMenu.tsx). It drops in like the
+   page curtain; hovering or focusing a row floods it with a blue band, text in
+   the canvas color, where that section's facts run past. The run moves only
+   while its row is hovered or focused, and never under reduced motion. */
+
+dialog.menu-dialog[open] {
+  animation: menu-drop 700ms var(--ease-glide) both;
+}
+@keyframes menu-drop {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.menu-label {
+  font-size: clamp(2.75rem, min(9vw, 11svh), 8.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+}
+
+.menu-band {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--color-blue);
+  color: var(--color-canvas);
+  clip-path: inset(50% 0);
+  transition: clip-path 500ms var(--ease-glide);
+}
+.menu-row:hover .menu-band,
+.menu-row:focus-visible .menu-band {
+  clip-path: inset(0);
+}
+
+/* Two identical runs side by side; sliding one run's width loops seamlessly. */
+.menu-track {
+  display: flex;
+  width: max-content;
+  animation: menu-run 24s linear infinite;
+  animation-play-state: paused;
+}
+.menu-row:hover .menu-track,
+.menu-row:focus-visible .menu-track {
+  animation-play-state: running;
+}
+@keyframes menu-run {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-track {
+    animation: none;
+  }
+}

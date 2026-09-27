@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, type CSSProperties } from "react";
 import { hero } from "@/lib/content";
 
 const LEAD_MS = 150;
@@ -17,7 +17,7 @@ function WordRun({ list, start }: { list: string[]; start: number }) {
         <Fragment key={start + i}>
           {i > 0 && " "}
           <span className="word-clip" data-shelter="">
-            <span className="word-rise" style={{ animationDelay: `${LEAD_MS + (start + i) * STAGGER_MS}ms` }}>
+            <span className="word-rise" style={{ "--d": `${LEAD_MS + (start + i) * STAGGER_MS}ms` } as CSSProperties}>
               {word}
             </span>
           </span>
