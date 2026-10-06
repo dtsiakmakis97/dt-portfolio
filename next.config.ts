@@ -7,8 +7,13 @@ const nextConfig: NextConfig = {
     viewTransition: true,
   },
   // Kryora launched as Kryotera; keep old links (and the OG card path) alive.
+  // Two rules, not one `:path*`: an empty match leaves a trailing slash, and
+  // Vercel then spends a second 308 removing it.
   async redirects() {
-    return [{ source: "/work/kryora/:path*", destination: "/work/kryotera/:path*", permanent: true }];
+    return [
+      { source: "/work/kryora", destination: "/work/kryotera", permanent: true },
+      { source: "/work/kryora/:path+", destination: "/work/kryotera/:path+", permanent: true },
+    ];
   },
 };
 
