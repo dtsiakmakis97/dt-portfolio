@@ -202,29 +202,29 @@ export const projects: readonly Project[] = [
     links: [{ label: "Live", href: "https://oikonomou.vercel.app" }],
   },
   {
-    slug: "kryora",
-    name: "Kryora",
+    slug: "kryotera",
+    name: "Kryotera",
     tagline: "A Greek-first B2B site for whole-body cryotherapy chambers.",
     summary:
-      "A Greek-market B2B site for whole-body cryotherapy chambers: Greek-first type, CSS-only motion and a three-question model finder.",
+      "A Greek-first B2B site for whole-body cryotherapy chambers: Greek type done properly, CSS-only motion, a model finder and a Resend enquiry form.",
     role: "Solo: direction, design, build",
     period: "2026",
-    status: "Preview · awaiting client sign-off",
-    stack: ["Next.js 16", "next-intl (EL/EN)", "Tailwind v4", "CSS scroll-driven animation", "Vitest"],
+    status: "Live",
+    stack: ["Next.js 16", "next-intl (EL/EN)", "Tailwind v4", "CSS scroll-driven animation", "Resend"],
     cover: {
-      src: "/work/kryora.webp",
+      src: "/work/kryotera.webp",
       width: 1280,
       height: 960,
-      alt: "Kryora: Greek home page hero, whole-body cryotherapy at −110 °C, beside an eCham flow chamber in a dimly lit spa",
+      alt: "Kryotera: Greek home page hero, whole-body cryotherapy down to −110 °C in ice blue, beside an eCham flow chamber in a dimly lit spa",
       credit: "Imagery: kryora.de (AI renders)",
     },
-    noindex: true,
+    links: [{ label: "Live", href: "https://kryotera.gr" }],
   },
 ];
 
 export const about: readonly string[] = [
   "I’m a frontend engineer from Greece, based in Berlin. For three years at KPS AG I shipped production e-commerce frontends for German retail brands (Dehner, NORMA, Jungheinrich and EP:) across SAP Commerce Cloud, Spryker, Magnolia and Storybook, with accessibility and performance as a constant discipline.",
-  "These days I build AI systems on top of that frontend foundation, not instead of it. PawGuard is a civic-tech app I’m building with four custom Claude Code subagents, each bound by a written constitution; Lead Finder is an LLM analyzer pipeline; Aegeon, Ego Distillers and the T.E. Learning Center are live sites I shipped solo.",
+  "These days I build AI systems on top of that frontend foundation, not instead of it. PawGuard is a civic-tech app I’m building with four custom Claude Code subagents, each bound by a written constitution; Lead Finder is an LLM analyzer pipeline; Aegeon, Ego Distillers, Kryotera and the T.E. Learning Center are live sites I shipped solo.",
 ];
 
 /** The About statement, rendered monumental; plain words, loud form. The
@@ -264,7 +264,7 @@ export const experience: readonly ExperienceItem[] = [
 ];
 
 // Every entry traces to a project's dependencies (portfolio, PawGuard, Lead
-// Finder, Aegeon, Ego Distillers, Kryora, Career Ops, T.E., Tsogias) or to the
+// Finder, Aegeon, Ego Distillers, Kryotera, Career Ops, T.E., Tsogias) or to the
 // KPS AG client work. No Anthropic API entry: no project uses the SDK.
 export const skills: readonly SkillGroup[] = [
   {

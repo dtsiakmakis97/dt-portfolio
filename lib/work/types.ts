@@ -7,7 +7,7 @@ export const PROJECT_SLUGS = [
   "ego-distillers",
   "career-ops",
   "te-learning-center",
-  "kryora",
+  "kryotera",
 ] as const;
 
 export type ProjectSlug = (typeof PROJECT_SLUGS)[number];
@@ -19,7 +19,7 @@ export interface Figure {
   readonly height: number;
   readonly alt: string;
   readonly caption?: string;
-  /** Required whenever the imagery is not the owner's (Kryora). */
+  /** Required whenever the imagery is not the owner's (Kryotera). */
   readonly credit?: string;
   /** CSS object-position when the image is cropped into a 16:10 frame; centered by default. */
   readonly objectPosition?: string;

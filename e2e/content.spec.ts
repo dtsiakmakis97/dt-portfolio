@@ -17,13 +17,13 @@ const FORBIDDEN: readonly (readonly [RegExp, string])[] = [
   // The SPEC's merge-gate grep, verbatim: every hit must be resolved.
   [/in production/i, "SPEC content gate: say Live, never imply PawGuard is in production"],
   [/Prosecutor/i, "PawGuard: no Prosecutor's Office integration claims (eventual)"],
-  [/kryora\.de\//i, "Kryora: credit kryora.de, never link into it"],
+  [/kryora\.de\//i, "Kryotera: credit kryora.de, never link into it"],
   [/oikonomou\.vercel/i, "T.E.: the vercel.app URL is not the school's official domain"],
   // Fact-sheet contradictions (redesign-case-study-facts.md), corrected in Task 15.
   [/gate[sd]? every merge|merge-blocking/i, "PawGuard: one audit round, applied in-line; the rebuild was never merged"],
   [/Gothenburg’s first/i, "Ego Distillers: the client's own claim, not ours to assert"],
   [/English school/i, "T.E.: the signage says English & IT; say language school"],
-  [/bilingual SEO/i, "Kryora: SEO foundations only, and the preview is noindexed"],
+  [/bilingual SEO/i, "Kryotera: no SEO outcome claims, there is no ranking data"],
   [/now shipping/i, "PawGuard is pre-launch: say building"],
   [/Anthropic Claude API|Claude API/i, "Stack: no project uses the Anthropic SDK; the multi-agent work runs on Claude Code"],
 ];

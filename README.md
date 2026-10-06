@@ -43,7 +43,7 @@ or UI change.
 | `/` | Home: hero, manifesto, work index, experience, stack band, contact |
 | `/work/[slug]` | One case study per project, statically generated; unknown slugs 404 |
 | `/opengraph-image`, `/work/[slug]/opengraph-image` | Share cards (and their `twitter-image` twins), rendered from local font cuts in `assets/og` |
-| `/sitemap.xml`, `/robots.txt` | Home and every indexable case study; Kryora is noindexed and left out |
+| `/sitemap.xml`, `/robots.txt` | Home and every indexable case study; any marked `noindex` is left out |
 | 404 | `app/not-found.tsx`, which lists the work |
 
 ## Architecture

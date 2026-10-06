@@ -24,7 +24,7 @@ test.describe("share cards, sitemap and 404", () => {
     }
   });
 
-  test("the sitemap lists home and every indexable case study, never Kryora", async ({ request }) => {
+  test("the sitemap lists home and every indexable case study, never a noindexed one", async ({ request }) => {
     const xml = await (await request.get("/sitemap.xml")).text();
     for (const project of projects) expect(xml.includes(`/work/${project.slug}</loc>`), project.slug).toBe(!project.noindex);
     expect(xml).toMatch(/<loc>[^<]*\/<\/loc>/);

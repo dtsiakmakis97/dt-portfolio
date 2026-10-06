@@ -10,7 +10,7 @@ const WRITTEN: readonly ProjectSlug[] = [
   "lead-finder",
   "aegeon",
   "ego-distillers",
-  "kryora",
+  "kryotera",
   "career-ops",
   "te-learning-center",
 ];
@@ -21,7 +21,7 @@ const WORD_BUDGET: Record<ProjectSlug, readonly [number, number]> = {
   "lead-finder": [800, 1000],
   aegeon: [800, 1000],
   "ego-distillers": [700, 1000],
-  kryora: [600, 800],
+  kryotera: [700, 1000],
   "career-ops": [300, 450],
   "te-learning-center": [300, 500],
 };
@@ -32,7 +32,7 @@ const MUST_NOT_SAY: Record<ProjectSlug, readonly RegExp[]> = {
   "lead-finder": [/four (parallel )?(llm )?analy[sz]ers?|4 parallel/i, /\$\s?\d/, /10x cheaper|\d+\s?s(econds)? per search/i],
   aegeon: [/aegeon\.net/i, /commission saved|15.?18\s?%/i, /stone garden/i, /stripe checkout|deposit checkout/i],
   "ego-distillers": [/emergent/i, /53\s?\/\s?100/, /org\.? ?(no|nr|number)\b/i],
-  kryora: [/\broi\b|pays? (for )?itself in/i, /exclusiv/i, /vercel\.app/i, /bilingual seo/i, /testimonial/i],
+  kryotera: [/\broi\b|pays? (for )?itself in/i, /exclusiv/i, /vercel\.app/i, /bilingual seo/i, /testimonial/i],
   "career-ops": [/salary|compensation/i],
   "te-learning-center": [/wcag/i, /opening hours/i, /english school/i],
 };
@@ -97,7 +97,7 @@ for (const slug of WRITTEN) {
     });
 
     test("credits imagery that is not the owner's", () => {
-      test.skip(!project.noindex, "only unapproved client work carries third-party imagery");
+      test.skip(!project.cover?.credit, "only projects showing third-party imagery");
       for (const block of study.blocks) if (block.kind === "figure") expect(block.figure.credit, block.figure.src).toBeTruthy();
     });
 

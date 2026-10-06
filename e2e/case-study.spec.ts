@@ -35,10 +35,12 @@ test.describe("case-study frame", () => {
     await expect(page.getByRole("main").locator("img")).toHaveCount(0);
   });
 
-  test("Kryora credits its imagery and links nowhere outside the site", async ({ page }) => {
-    await page.goto("/work/kryora");
+  test("Kryotera credits its imagery and links outside only to its live site", async ({ page }) => {
+    await page.goto("/work/kryotera");
     await expect(page.getByText("Imagery: kryora.de (AI renders)")).toBeVisible();
-    await expect(page.getByRole("main").locator('a[href^="http"]')).toHaveCount(0);
+    const external = page.getByRole("main").locator('a[href^="http"]');
+    await expect(external).toHaveCount(1);
+    await expect(external).toHaveAttribute("href", "https://kryotera.gr");
   });
 
   test("external links say they open a new tab", async ({ page }) => {

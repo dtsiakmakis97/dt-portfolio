@@ -13,7 +13,7 @@ const FIT_K: Record<ProjectSlug, number> = {
   "ego-distillers": 0.376,
   "career-ops": 0.463,
   "te-learning-center": 0.407,
-  kryora: 0.489,
+  kryotera: 0.468,
 };
 
 /** Measured average advance per character of the footer wordmark (Cabinet 800). */

@@ -6,7 +6,7 @@ import { getNextProject } from "../lib/work";
 test("projects follow PROJECT_SLUGS, and Next wraps from the last to the first", () => {
   expect(projects.map((p) => p.slug)).toEqual([...PROJECT_SLUGS]);
   expect(getNextProject("pawguard").slug).toBe("lead-finder");
-  expect(getNextProject("kryora").slug).toBe("pawguard");
+  expect(getNextProject("kryotera").slug).toBe("pawguard");
 });
 
 for (const project of projects) {
@@ -25,9 +25,15 @@ for (const project of projects) {
   });
 }
 
-test("Kryora stays out of search", async ({ page }) => {
-  await page.goto("/work/kryora");
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", "noindex, follow");
+test("the old Kryora URLs redirect permanently to Kryotera", async ({ request }) => {
+  for (const [from, to] of [
+    ["/work/kryora", "/work/kryotera"],
+    ["/work/kryora/opengraph-image", "/work/kryotera/opengraph-image"],
+  ]) {
+    const response = await request.get(from, { maxRedirects: 0 });
+    expect(response.status(), from).toBe(308);
+    expect(response.headers().location, from).toBe(to);
+  }
 });
 
 test("an unknown slug is a 404", async ({ page }) => {

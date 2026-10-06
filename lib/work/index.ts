@@ -6,7 +6,7 @@ import { aegeon } from "./aegeon";
 import { egoDistillers } from "./ego-distillers";
 import { careerOps } from "./career-ops";
 import { teLearningCenter } from "./te-learning-center";
-import { kryora } from "./kryora";
+import { kryotera } from "./kryotera";
 
 /** Every project's case study. `satisfies` makes a missing one a compile error. */
 export const caseStudies = {
@@ -16,7 +16,7 @@ export const caseStudies = {
   "ego-distillers": egoDistillers,
   "career-ops": careerOps,
   "te-learning-center": teLearningCenter,
-  kryora,
+  kryotera,
 } satisfies Record<ProjectSlug, CaseStudy>;
 
 export function isProjectSlug(value: string): value is ProjectSlug {
