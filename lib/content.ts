@@ -233,14 +233,14 @@ export const manifesto = "Accessible by default. Fast under real budgets. Honest
 /** Closing run of `manifesto` that fills to blue instead of ink. */
 export const manifestoAccent = "Honest about what it does.";
 
-/** Section statement. KPS AG, Dec 2022 to Oct 2025, matches "Three years" in the hero subhead. */
+/** Section statement. KPS AG, Sep 2022 to Oct 2025, matches "Three years" in the hero subhead. */
 export const experienceStatement = "Three years at KPS AG.";
 
 export const experience: readonly ExperienceItem[] = [
   {
     company: "KPS AG",
     role: "Frontend Developer",
-    period: "Dec 2022 – Oct 2025",
+    period: "Sep 2022 – Oct 2025",
     location: "Berlin, Germany",
     summary:
       "Delivered modern, accessible, maintainable e-commerce frontends for major German retail clients across four stacks: performance, design-system consistency and clean integration in agile teams.",
